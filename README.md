@@ -1,6 +1,6 @@
 # geo-titles
 
-# Data notes
+## Data notes
 
 Date: 2022-09-14
 
@@ -12,9 +12,9 @@ Date: 2022-09-14
    - All regions / countries >
    - All types >
    - 2021
-2. Scopus data for all 61 journals in the Q1 Scimago ranking were downloaded on
+1. Scopus data for all 61 journals in the Q1 Scimago ranking were downloaded on
    2022-09-14.
-3. I downloaded the **article type** from each journal for issues that were
+1. I downloaded the **article type** from each journal for issues that were
    published in 2020, 2019, and 2018.
    - Search for journal title using *Scopus* **SRCTITLE** field and limit
      results to 2020, 2019, and 2018 and article type.
@@ -26,11 +26,11 @@ Date: 2022-09-14
    ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
    ```
 
-4. Save data using syntax: **rank#-journalname.bib**. For example, the
+1. Save data using syntax: **rank#-journalname.bib**. For example, the
    *International Journal of Information Management* is ranked one in Scimago
    and thus the data file is saved as **1-ijinfomgt.bib**.
-5. The data is saved as read-only in the **data/** directory.
-6. Before downloading, all data fields were confirmed to be correct. E.g., some
+1. The data is saved as read-only in the **data/** directory.
+1. Before downloading, all data fields were confirmed to be correct. E.g., some
    searches returned results for similar named journals. These were corrected
    before downloading.
 
