@@ -1,4 +1,4 @@
-# geo-titles I am learning new things 
+# geo-titles
 
 # Data notes
 
