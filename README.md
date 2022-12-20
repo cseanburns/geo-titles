@@ -1,7 +1,6 @@
 # geo-titles
 
 ## Data notes
-First using VS code 
 
 Date: 2022-09-14
 
