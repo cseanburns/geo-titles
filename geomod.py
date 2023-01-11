@@ -23,28 +23,31 @@ for ent in doc.ents:
  
 ---
 
-# testing:
+# this is it:  -->
 
 data = [[10, 'I live in America'], [20, 'You ate a cookie'], [30, 'He went to Georgia']]
 data = pd.DataFrame(data, columns = ['Numbers', 'Text'])
 data['Text'] = data['Text'].astype(str).str.lower()
+for v in data['Text']:
+  doc = nlp(v)
+  for ent in doc.ents:
+    print(ent.text)
+
+# <-- that is it! 
+
+## learning below
+
 doc = nlp(data.Text[2])
 for ent in doc.ents:
   print(ent.text)
-
 
 doc = nlp(data.Text[0])
 
 data['Countries'] = data['Text'].apply(nlp)
 
-
 data.Text = nlp(data.Text)
 for v in data.Text:
   doc = nlp(v)
- 
- 
- 
-
  
 data = [10,20,30,40,50]
 data = pd.DataFrame(data, columns = ['Numbers'])
