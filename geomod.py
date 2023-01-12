@@ -1,13 +1,4 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-import geopandas as gpd
-from geotext import GeoText
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
-from shapely.geometry import Point, Polygon
-import descartes
-
 import spacy
 
 titles = pd.read_csv('titles.csv', header = 0, names = ['Citations', 'Titles'], index_col = False)
@@ -25,17 +16,51 @@ for ent in doc.ents:
 
 # this is it:  -->
 
-data = [[10, 'I live in America'], [20, 'You ate a cookie'], [30, 'He went to Georgia']]
+# here I get the country names
+data = [[10, 'I live in America'], [20, 'You ate a cookie'], [30, 'He went to Mexico']]
 data = pd.DataFrame(data, columns = ['Numbers', 'Text'])
 data['Text'] = data['Text'].astype(str).str.lower()
-for v in data['Text']:
-  doc = nlp(v)
+for i in data['Text']:
+  doc = nlp(i)
   for ent in doc.ents:
     print(ent.text)
 
 # <-- that is it! 
 
-## learning below
+# here I get the country names in a list!
+data = [[10, 'I live in America'], [20, 'You ate a cookie'], [30, 'He went to Mexico']]
+data = pd.DataFrame(data, columns = ['Numbers', 'Text'])
+data['Text'] = data['Text'].astype(str).str.lower()
+countries = []
+for i in data['Text']:
+  doc = nlp(i)
+  for ent in doc.ents:
+    countries.append(ent.text)
+    
+#######
+
+### To do: create a list with Null values where no country is listed
+data = [[10, 'I live in America'], [20, 'You ate a cookie'], [30, 'He went to Georgia']]
+data = pd.DataFrame(data, columns = ['Numbers', 'Text'])
+data['Text'] = data['Text'].astype(str).str.lower()
+countries = []
+for i in data['Text']:
+  doc = nlp(i)
+  for ent in doc.ents:
+    countries.append(ent.text)
+
+# trying to create a list from output above and have empty values match
+# titles with no country name listed in the title
+names = ['soren','inara','','aster']
+
+for i in names:
+    if len(i) == 0:
+        print("this item is empty")
+    else:
+        print(i)
+
+    
+## playground: learning below
 
 doc = nlp(data.Text[2])
 for ent in doc.ents:
