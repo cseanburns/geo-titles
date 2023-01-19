@@ -2,7 +2,7 @@
 
 ## Data notes
 
-Date: 2022-09-14
+### Date: 2022-09-14
 
 1. 2021 Scimago data was downloaded on 2022-09-14 from
    https://www.scimagojr.com/journalrank.php?category=3309&area=3300&type=j
@@ -30,6 +30,8 @@ Date: 2022-09-14
    *International Journal of Information Management* is ranked one in Scimago
    and thus the data file is saved as **1-ijinfomgt.bib**.
 1. The data is saved as read-only in the **data/** directory.
+1. All .bib files were joined into a single file and pulled
+   into R using the ``bibliometrix`` package.
 1. Before downloading, all data fields were confirmed to be correct. E.g., some
    searches returned results for similar named journals. These were corrected
    before downloading.
@@ -53,3 +55,13 @@ Date: 2022-09-14
 | PY          | Year Published                 |
 
 [datafields]:http://www.bibliometrix.org/documents/Field_Tags_bibliometrix.pdf
+
+### Date: 2023-01-17
+
+1. Titles and citation columns were saved separately.
+1. Python script used to extract place/country names from
+   journal titles.
+1. Next step -- review place/name extractions for false
+   positives.
+1. Next step -- sample data for false negatives.
+1. Add HDI variable for each country name.
