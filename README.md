@@ -65,34 +65,34 @@
    titles
    - file: **data/titles-with-places-Anwar.csv**
 1. Feb 17: Sean added 2021 HDI column to data, for each place name
-  - file: **data/titles-hdi-citations.csv**
-  - original data file: **data/HDR21-22_Statistical_Annex_HDI_Table.xlsx** ; https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
-  - If multiple places in title, HDI was averaged
-  - United Kingdom HDI was used for Britian or England
-  - Region HDI for 'Europe and Central Asia' was picked for
-    locations like EU or Europe
-  - Region HDI for 'Africa' was picked for locations like
-    Africa
-  - Nation HDI was used for places that were captured that
-    were within nations, like Grenada -> Spain
-  - One data point included Tawain plus four other nations.
-    We left Tawain out of the average of these since Tawain
-    does not have an HDI.
-  - One data had 'Iberian'. We averaged Spain and Portugal.
-  - Used 'Serbia' for titles containing 'Kosovo',
-    recognizing that this is debated, but there is no HDI
-    for Kosovo at the time of data collection
-  - We used 'Russian Federation' for title containing
-    'Soviet Union'
-  - One title included both 'North Korea' and 'China'. NK
-    does not have an HDI. We only used China.
-  - Two titles included 'North Korea' only. We left these
-    empty since NK does not have an HDI.
-  - Any title containing 'Ireland', we used the HDI for the
-    Republic of Ireland.
-  - Any title containing 'Scotland', use used the HDI for
-    'United Kingdom'
-  - We used the U.S. HDI for Puerto Rico
+   - file: **data/titles-hdi-citations.csv**
+   - original data file: **data/HDR21-22_Statistical_Annex_HDI_Table.xlsx** ; https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
+   - If multiple places in title, HDI was averaged
+   - United Kingdom HDI was used for Britian or England
+   - Region HDI for 'Europe and Central Asia' was picked for
+     locations like EU or Europe
+   - Region HDI for 'Africa' was picked for locations like
+     Africa
+   - Nation HDI was used for places that were captured that
+     were within nations, like Grenada -> Spain
+   - One data point included Tawain plus four other nations.
+     We left Tawain out of the average of these since Tawain
+     does not have an HDI.
+   - One data had 'Iberian'. We averaged Spain and Portugal.
+   - Used 'Serbia' for titles containing 'Kosovo',
+     recognizing that this is debated, but there is no HDI
+     for Kosovo at the time of data collection
+   - We used 'Russian Federation' for title containing
+     'Soviet Union'
+   - One title included both 'North Korea' and 'China'. NK
+     does not have an HDI. We only used China.
+   - Two titles included 'North Korea' only. We left these
+     empty since NK does not have an HDI.
+   - Any title containing 'Ireland', we used the HDI for the
+     Republic of Ireland.
+   - Any title containing 'Scotland', use used the HDI for
+     'United Kingdom'
+   - We used the U.S. HDI for Puerto Rico
 
 ### Date: 2023-01-17
 
