@@ -64,9 +64,9 @@
 1. Jan 30: Anwar reviewed data and checked place names in
    titles
    - file: **data/titles-with-places-Anwar.csv**
-1. Feb 17: Sean added HDI column to data, for each place
-   name
+1. Feb 17: Sean added 2021 HDI column to data, for each place name
   - file: **data/titles-hdi-citations.csv**
+  - original data file: **data/HDR21-22_Statistical_Annex_HDI_Table.xlsx** ; https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
   - If multiple places in title, HDI was averaged
   - United Kingdom HDI was used for Britian or England
   - Region HDI for 'Europe and Central Asia' was picked for
