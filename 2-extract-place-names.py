@@ -14,3 +14,8 @@ titles['Nation'] = [s if (s:=''.join([ent.text for ent in nlp(i).ents])) else 'N
                   for i in titles['Titles']]  
 
 titles.to_csv("data/titles-with-places.csv", index=True)
+
+# Recieved some tips on the above script from:
+# https://stackoverflow.com/questions/75091694/python-create-column-in-pandas-data-frame-that-matches-row-for-row-values-found
+
+# Note: after extracting place names with above script, @anwar checked data and added NA in empty cells for titles with no place names

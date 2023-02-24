@@ -2,6 +2,80 @@
 
 ## Data notes
 
+### Date: 2023-02-24
+
+1. Added 2021 SJR metric for all titles. Using this as a
+   control
+1. Basic data cleanup
+1. Renamed main data file to **titlesMain**
+1. Keeping the following variables in **titlesMain**:
+  - **Citations:** citation counts for each article
+  - **SJR:** SJR metric for each article's journal
+  - **Publication:** Publication title for each article
+  - **Titles:** Title of article
+  - **nation:** Name of locality if in title; else **NA**
+  - **HDI:** Human Development Index for **nation**
+  - **Country/Region:** Binary variable, **C** represents
+    country; **R** represents region
+  - **averaged:** if multiple countries/regions appeared in
+    the title, then the HDI was averaged. This variable
+    simply marks that as **Y/N**.
+1. Analysis will be based on the following question: do
+articles with place names in titles receive fewer citations
+compared to articles without place names in titles?
+
+### Date: 2023-02-17
+
+1. Jan 18: Sean used Python script to extract place names
+   from titles
+   - file: **data/titles-with-places.csv**
+1. Jan 30: Anwar reviewed data and checked place names in
+   titles
+   - file: **data/titles-with-places-Anwar.csv**
+1. Feb 17: Sean added 2021 HDI column to data, for each place name
+   - file: **data/titles-hdi-citations.csv**
+   - original data file: **data/HDR21-22_Statistical_Annex_HDI_Table.xlsx** from [HDI: UNDP][hdiundp]
+   - If multiple places in title, HDI was **averaged**
+   - United Kingdom HDI was used for Britian or England
+   - Region HDI for 'Europe and Central Asia' was picked for
+     locations like EU or Europe
+   - Region HDI for 'Africa' was picked for locations like
+     Africa
+   - Nation HDI was used for places that were captured that
+     were within nations, like Grenada -> Spain
+   - One data point included Tawain plus four other nations.
+     We left Tawain out of the average of these since Tawain
+     does not have an HDI.
+   - One data had 'Iberian'. We averaged Spain and Portugal.
+   - Used 'Serbia' for titles containing 'Kosovo',
+     recognizing that this is debated, but there is no HDI
+     for Kosovo at the time of data collection
+   - We used 'Russian Federation' for title containing
+     'Soviet Union'
+   - One title included both 'North Korea' and 'China'. NK
+     does not have an HDI. We only used China.
+   - Two titles included 'North Korea' only. We left these
+     empty since NK does not have an HDI.
+   - Any title containing 'Ireland', we used the HDI for the
+     Republic of Ireland.
+   - Any title containing 'Scotland', use used the HDI for
+     'United Kingdom'
+   - We used the U.S. HDI for Puerto Rico
+
+[hdiundp]:https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
+
+### Date: 2023-01-17
+
+1. ~~Titles and citation columns were saved separately.~~
+1. ~~Python script used to extract place/country names from
+   journal titles.~~
+1. ~~Next step -- review place/name extractions for false
+   positives.~~
+1. ~~Next step -- review for false negatives.~~
+1. ~~Add HDI variable for each country name.~~
+1. ~~Add SJR for journals for each journal title to control
+   for overall impact~~
+
 ### Date: 2022-09-14
 
 1. 2021 Scimago data was downloaded on 2022-09-14 from
@@ -56,52 +130,4 @@
 
 [datafields]:http://www.bibliometrix.org/documents/Field_Tags_bibliometrix.pdf
 
-### Date: 2023-02-17
 
-1. Jan 18: Sean used Python script to extract place names
-   from titles
-   - file: **data/titles-with-places.csv**
-1. Jan 30: Anwar reviewed data and checked place names in
-   titles
-   - file: **data/titles-with-places-Anwar.csv**
-1. Feb 17: Sean added 2021 HDI column to data, for each place name
-   - file: **data/titles-hdi-citations.csv**
-   - original data file: **data/HDR21-22_Statistical_Annex_HDI_Table.xlsx** ; https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
-   - If multiple places in title, HDI was averaged
-   - United Kingdom HDI was used for Britian or England
-   - Region HDI for 'Europe and Central Asia' was picked for
-     locations like EU or Europe
-   - Region HDI for 'Africa' was picked for locations like
-     Africa
-   - Nation HDI was used for places that were captured that
-     were within nations, like Grenada -> Spain
-   - One data point included Tawain plus four other nations.
-     We left Tawain out of the average of these since Tawain
-     does not have an HDI.
-   - One data had 'Iberian'. We averaged Spain and Portugal.
-   - Used 'Serbia' for titles containing 'Kosovo',
-     recognizing that this is debated, but there is no HDI
-     for Kosovo at the time of data collection
-   - We used 'Russian Federation' for title containing
-     'Soviet Union'
-   - One title included both 'North Korea' and 'China'. NK
-     does not have an HDI. We only used China.
-   - Two titles included 'North Korea' only. We left these
-     empty since NK does not have an HDI.
-   - Any title containing 'Ireland', we used the HDI for the
-     Republic of Ireland.
-   - Any title containing 'Scotland', use used the HDI for
-     'United Kingdom'
-   - We used the U.S. HDI for Puerto Rico
-
-### Date: 2023-01-17
-
-1. ~~Titles and citation columns were saved separately.~~
-1. ~~Python script used to extract place/country names from
-   journal titles.~~
-1. Next step -- review place/name extractions for false
-   positives.
-1. Next step -- sample data for false negatives.
-1. ~~Add HDI variable for each country name.~~
-1. Add JIF for journals for each title to control for
-   overall impact
