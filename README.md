@@ -1,4 +1,4 @@
-# geo-titles
+# Title Study of LIS Journals
 
 ## Data notes
 
@@ -76,6 +76,22 @@ compared to articles without place names in titles?
 1. ~~Add SJR for journals for each journal title to control
    for overall impact~~
 
+### Date: 2022-10-02
+
+I combined all 61 downloaded
+bib files into one
+with the command below, and
+saved that in this repo's
+data directory:
+
+```
+ls -v *bib | xargs cat > ~/lisjournals.bib
+mv ~/lisjournals.bib ~/workspace/lisjournals/
+```
+
+> Created a new repo called geo-titles and moved data there
+> and deleted cseanburns/lisjournals
+
 ### Date: 2022-09-14
 
 1. 2021 Scimago data was downloaded on 2022-09-14 from
@@ -129,5 +145,94 @@ compared to articles without place names in titles?
 | PY          | Year Published                 |
 
 [datafields]:http://www.bibliometrix.org/documents/Field_Tags_bibliometrix.pdf
+
+## Data and Meeting notes
+
+### Date: 2022-08-31
+
+Method:
+
+1. Identify journals in the first quartile (Q1) of 2021 Scimago
+   LIS journal rankings
+2. Sean will download, clean, and save data in a spreadsheet
+   file.
+   - download *article types* for years 2020, 2019, and 2018
+3. Anwar and Sean will meet to discuss coding journal titles
+  - Anwar and Sean will code the data as discussed
+4. Sean will add HDI for corresponding author's institutional
+   affiliation country
+
+Research Question: Is there a geographic bias against
+articles with place names in titles
+
+Hypotheses:
+
+1. Articles with place names in the article titles receive
+   fewer citations than articles without places names.
+2. Articles with place names in the article titles will
+   receive more citations if the articles are published by
+   corresponding authors from countries with higher HDIs
+   than from countries from lower HDIs
+
+- Dependent variable:
+  - citations counts of research articles (exclude letters,
+    editorials, etc.)
+- Independent variables:
+  - Country name in title (yes/no)
+  - HDI of country name in title
+    - if more than one country name, take the average HDI
+      [https://hdr.undp.org/data-center/human-development-index#/indicies/HDI][hdi]
+  - HDI of corresponding author's institutional affiliation
+    country
+    - alternatively, take the average HDI for all author
+      country affiliations??
+  - total docs (2021) from Scimago or the number of documents published in the
+    years 2018, 2019, and 2020 since frequency may influence
+    visibility
+  - total authors, since more authors generally mean more
+    citations
+  - open access status (yes/no) to account for the OA
+    citation advantange
+
+**Regression equation:**
+
+Citation Counts =  
+  Country name in title (yes/no) +  
+  HDI of country name in title +  
+  HDI of corresponding author's institutional affiliation country +  
+  total docs (2021) +  
+  total authors per article +  
+  open access (yes/no)
+
+## Scopus Data
+
+Export all **Citation information**:
+
+- Author(s)
+- Author(s) ID
+- Document title
+- Year
+- EID
+- Source title
+- volume, issue, pages
+- Citation count
+- Source and document type
+- Publication Stage
+- DOI
+- Open Access
+
+Export the following **Bibliographical information**
+
+- Affiliations
+- Language of original document
+- Correspondence address
+
+### R
+
+Use the [bibliometrix][bibliometrix] package to help with
+analysis.
+
+[bibliometrix]:https://www.bibliometrix.org/home/
+[hdi]:https://hdr.undp.org/data-center/human-development-index#/indicies/HDI
 
 
