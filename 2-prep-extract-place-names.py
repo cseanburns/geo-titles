@@ -8,14 +8,34 @@ import pandas as pd
 import spacy
 nlp = spacy.load("en_core_web_sm")
 
-titles = pd.read_csv('titles.csv', header = 0, names = ['Citations', 'Titles'], index_col = False)
+# Read and prep data
+titles = pd.read_csv('data/titles.csv', header = None, names = ['Citations', 'Titles'], index_col = False)
 titles['Titles'] = titles['Titles'].astype(str).str.lower()
+
+# Locate data with place names
 titles['Nation'] = [s if (s:=''.join([ent.text for ent in nlp(i).ents])) else 'NA'
                   for i in titles['Titles']]  
 
+# Export data
 titles.to_csv("data/titles-with-places.csv", index=True)
 
 # Recieved some tips on the above script from:
 # https://stackoverflow.com/questions/75091694/python-create-column-in-pandas-data-frame-that-matches-row-for-row-values-found
 
-# Note: after extracting place names with above script, @anwar checked data and added NA in empty cells for titles with no place names
+# Note: after extracting place names with above script,
+# @anwar checked data and added NA in empty cells for titles with no place names
+
+# With help from OpenAI ChatGPT:
+
+def find_places(text):
+    doc = nlp(text)
+    for ent in doc.ents:
+        if ent.label_ == 'GPE':
+            return ent.end_char / len(text)
+    return None
+  
+titles['places'] = titles['Titles'].apply(find_places)
+
+# Export data
+titles.to_csv("data/titles-with-place-positions.csv", index=True)
+

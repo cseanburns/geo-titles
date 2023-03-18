@@ -1,0 +1,449 @@
+---
+title: "Geographic Bias in Paper Titles"
+author: "C. Sean Burns, Md. Anwar Islam"
+output: html_document
+params:
+  dataset: "titles"
+---
+
+```{r include = FALSE}
+library(tidyverse)
+library(dplyr)
+library(conflicted)
+library(ggplot2)
+library(rstatix)
+library(effsize)
+library(knitr)
+
+# Import data
+titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
+```
+
+# Introduction 
+
+Writing a title for a paper is complicated and hard. Authors must write a title
+that succinctly, yet informatively, captures the main topic of their paper.
+Since titles function within the knowledge creation process, titles reflect
+disciplinary identity and expectations [@HGX4FHTA#milojević17]. In some
+disciplines, like math, titles focus on succinctness. Yet in other areas, like
+the social sciences, titles stress informativeness. This leads to various
+conventions, such as the use of colons in titles. Titles with colons (compound
+titles) are less succinct and potentially more informative. They move from
+making general statements (left of colon) to specific statements (right of
+colon). The specificity ranges from descriptive to declarative statements.
+Succinct titles may focus on providing topical information only. Compound
+titles add information about the method, research design, results, or
+conclusion of a study [@8VIPNBL7#li19].
+
+Title informativeness can be helpful when searching literature for a topic. The
+informativeness of a title can be a function of the words it contains and its
+length or word count. Theoretically, the more unique words in a title, the more
+likely a searcher might locate the work in an online search. In the economics
+literature, longer titles receive more citations ("the informative effect")
+than shorter, succinct titles ("the succinct effect"), but this is only true
+after the year 2000. @NV6JFP8H#guo18 attributes this to the rise of online
+searching, where retrieval technology is based on relevance algorithms that
+index keywords in various bibliographic fields. @8VIPNBL7#li19 also found that
+title length started to increase during this time frame, but defined title
+informativeness not solely based on word count but on the proportion of content
+words (e.g., nouns, verbs, adverbs) to function words (e.g., pronouns,
+prepositions, conjunctions). Titles with a higher ratio of content words are
+more informative. This may be complicated though if those function words are
+overly specific, obscure, or non-normative in some way [@AKWVYLLV#fox15,
+@NLQ23JTG#thelwall17].
+
+If a title poorly captures the information about the content of a paper, then
+papers may be overlooked by searchers even if the papers are relevant to
+searchers. Alternatively, if title information is framed in such a way as to
+seem non-applicable, even if the paper is relevant to a searcher, then such
+papers may be overlooked. For example, papers with titles that ask questions
+have been shown to receive more downloads than papers with other title types
+but fewer citations [@JUCB9NIU#jamali11], or simply fewer citations
+[@U67Y7URB#paiva12]. This suggests that the information captured by a
+question-type title is not as informative, or perhaps more trendy, than other
+title types and therefore results in a relevance mismatch (i.e., it seemed
+relevant but was not) in online searches or browsing. However, a disciplinary
+effect exists. Papers with titles that ask questions are cited more in the
+computer science literature [@IQEEVG95#fiala21] and no citation effects were
+found for question-type titles in an ecology journal [@AKWVYLLV#fox15].
+
+As mentioned, the use of compound titles (titles with colons, hyphens, dashes)
+has grown in recent decades, especially in some research areas or disciplines.
+@8VIPNBL7#li19 outlines three types of compound titles that capture specific
+semantic content. These are titles that describe the topic and the method or
+design, titles that describe the topic and the results, and titles that
+describe the topic and the conclusion of a study. In addition to these
+variations, some authors add geographical names to compound titles, which may
+not add key semantic information about a paper's topic [@9966FJNU#kou18]. A
+number of studies have shown that papers with titles that contain certain types
+of highly specific or obscure content, like genus or species information
+[@AKWVYLLV#fox15], or specific geographical place names, receive fewer
+citations [ @LQN8UTGB#abramo16, @C65KJSGU#jacques10, @U67Y7URB#paiva12,
+@L4QDBN7X#costello19, @RRLX7MYL#moradi16, @NLQ23JTG#thelwall17]. The common
+explanation is that this kind of taxonomic or geographic specificity is
+extraneous to the study, and that it reduces the generality and thus the appeal
+of the results reported in these papers to searchers or potential audiences
+[@AKWVYLLV#fox15, @NLQ23JTG#thelwall17]. However, pointing to more disciplinary
+differences, specificity might be appreciated in some disciplines, like
+entomology, where titles with specific genus and species names or geographic
+names have been shown to have greater impact [@GL3HSUBY#murphy19].
+
+@LQN8UTGB#abramo16 and others [@AKWVYLLV#fox15, @NLQ23JTG#thelwall17] have
+reasoned that overly specific terms or words in titles, especially those naming
+geographic entities, tend to receive fewer citations because searchers
+reviewing these titles do not find them relevant even if the topic is relevant.
+@LQN8UTGB#abramo16 suggested, for papers with geographical names in titles,
+that "studies conducted at the country level would typically be less appealing
+that [sic] those dealing with the same subjects at the broader level. The
+researcher [or potential reader] could suspect that certain results would be
+influenced by country-specific traits, and therefore be difficult to
+generalize" (p. 13). However, papers without specific geographical names in the
+titles might still be limited to specific geographical areas, and this raises
+questions not only about why some authors include geographical information in
+titles, but also why some authors do not. 
+
+Only one study, that we could find, has shown different patterns in how
+geographic names are used in titles among researchers around the world. Based
+on a five year period of papers published in the CHI Conference Proceedings,
+@9966FJNU#kou18 found differences in whether titles contain geographic names
+depending on the population studied. They wrote that "studies conducted with
+non-Western populations are significantly more likely to highlight study
+contexts in titles and throughout the text," and that "studies of Western
+countries are significantly more likely to lack mention of the studied
+countries not only in titles, but also throughout the text of the papers"
+[@9966FJNU#kou18, p. 2]. They reported that these findings held even after
+controlling for the authors' countries. They also found that when country names
+were added to titles, they were often added at the end of a title, which rarely
+suggested "deep semantic connections between the preceding ideas in the titles
+and the countries" (p. 8). Overall, their study suggests a geographical bias
+in, at least the CHI literature, to normalize findings based on Western
+populations and to exoticize findings based on non-Western populations. 
+
+Like @9966FJNU#kou18, we are also interested how authors use geographic names
+in titles. However, @9966FJNU#kou18 apply a simple binary classification of
+countries into Western and non-Western countries based on work by
+@46QMHZS8#huntington11. However, like @B5Z3GY8X#burns17, we use the Human
+Development Index (HDI) [@UBTFXCKV#unitednationsdevelopmentprogramme] to
+identify patterns in how countries are named in paper titles since we believe
+this should offer are more nuanced view of the data. Based on this, we propose
+the following research questions:
+
+1. Which countries are more likely to be named in paper titles? 
+2. Are countries named in titles more likely to have lower HDI values?
+3. Do geographical names in titles provide important semantic content about
+   some aspect of the study?
+
+# Materials and Methods
+
+Our data is focused on library and information science journal titles,
+as broadly categorized and listed by Scimago’s Journal and Country Rank (2021).
+We limited our set to the 61 journal titles ranked in the first quartile.
+We downloaded bibliographic records for articles published from 2018 to 2020
+in these titles from Scopus.
+For example, our Scopus query for the journal
+*International Journal of Information Management* was:
+
+```
+SRCTITLE ( "International Journal of Information Management" )  AND  (
+LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
+( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
+```
+
+To prepare the data, we imported it into R using the bibliometrix package.
+Our title data set includes 13,145 records across the 61 journals.
+To extract place names from the article titles,
+we used the *spacy* natural language processing Python library.
+This identified 1,239 (9.4%) article titles with place names.
+
+We used the 2021-2022 Human Development Index (HDI) from the
+United Nations Development Programme that matched
+the place name or named region in the title.
+The HDI is a composite index that attempts to capture three dimensions:
+life expectancy index, education index, and GINI index.
+Most place names used in titles matched place names in the HDI;
+however, some modifications were needed.
+Some but very few article titles had place names,
+like Taiwan or North Korea,
+that reference nations that do not have an HDI.
+These were marked as NA.
+If a place did not have an HDI but was part of a broader collective,
+like Scotland or Puerto Rico,
+we chose the HDI for the broader collective
+(i.e., the United Kingdom or the United States).
+The Human Development Index also includes region level values.
+When article titles referenced Africa,
+we used the HDI for Sub-Saharan Africa, and
+when article titles referenced Europe,
+we used the HDI for "Europe and Central Asia"
+When multiple place names appeared in the title (*n* = 86),
+we averaged the HDI scores and created a
+separate variable to tag these as averaged.
+The *spacy* library was able to identify nation names
+for places like U.S. states.
+Thus, if an article title mentioned a place like "Alaska",
+then United States was used for the nation and HDI variables.
+Alternatively, if a title included a term like *american*,
+the *spacy* library was able to reference this as the *United States*.
+Therefore, titles may include a number of place name variations, but
+going forward, we refer to the canonical name for the nation that is
+referenced in the title.
+
+Finally, we added SCImago Journal Rank (SJR) scores
+for each of the 61 journal titles in the data set,
+We use the SJR to control for citation effects across articles.
+SJR scores ranged from 4.585 to 0.528.
+
+# Results
+
+```{r include = FALSE}
+# data prep
+# subset of data that does not include titles with place names
+without_nations <- dplyr::filter(titles, is.na(nation))
+without_nations <- dplyr::select(without_nations, Citations, SJR)
+# subset of data that does includes titles with place names
+with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
+with_nations <- dplyr::select(with_nations, Citations, SJR, nation, HDI)
+```
+
+There were 202 unique place names,
+or place name combinations,
+identified in the 1236 articles with place names in titles and with
+HDI scores.
+China appeared in titles most frequently,
+followed by Spain, the U.S.A., the United Kingdom, and India.
+Table 1 lists the 20 most frequently referenced place names in titles.
+
+## Countries and Titles
+
+Which countries are more likely to be named in paper titles? 
+
+```{r echo = FALSE}
+my_tab <- titles %>%
+  dplyr::filter(nation != "NA" & HDI != "NA") %>%
+  dplyr::select(nation) %>% table
+my_tab <- my_tab %>% as.data.frame %>%
+  dplyr::arrange(desc(Freq)) %>% head(20)
+```
+
+```{r echo = FALSE}
+my_tab %>% slice_head(n = 20) %>%
+  kable(caption = "Table 1. Top 20 most frequent nations referred to in article titles")
+```
+
+```{r echo = FALSE}
+rm(my_tab)
+```
+
+
+## Countries and Citations
+
+Are titles with country names more likely to have lower citations?
+
+A Wilcoxon rank-sum test was conducted
+to compare the median citation counts of
+papers with places names in titles (Mdn = 6)
+to papers without place names in titles (Mdn = 7).
+The test revealed a significant difference
+between the two groups
+(W = 6863554, p = 0.0001, *n* with place names = 1236,
+*n* without place names = 11898),
+indicating that papers with place names
+in titles had received significantly
+lower citations than those without.
+The null hypothesis that there is
+no difference between the two groups
+was rejected in favor of the alternative
+hypothesis that papers without place names in titles
+receive more citations
+than papers with place names in titles.
+These results suggest that papers without place names
+in titles may receive more citations, in general,
+than papers with place names in titles.
+However, Cliff's delta was calculated to assess the
+magnitude of the difference in scores between 
+papers with place names in titles
+to papers without place names in titles.
+The analysis revealed a negligible effect size
+in favor of papers without place names in titles
+(delta = -0.0666, 95% CI [-0.100, -0.033]).
+
+```{r include = FALSE}
+# citation differences between nation and non-nation data subsets
+summary(with_nations$Citations)
+sd(with_nations$Citations)
+summary(without_nations$Citations)
+sd(without_nations$Citations)
+wilcox.test(with_nations$Citations, without_nations$Citations)
+cliff.delta(with_nations$Citations, without_nations$Citations)
+```
+
+```{r echo = FALSE}
+citations_df <- data.frame(
+  group = c(rep("With Nations", length(with_nations$Citations)),
+            rep("Without Nations", length(without_nations$Citations))),
+  score = c(log(with_nations$Citations + 1),
+            log(without_nations$Citations + 1)
+))
+ggplot(citations_df, aes(x = group, y = score)) +
+  geom_boxplot() +
+  labs(x = "Groups", y = "Citations (log + 1 transformed)",
+       title = "Comparison of Citations between Papers
+       With Nations Named in Titles and Without") +
+  theme_minimal()
+```
+
+## Countries and Impact
+
+Are titles with country names more likely to be published in lower impact journals?
+
+Papers with place names in titles publish in lower impact journals,
+(*mdn* = 0.93)
+based on SJR,
+than papers without place names in titles
+(*mdn* = 1.07).
+A Wilcoxon rank-sum test was conducted
+to compare the median scores.
+The test revealed a significant difference
+between the two groups
+(W = 6358560, p < 0.0001, *n* with place names = 1236,
+*n* without place names = 11898),
+indicating that papers with place names
+in titles published in journal titles
+with significantly lower impact scores than
+papers without place names in titles.
+The null hypothesis that there is
+no difference between the two groups
+was rejected in favor of the alternative
+hypothesis that papers without place names in titles
+publish in lower impact journals.
+However, Cliff's delta was calculated to assess the
+magnitude of the difference between 
+journal impact scores.
+The analysis revealed a negligible effect size
+showing that papers without place names in titles
+tend to publish in journals with lower impact scores
+than papers with place names in titles
+(delta = -0.1352, 95% CI [-0.168, 0.102]).
+
+```{r include = FALSE}
+# SJR differences between nation and non-nation data subsets
+summary(with_nations$SJR)
+sd(with_nations$SJR)
+summary(without_nations$SJR)
+sd(without_nations$SJR)
+wilcox.test(with_nations$SJR, without_nations$SJR)
+cliff.delta(with_nations$SJR, without_nations$SJR)
+```
+
+```{r echo = FALSE}
+sjr_df<- data.frame(
+  group = c(rep("With Nations", length(with_nations$SJR)),
+            rep("Without Nations", length(without_nations$SJR))),
+  score = c(with_nations$SJR, without_nations$SJR)
+)
+ggplot(sjr_df, aes(x = group, y = score)) +
+  geom_boxplot() +
+  labs(x = "Groups", y = "Journal Impact (SJR)",
+       title = "Comparison of Journal Impact Scores
+       With Nations Named in Titles and Without") +
+  theme_minimal()
+```
+
+## Journals and Titles with Countries
+
+What journals have the most titles with place names?  
+Are these journals more likely to have lower SJRs?
+
+We suspected that journals with lower impact scores might publish more papers
+with place names in titles. Therefore we partitioned the list of articles
+with places names in titles into three subsets: set1 contains articles in
+journals less than the median SJR for the set,
+set2 contains titles with greater than the median SJR,
+and set3 contains papers in journals equal to SJR median.
+
+We found that papers with countries named in
+titles were significantly less likely to be published in journals
+with above median SJR scores (*n* = 491; *Mdn* = 1.503)
+compared to journals with below median
+SJR scores (*n* = 592; *Mdn* = 0.756).
+A portion of papers with countries named in titles were published
+in journals with SJRs equal to the median (*n* = 153; *Mdn* = 0.929)
+A Wilcoxon ran-sum test was conducted to compare the median SJRs
+between these the two groups below and above the median.
+The test revealed a significant difference
+(W = 290672; *p* < 0.0001).
+
+```{r include = FALSE}
+SJR_med             <- with_nations %>% mutate(med = median(SJR))
+less_than_median    <- SJR_med %>% dplyr::filter(SJR < med)
+greater_than_median <- SJR_med %>% dplyr::filter(SJR > med)
+equal_to_median     <- SJR_med %>% dplyr::filter(SJR == med)
+wilcox.test(greater_than_median$SJR, less_than_median$SJR)
+```
+
+```{r echo = FALSE}
+sjr_df_mdn <- data.frame(
+  group = c(rep("Less than Mdn",    length(less_than_median$SJR)),
+            rep("Greater than Mdn", length(greater_than_median$SJR))),
+  score = c(less_than_median$SJR, greater_than_median$SJR)
+)
+ggplot(sjr_df_mdn, aes(x = group, y = score)) +
+  geom_boxplot() +
+  labs(x = "Groups", y = "Journal Impact (SJR)",
+       title = "Articles with titles more often appear
+       in journals with lower impact scores") +
+  theme_minimal()
+```
+
+## Countries and HDIs
+
+```{r echo = FALSE}
+ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "HDI", y = "Citations (log + 1)", title = "HDI to Citations") +
+  theme_light()
+
+ggplot(with_nations, aes(x = SJR, y = log(Citations + 1))) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "SJR", y = "Citations (log + 1)", title = "SJR to Citations") +
+  theme_light()
+```
+
+```{r echo = FALSE}
+my_tab <- with_nations %>% arrange(desc(Citations)) %>%
+  select(nation, Citations, SJR, HDI) %>%
+  slice_head(n = 20)
+```
+
+```{r echo = FALSE}
+my_tab %>% slice_head(n = 20) %>%
+  kable(caption = "Table 2. Papers with nations named or referred to with highest citations")
+rm(my_tab)
+```
+
+
+# Discussion
+
+Papers naming or referring to countries in titles
+receive fewer citations and are published in lower
+ranking journals than papers that do not name or refer
+to countries in titles.
+Although Cliff's delta reported negligible effect sizes
+for citation results,
+we think that a cumulative effect might be in play.
+That is, if any particular author or journal tends
+to publish papers with place names in titles,
+then the citation scores for those authors or journals
+might receive fewer citations depending on the
+frequency of papers with place names in titles.
+
+Limitations: it could be that the effects are more pronounced
+when sampling from lower impact journals.
+
+Results could be different with a longer citation window.
+
+# Conclusion
+
+# References
