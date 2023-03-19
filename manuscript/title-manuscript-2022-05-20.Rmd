@@ -1,9 +1,11 @@
 ---
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 params:
-  dataset: "titles"
+  dataset: titles
 ---
 
 ```{r include = FALSE}
@@ -125,21 +127,28 @@ countries into Western and non-Western countries based on work by
 @46QMHZS8#huntington11. However, like @B5Z3GY8X#burns17, we use the Human
 Development Index (HDI) [@UBTFXCKV#unitednationsdevelopmentprogramme] to
 identify patterns in how countries are named in paper titles since we believe
-this should offer are more nuanced view of the data. Based on this, we propose
-the following research questions:
+this should offer a more nuanced view of the data. Based on this, we ask
+the following questions:
 
-1. Which countries are more likely to be named in paper titles? 
-2. Are countries named in titles more likely to have lower HDI values?
-3. Do geographical names in titles provide important semantic content about
-   some aspect of the study?
+1. Do articles with titles that name nations/countries receive fewer citations
+than articles with titles without nations/countries? Are there socioeconomical
+reasons that explain citation differences?
+2. Does naming nation/countries in article titles add semantic value to the
+ideas expressed in the titles?
 
 # Materials and Methods
 
-Our data is focused on library and information science journal titles,
-as broadly categorized and listed by Scimago’s Journal and Country Rank (2021).
-We limited our set to the 61 journal titles ranked in the first quartile.
-We downloaded bibliographic records for articles published from 2018 to 2020
-in these titles from Scopus.
+Our data is focused on articles published in
+library and information science (LIS) journals,
+as broadly categorized and listed by
+Scimago's Scientific Journal Ranking (SJR) and the
+Scimago Journal and Country Rank (2021) data.
+We limited our set of articles to
+the 61 journals ranked in the first quartile of the LIS category.
+We then conducted Scopus queries for each journal in this list and
+downloaded bibliographic records for articles
+published in these journals from 2018 to 2020.
+Our data includes 13,145 article records across the 61 journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
 
@@ -149,28 +158,29 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
 ```
 
-To prepare the data, we imported it into R using the bibliometrix package.
-Our title data set includes 13,145 records across the 61 journals.
-To extract place names from the article titles,
-we used the *spacy* natural language processing Python library.
-This identified 1,239 (9.4%) article titles with place names.
-
+We imported the bibliographic records into R
+using the bibliometrix package.
+We used the *spacy* natural language processing Python library to
+extract nation/country names from article titles.
+This identified 1239 (9.4%) article titles with place names.
 We used the 2021-2022 Human Development Index (HDI) from the
-United Nations Development Programme that matched
-the place name or named region in the title.
-The HDI is a composite index that attempts to capture three dimensions:
-life expectancy index, education index, and GINI index.
-Most place names used in titles matched place names in the HDI;
-however, some modifications were needed.
-Some but very few article titles had place names,
-like Taiwan or North Korea,
-that reference nations that do not have an HDI.
-These were marked as NA.
+United Nations (UN) Development Programme that matched
+the nation/country in the titles.
+The HDI summarizes three indices:
+a life expectancy index, an education index, and GINI index for
+measuring income inequality.
+
+Most places named in titles matched names in the HDI.
+However, some articles had titles with nation/country names
+that, for political reasons, do not have an HDI,
+such as Taiwan or North Korea.
+These were marked as NA in the HDI variable.
+This reduced our title data to 1236 records.
 If a place did not have an HDI but was part of a broader collective,
 like Scotland or Puerto Rico,
-we chose the HDI for the broader collective
-(i.e., the United Kingdom or the United States).
-The Human Development Index also includes region level values.
+we chose the HDI for the broader political authority
+(i.e., the United Kingdom or the United States, respectively).
+The HDI also includes region level values.
 When article titles referenced Africa,
 we used the HDI for Sub-Saharan Africa, and
 when article titles referenced Europe,
@@ -179,21 +189,24 @@ When multiple place names appeared in the title (*n* = 86),
 we averaged the HDI scores and created a
 separate variable to tag these as averaged.
 The *spacy* library was able to identify nation names
-for places like U.S. states.
-Thus, if an article title mentioned a place like "Alaska",
-then United States was used for the nation and HDI variables.
+for places constituent locales,
+such as specific states in the U.S.
+Thus, if an article title mentioned a place like 'Alaska',
+then 'United States' was used for the nation and HDI variables.
 Alternatively, if a title included a term like *american*,
 the *spacy* library was able to reference this as the *United States*.
-Therefore, titles may include a number of place name variations, but
-going forward, we refer to the canonical name for the nation that is
-referenced in the title.
+Therefore, titles may include a number of place name variations.
+If so, we refer to the canonical name for the nation that is
+referenced or inferred in the title.
 
 Finally, we added SCImago Journal Rank (SJR) scores
 for each of the 61 journal titles in the data set,
 We use the SJR to control for citation effects across articles.
-SJR scores ranged from 4.585 to 0.528.
+SJR scores ranged from 0.528 to 4.585.
 
 # Results
+
+[Write intro to Results]
 
 ```{r include = FALSE}
 # data prep
@@ -394,6 +407,23 @@ ggplot(sjr_df_mdn, aes(x = group, y = score)) +
        in journals with lower impact scores") +
   theme_minimal()
 ```
+
+```{r echo = FALSE}
+SJR_journals <- titles %>% arrange(Publication) %>%
+  dplyr::filter(nation != "NA" & HDI != "NA") %>%
+  #dplyr::mutate(SJR_med = median(SJR)) %>%
+  dplyr::select(Publication, SJR)
+
+testdf1 <- unique(SJR_journals)
+testdf2 <- table(SJR_journals$Publication)
+testdf2 <- as.data.frame(testdf2)
+testdf1$Freq <- testdf2$Freq
+testdf1 <- testdf1 %>% dplyr::arrange(desc(Freq))
+ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
+  geom_point(alpha = 0.5) + theme_light()
+```
+
+
 
 ## Countries and HDIs
 
