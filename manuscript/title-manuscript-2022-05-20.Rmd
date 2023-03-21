@@ -2,17 +2,15 @@
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 params:
   dataset: titles
 ---
 
 ```{r include = FALSE}
 library(tidyverse)
-library(dplyr)
 library(conflicted)
-library(ggplot2)
 library(rstatix)
 library(effsize)
 library(knitr)
@@ -146,7 +144,7 @@ Scimago Journal and Country Rank (2021) data.
 We limited our set of articles to
 the 61 journals ranked in the first quartile of the LIS category.
 We then conducted Scopus queries for each journal in this list and
-downloaded bibliographic records for articles
+downloaded bibliographic data for articles
 published in these journals from 2018 to 2020.
 Our data includes 13,145 article records across the 61 journals.
 For example, our Scopus query for the journal
@@ -158,7 +156,7 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
 ```
 
-We imported the bibliographic records into R
+We combined and imported the bibliographic records into R
 using the bibliometrix package.
 We used the *spacy* natural language processing Python library to
 extract nation/country names from article titles.
@@ -173,9 +171,9 @@ measuring income inequality.
 Most places named in titles matched names in the HDI.
 However, some articles had titles with nation/country names
 that, for political reasons, do not have an HDI,
-such as Taiwan or North Korea.
+such as Taiwan and North Korea.
 These were marked as NA in the HDI variable.
-This reduced our title data to 1236 records.
+This reduced titles with nation/country names to 1236 records.
 If a place did not have an HDI but was part of a broader collective,
 like Scotland or Puerto Rico,
 we chose the HDI for the broader political authority
@@ -185,11 +183,11 @@ When article titles referenced Africa,
 we used the HDI for Sub-Saharan Africa, and
 when article titles referenced Europe,
 we used the HDI for "Europe and Central Asia"
-When multiple place names appeared in the title (*n* = 86),
-we averaged the HDI scores and created a
+When multiple country/nation names appeared in the title (*n* = 86),
+we averaged the HDI scores for the named places and created a
 separate variable to tag these as averaged.
 The *spacy* library was able to identify nation names
-for places constituent locales,
+for constituent locales,
 such as specific states in the U.S.
 Thus, if an article title mentioned a place like 'Alaska',
 then 'United States' was used for the nation and HDI variables.
@@ -218,17 +216,17 @@ with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
 with_nations <- dplyr::select(with_nations, Citations, SJR, nation, HDI)
 ```
 
-There were 202 unique place names,
-or place name combinations,
+## Countries and Titles
+
+Which countries are more likely to be named in paper titles? 
+
+There were 202 unique place names
+or place name combinations
 identified in the 1236 articles with place names in titles and with
 HDI scores.
 China appeared in titles most frequently,
 followed by Spain, the U.S.A., the United Kingdom, and India.
 Table 1 lists the 20 most frequently referenced place names in titles.
-
-## Countries and Titles
-
-Which countries are more likely to be named in paper titles? 
 
 ```{r echo = FALSE}
 my_tab <- titles %>%
@@ -247,10 +245,9 @@ my_tab %>% slice_head(n = 20) %>%
 rm(my_tab)
 ```
 
+## Countries and Article Citations
 
-## Countries and Citations
-
-Are titles with country names more likely to have lower citations?
+Are article titles with country names more likely to have lower citations?
 
 A Wilcoxon rank-sum test was conducted
 to compare the median citation counts of
@@ -305,7 +302,7 @@ ggplot(citations_df, aes(x = group, y = score)) +
   theme_minimal()
 ```
 
-## Countries and Impact
+## Countries and Journal Impact
 
 Are titles with country names more likely to be published in lower impact journals?
 
@@ -367,12 +364,14 @@ ggplot(sjr_df, aes(x = group, y = score)) +
 What journals have the most titles with place names?  
 Are these journals more likely to have lower SJRs?
 
-We suspected that journals with lower impact scores might publish more papers
-with place names in titles. Therefore we partitioned the list of articles
-with places names in titles into three subsets: set1 contains articles in
-journals less than the median SJR for the set,
-set2 contains titles with greater than the median SJR,
-and set3 contains papers in journals equal to SJR median.
+We suspected that journals with lower
+impact scores might publish more papers
+with place names in titles.
+Therefore we partitioned the list of articles
+with places names in titles into three subsets:
+set1 contains articles in journals less than the median SJR for the set,
+set2 contains titles with greater than the median SJR, and
+set3 contains papers in journals equal to SJR median.
 
 We found that papers with countries named in
 titles were significantly less likely to be published in journals
@@ -423,9 +422,9 @@ ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
   geom_point(alpha = 0.5) + theme_light()
 ```
 
-
-
 ## Countries and HDIs
+
+Are countries named in titles more likely to have lower HDI scores?
 
 ```{r echo = FALSE}
 ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
@@ -453,6 +452,9 @@ my_tab %>% slice_head(n = 20) %>%
 rm(my_tab)
 ```
 
+## Country Naming and Semantic Value
+
+Where in the title are countries named?
 
 # Discussion
 
