@@ -226,12 +226,13 @@ identified in the 1236 articles with place names in titles and with
 HDI scores.
 China appeared in titles most frequently,
 followed by Spain, the U.S.A., the United Kingdom, and India.
+The median HDI for that observed nations is 0.875.
 Table 1 lists the 20 most frequently referenced place names in titles.
 
 ```{r echo = FALSE}
 my_tab <- titles %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
-  dplyr::select(nation) %>% table
+  dplyr::select(nation, HDI) %>% table
 my_tab <- my_tab %>% as.data.frame %>%
   dplyr::arrange(desc(Freq)) %>% head(20)
 ```
@@ -247,29 +248,23 @@ rm(my_tab)
 
 ## Countries and Article Citations
 
-Are article titles with country names more likely to have lower citations?
-
+We found that article titles with country names
+are more likely to have lower citation counts than
+article titles without country names.
 A Wilcoxon rank-sum test was conducted
-to compare the median citation counts of
-papers with places names in titles (Mdn = 6)
-to papers without place names in titles (Mdn = 7).
+to compare the median citation counts.
+Articles with places names in titles
+received slightly fewer citations (Mdn = 6)
+than articles without place names in titles (Mdn = 7).
 The test revealed a significant difference
 between the two groups
 (W = 6863554, p = 0.0001, *n* with place names = 1236,
-*n* without place names = 11898),
-indicating that papers with place names
-in titles had received significantly
-lower citations than those without.
-The null hypothesis that there is
-no difference between the two groups
-was rejected in favor of the alternative
-hypothesis that papers without place names in titles
-receive more citations
-than papers with place names in titles.
+*n* without place names = 11898).
 These results suggest that papers without place names
-in titles may receive more citations, in general,
+in titles received more citations, in general,
 than papers with place names in titles.
-However, Cliff's delta was calculated to assess the
+However, the effect size was small.
+We used Cliff's delta to assess the
 magnitude of the difference in scores between 
 papers with place names in titles
 to papers without place names in titles.
@@ -304,35 +299,24 @@ ggplot(citations_df, aes(x = group, y = score)) +
 
 ## Countries and Journal Impact
 
-Are titles with country names more likely to be published in lower impact journals?
-
-Papers with place names in titles publish in lower impact journals,
+Articles with country names in titles published
+in lower impact journals,
 (*mdn* = 0.93)
 based on SJR,
-than papers without place names in titles
+than articles without place names in titles
 (*mdn* = 1.07).
-A Wilcoxon rank-sum test was conducted
-to compare the median scores.
+We used a Wilcoxon rank-sum test to
+compare the median scores.
 The test revealed a significant difference
 between the two groups
 (W = 6358560, p < 0.0001, *n* with place names = 1236,
-*n* without place names = 11898),
-indicating that papers with place names
-in titles published in journal titles
-with significantly lower impact scores than
-papers without place names in titles.
-The null hypothesis that there is
-no difference between the two groups
-was rejected in favor of the alternative
-hypothesis that papers without place names in titles
-publish in lower impact journals.
-However, Cliff's delta was calculated to assess the
-magnitude of the difference between 
-journal impact scores.
-The analysis revealed a negligible effect size
-showing that papers without place names in titles
-tend to publish in journals with lower impact scores
-than papers with place names in titles
+*n* without place names = 11898).
+However, we found that the effect size was small.
+We used a Cliff's delta to assess the
+magnitude of the difference.
+Even though articles without countries in titles
+published in lower impact journals,
+the overall effect size was small
 (delta = -0.1352, 95% CI [-0.168, 0.102]).
 
 ```{r include = FALSE}
@@ -361,11 +345,8 @@ ggplot(sjr_df, aes(x = group, y = score)) +
 
 ## Journals and Titles with Countries
 
-What journals have the most titles with place names?  
-Are these journals more likely to have lower SJRs?
-
 We suspected that journals with lower
-impact scores might publish more papers
+impact scores publish more articles
 with place names in titles.
 Therefore we partitioned the list of articles
 with places names in titles into three subsets:
@@ -373,17 +354,19 @@ set1 contains articles in journals less than the median SJR for the set,
 set2 contains titles with greater than the median SJR, and
 set3 contains papers in journals equal to SJR median.
 
-We found that papers with countries named in
-titles were significantly less likely to be published in journals
-with above median SJR scores (*n* = 491; *Mdn* = 1.503)
-compared to journals with below median
-SJR scores (*n* = 592; *Mdn* = 0.756).
+Articles with country names in titles were less
+likely to appear in journals with above median SJR scores
+(*n* = 491; *Mdn* = 1.503)
+compared to journals with below median SJR scores
+(*n* = 592; *Mdn* = 0.756).
 A portion of papers with countries named in titles were published
 in journals with SJRs equal to the median (*n* = 153; *Mdn* = 0.929)
-A Wilcoxon ran-sum test was conducted to compare the median SJRs
-between these the two groups below and above the median.
+A Wilcoxon ran-sum test was conducted to compare
+two below and above median groups.
 The test revealed a significant difference
-(W = 290672; *p* < 0.0001).
+(W = 290672; *p* < 0.0001),
+indicating that journals with higher SJR scores
+publish fewer articles with country names in titles.
 
 ```{r include = FALSE}
 SJR_med             <- with_nations %>% mutate(med = median(SJR))
@@ -391,20 +374,6 @@ less_than_median    <- SJR_med %>% dplyr::filter(SJR < med)
 greater_than_median <- SJR_med %>% dplyr::filter(SJR > med)
 equal_to_median     <- SJR_med %>% dplyr::filter(SJR == med)
 wilcox.test(greater_than_median$SJR, less_than_median$SJR)
-```
-
-```{r echo = FALSE}
-sjr_df_mdn <- data.frame(
-  group = c(rep("Less than Mdn",    length(less_than_median$SJR)),
-            rep("Greater than Mdn", length(greater_than_median$SJR))),
-  score = c(less_than_median$SJR, greater_than_median$SJR)
-)
-ggplot(sjr_df_mdn, aes(x = group, y = score)) +
-  geom_boxplot() +
-  labs(x = "Groups", y = "Journal Impact (SJR)",
-       title = "Articles with titles more often appear
-       in journals with lower impact scores") +
-  theme_minimal()
 ```
 
 ```{r echo = FALSE}
@@ -424,19 +393,22 @@ ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
 
 ## Countries and HDIs
 
-Are countries named in titles more likely to have lower HDI scores?
+Countries with below median HDI scores (*n* = 610) were
+as likely to appear in article titles as countries with
+higher HDI scores (*n* = 613).
+We found no significant effect on whether the HDI of
+the named country in an article title had an effect
+on the number of citations the article received.
 
 ```{r echo = FALSE}
+fit.1 <- lm(log(with_nations$Citations + 1) ~ with_nations$HDI)
+summary(fit.1)
+
 ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "HDI", y = "Citations (log + 1)", title = "HDI to Citations") +
-  theme_light()
-
-ggplot(with_nations, aes(x = SJR, y = log(Citations + 1))) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "SJR", y = "Citations (log + 1)", title = "SJR to Citations") +
+  labs(x = "HDI", y = "Citations (log + 1)",
+       title = "HDI to Citations") +
   theme_light()
 ```
 
