@@ -216,34 +216,62 @@ with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
 with_nations <- dplyr::select(with_nations, Citations, SJR, nation, HDI)
 ```
 
-## Countries and Titles
-
-Which countries are more likely to be named in paper titles? 
-
-There were 202 unique place names
-or place name combinations
-identified in the 1236 articles with place names in titles and with
-HDI scores.
-China appeared in titles most frequently,
-followed by Spain, the U.S.A., the United Kingdom, and India.
-The median HDI for that observed nations is 0.875.
-Table 1 lists the 20 most frequently referenced place names in titles.
+## Nations and Titles
 
 ```{r echo = FALSE}
-my_tab <- titles %>%
+median(with_nations$HDI)
+titles %>% dplyr::select(nation) %>% table %>% as.data.frame()
+with_nations %>% dplyr::select(nation) %>% table %>% as.data.frame()
+```
+
+There were 202 unique nation names
+or nation name combinations
+identified in the 1236 articles with nation names in titles and with
+HDI scores.
+Out of these,
+198 had HDI scores assigned to them.
+China appeared in titles most frequently,
+followed by Spain, the U.S.A., the United Kingdom, and India.
+The median HDI for the observed nations is 0.875.
+Table 1 lists the 20 most frequently referenced place names in titles
+along with their respective HDI scores.
+
+```{r echo = FALSE}
+my_tab <- with_nations %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
   dplyr::select(nation, HDI) %>% table
 my_tab <- my_tab %>% as.data.frame %>%
-  dplyr::arrange(desc(Freq)) %>% head(20)
+  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
 ```
 
 ```{r echo = FALSE}
-my_tab %>% slice_head(n = 20) %>%
+my_tab %>% 
   kable(caption = "Table 1. Top 20 most frequent nations referred to in article titles")
 ```
 
 ```{r echo = FALSE}
 rm(my_tab)
+```
+
+## Countries and Journal Titles
+
+```{r echo = FALSE}
+titles %>% dplyr::select(Publication) %>% table %>% as.data.frame() %>%
+  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
+with_nations %>% dplyr::select(SJR) %>% table %>% as.data.frame() %>%
+  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
+```
+
+
+
+```{r echo = FALSE}
+my_tab <- titles %>%
+  dplyr::filter(nation != "NA" & HDI != "NA") %>%
+  dplyr::select(Publication, SJR) %>% table
+my_tab <- my_tab %>% as.data.frame %>%
+  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
+my_tab %>%
+  kable(caption = "Table 2. Top 20 most frequent journal titles with nations mentioned in titles")
 ```
 
 ## Countries and Article Citations
@@ -254,7 +282,7 @@ article titles without country names.
 A Wilcoxon rank-sum test was conducted
 to compare the median citation counts.
 Articles with places names in titles
-received slightly fewer citations (Mdn = 6)
+received fewer citations (Mdn = 6)
 than articles without place names in titles (Mdn = 7).
 The test revealed a significant difference
 between the two groups
