@@ -25,7 +25,8 @@ titles.to_csv("data/titles-with-places.csv", index=True)
 # Note: after extracting place names with above script,
 # @anwar checked data and added NA in empty cells for titles with no place names
 
-# With help from OpenAI ChatGPT:
+# With help from OpenAI ChatGPT 3.5:
+# Locates the position of the named entity in the text
 
 def find_places(text):
     doc = nlp(text)
@@ -38,4 +39,3 @@ titles['places'] = titles['Titles'].apply(find_places)
 
 # Export data
 titles.to_csv("data/titles-with-place-positions.csv", index=True)
-
