@@ -505,7 +505,7 @@ provided little informational value to the idea
 expressed in the first part of the title.
 The spaCy natural processing library
 was able to detect and score the location
-of 866 country names.
+of 866 country names in article titles.
 Country positions were scored on a scale of 0 to 1.0,
 with countries appearing as the last word in a title
 receiving a score of 1.0.
