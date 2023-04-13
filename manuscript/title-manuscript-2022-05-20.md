@@ -14,16 +14,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r include = FALSE}
-library(tidyverse)
-library(conflicted)
-library(rstatix)
-library(effsize)
-library(knitr)
 
-# Import data
-titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
-```
 
 # Introduction
 
@@ -220,23 +211,11 @@ journals in *Scopus*.
 
 [Write intro to Results]
 
-```{r include = FALSE}
-# data prep
-# subset of data that does not include titles with place names
-without_nations <- dplyr::filter(titles, is.na(nation))
-without_nations <- dplyr::select(without_nations, Citations, SJR)
-# subset of data that does includes titles with place names
-with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
-with_nations <- dplyr::select(with_nations, Citations, SJR, nation, HDI)
-```
+
 
 ## Countries and Journal Impact
 
-```{r include = FALSE}
-median(with_nations$HDI)
-titles %>% dplyr::select(nation) %>% table %>% as.data.frame()
-with_nations %>% dplyr::select(nation) %>% table %>% as.data.frame()
-```
+
 
 There were 202 unique country names or country name combinations
 identified in the 1236 articles with country names in titles and with
@@ -248,22 +227,35 @@ very high human development index scores (*min* = 0.449; *m* = 0.8222,
 *max* = 0.962). Table 1 lists the 20 most frequently referenced place
 names in titles along with their respective HDI scores.
 
-```{r echo = FALSE}
-my_tab <- with_nations %>%
-  dplyr::filter(nation != "NA" & HDI != "NA") %>%
-  dplyr::select(nation, HDI) %>% table
-my_tab <- my_tab %>% as.data.frame %>%
-  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
-```
 
-```{r echo = FALSE}
-my_tab %>% 
-  kable(caption = "Table 1. Top 20 most frequent countries referred to in article titles")
-```
 
-```{r echo = FALSE}
-rm(my_tab)
-```
+
+Table: Table 1. Top 20 most frequent countries referred to in article titles
+
+|nation       |HDI   | Freq|
+|:------------|:-----|----:|
+|china        |0.768 |  175|
+|spain        |0.905 |  146|
+|usa          |0.921 |  112|
+|uk           |0.929 |   52|
+|india        |0.633 |   47|
+|australia    |0.951 |   36|
+|nigeria      |0.535 |   35|
+|brazil       |0.754 |   30|
+|south africa |0.713 |   25|
+|italy        |0.895 |   22|
+|korea        |0.925 |   22|
+|russia       |0.822 |   21|
+|canada       |0.936 |   19|
+|pakistan     |0.544 |   16|
+|mexico       |0.758 |   15|
+|cuba         |0.764 |   14|
+|turkiye      |0.838 |   13|
+|japan        |0.925 |   13|
+|germany      |0.942 |   12|
+|ghana        |0.632 |   11|
+
+
 
 Journals that receive SJR scores above 1.0 indicate journals
 that receive above average citations compared to all journals in *Scopus*.
@@ -280,28 +272,35 @@ journals that tend to publish articles to do not reference countries.
 Table 2 reports the journal titles that most frequently publish
 articles that reference to country names.
 
-```{r include = FALSE}
-summary(titles$SJR)
-summary(with_nations$SJR)
-summary(without_nations$SJR)
-```
 
-```{r include = FALSE}
-titles %>% dplyr::select(Publication) %>% table %>% as.data.frame() %>%
-  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
-with_nations %>% dplyr::select(SJR) %>% table %>% as.data.frame() %>%
-  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
-```
 
-```{r echo = FALSE}
-my_tab <- titles %>%
-  dplyr::filter(nation != "NA" & HDI != "NA") %>%
-  dplyr::select(Publication, SJR) %>% table
-my_tab <- my_tab %>% as.data.frame %>%
-  dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
-my_tab %>%
-  kable(caption = "Table 2. Top 20 most frequent journal titles with countries mentioned in titles")
-```
+
+
+
+Table: Table 2. Top 20 most frequent journal titles with countries mentioned in titles
+
+|Publication                                               |SJR   | Freq|
+|:---------------------------------------------------------|:-----|----:|
+|scientometrics                                            |0.929 |  153|
+|profesional de la informacion                             |0.831 |  133|
+|education and information technologies                    |1.055 |   78|
+|telecommunications policy                                 |1.203 |   68|
+|journal of librarianship and information science          |0.756 |   66|
+|information communication and society                     |1.968 |   65|
+|scientific data                                           |2.468 |   63|
+|government information quarterly                          |2.439 |   47|
+|journal of academic librarianship                         |0.741 |   45|
+|journal of health communication                           |0.88  |   45|
+|international journal of information management           |4.584 |   38|
+|online information review                                 |0.63  |   26|
+|information and learning science                          |0.688 |   23|
+|journal of enterprise information management              |0.968 |   22|
+|international journal of geographical information science |1.144 |   21|
+|information technology and people                         |1.074 |   19|
+|aslib journal of information management                   |0.535 |   18|
+|library trends                                            |0.536 |   18|
+|health information and libraries journal                  |0.869 |   18|
+|knowledge management research and practice                |0.541 |   17|
 
 We compared the two groups using a a Wilcoxon rank-sum test.
 The test revealed a significant difference them
@@ -312,29 +311,9 @@ in lower impact journals,
 the overall effect size was small
 (Cliff's delta = -0.1352, 95% CI [-0.168, 0.102]).
 
-```{r include = FALSE}
-# SJR differences between country and non-country data subsets
-summary(with_nations$SJR)
-sd(with_nations$SJR)
-summary(without_nations$SJR)
-sd(without_nations$SJR)
-wilcox.test(with_nations$SJR, without_nations$SJR)
-cliff.delta(with_nations$SJR, without_nations$SJR)
-```
 
-```{r echo = FALSE}
-sjr_df<- data.frame(
-  group = c(rep("With Countries", length(with_nations$SJR)),
-            rep("Without Countries", length(without_nations$SJR))),
-  score = c(with_nations$SJR, without_nations$SJR)
-)
-ggplot(sjr_df, aes(x = group, y = score)) +
-  geom_boxplot() +
-  labs(x = "Groups", y = "Journal Impact (SJR)",
-       title = "Comparison of Journal Impact Scores
-       With Countries Named in Titles and Without") +
-  theme_minimal()
-```
+
+![](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 We suspected that journals with lower impact scores publish more
 articles with place names in titles. Therefore we partitioned the list
@@ -353,44 +332,11 @@ above median groups. The test revealed a significant difference (W =
 290672; *p* \< 0.0001), indicating that journals with higher SJR scores
 publish fewer articles with country names in titles.
 
-```{r include = FALSE}
-SJR_med             <- with_nations %>% mutate(med = median(SJR))
-less_than_median    <- SJR_med %>% dplyr::filter(SJR < med)
-greater_than_median <- SJR_med %>% dplyr::filter(SJR > med)
-equal_to_median     <- SJR_med %>% dplyr::filter(SJR == med)
-wilcox.test(greater_than_median$SJR, less_than_median$SJR)
-```
 
-```{r echo = FALSE}
-SJR_journals <- titles %>% arrange(Publication) %>%
-  dplyr::filter(nation != "NA" & HDI != "NA") %>%
-  dplyr::select(Publication, SJR)
 
-testdf1 <- unique(SJR_journals)
-testdf2 <- table(SJR_journals$Publication)
-testdf2 <- as.data.frame(testdf2)
-testdf1$Freq <- testdf2$Freq
-testdf1 <- testdf1 %>% dplyr::arrange(desc(Freq))
-ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
-  geom_point(alpha = 0.5) + 
-  labs(title = "Journals with country names in articles") + theme_light()
-```
+![](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
-```{r echo = FALSE}
-SJR_journals <- titles %>% 
-  dplyr::filter(is.na(nation)) %>%
-  dplyr::select(Publication, SJR) %>%
-  arrange(Publication)
-
-testdf1 <- unique(SJR_journals)
-testdf2 <- table(SJR_journals$Publication)
-testdf2 <- as.data.frame(testdf2)
-testdf1$Freq <- testdf2$Freq
-testdf1 <- testdf1 %>% dplyr::arrange(desc(Freq))
-ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
-  geom_point(alpha = 0.5) + 
-  labs(title = "Journals without country names in articles") + theme_light()
-```
+![](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ## Countries and Article Impact
 
@@ -410,30 +356,9 @@ names in titles. The analysis revealed a negligible effect size in favor
 of papers without place names in titles (delta = -0.0666, 95% CI
 [-0.100, -0.033]).
 
-```{r include = FALSE}
-# citation differences between country and non-country data subsets
-summary(with_nations$Citations)
-sd(with_nations$Citations)
-summary(without_nations$Citations)
-sd(without_nations$Citations)
-wilcox.test(with_nations$Citations, without_nations$Citations)
-cliff.delta(with_nations$Citations, without_nations$Citations)
-```
 
-```{r echo = FALSE}
-citations_df <- data.frame(
-  group = c(rep("With Countries", length(with_nations$Citations)),
-            rep("Without Countries", length(without_nations$Citations))),
-  score = c(log(with_nations$Citations + 1),
-            log(without_nations$Citations + 1)
-))
-ggplot(citations_df, aes(x = group, y = score)) +
-  geom_boxplot() +
-  labs(x = "Groups", y = "Citations (log + 1 transformed)",
-       title = "Comparison of Citations between Papers
-       With Countries Named in Titles and Without") +
-  theme_minimal()
-```
+
+![](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ## Countries and HDIs
 
@@ -449,54 +374,53 @@ no significant effect on whether the HDI of the named country in an
 article title had an effect on the number of citations the article
 received.
 
-```{r include = FALSE}
-fit.1 <- lm(log(with_nations$Citations + 1) ~ with_nations$HDI)
-summary(fit.1)
+
+
+
+```
+## `geom_smooth()` using formula 'y ~ x'
 ```
 
-```{r echo = FALSE}
-ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "HDI", y = "Citations (log + 1)",
-       title = "HDI to Citations") +
-  theme_light()
-```
+![](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
-```{r echo = FALSE}
-my_tab <- with_nations %>% arrange(desc(Citations)) %>%
-  select(nation, Citations, SJR, HDI) %>%
-  slice_head(n = 20)
-```
 
-```{r echo = FALSE}
-my_tab %>% slice_head(n = 20) %>%
-  kable(caption = "Table 2. Papers with countries named or referred to with highest citations")
-rm(my_tab)
-```
+
+
+Table: Table 2. Papers with countries named or referred to with highest citations
+
+|nation       | Citations|   SJR|   HDI|
+|:------------|---------:|-----:|-----:|
+|india-usa    |       362| 4.584| 0.777|
+|saudi arabia |       184| 4.584| 0.875|
+|malaysia     |       171| 4.584| 0.803|
+|india        |       142| 4.584| 0.633|
+|india        |       139| 4.584| 0.633|
+|uae          |       112| 1.055| 0.911|
+|india        |       109| 4.584| 0.633|
+|india        |       101| 2.439| 0.633|
+|south korea  |        97| 4.584| 0.925|
+|india        |        94| 4.584| 0.633|
+|hong kong    |        89| 1.854| 0.952|
+|uk           |        83| 1.203| 0.929|
+|india        |        81| 4.584| 0.633|
+|china        |        79| 4.584| 0.768|
+|saudi arabia |        79| 4.584| 0.875|
+|italy        |        79| 2.468| 0.895|
+|usa          |        78| 4.584| 0.921|
+|china        |        76| 2.468| 0.768|
+|usa          |        73| 1.968| 0.921|
+|uk           |        71| 4.584| 0.929|
 
 ## Country Naming and Semantic Value
 
-```{r include = FALSE}
-# Import data with place name positions
-titles_place_pos <- read.csv("~/workspace/geo-titles/data/titles-with-place-positions.csv")
-```
+
 
 We examined where the location of countries appeared in article titles
 under the assumption that countries appearing near the end of a title
 provided little informational value to the idea expressed in the first
 part of the title. 
 
-```{r include = FALSE}
-summary(titles_place_pos$places)
-titles_place_pos %>%
-  dplyr::select(places) %>%
-  dplyr::filter(places != "NA")
-titles_place_pos %>%
-  dplyr::select(Citations, places) %>%
-  dplyr::filter(places != "NA") %>%
-  cor(method = "spearman")
-```
+
 
 On average, countries tended to be referenced near the end of a title
 (*m* = 0.764; *mdn* = 0.875), suggesting that most articles that contain
@@ -507,13 +431,14 @@ A Spearman's rank correlation was computed to compare the location of
 the country name in a title and the citations received to the articles
 with country names in titles. We found no relationship (*r* = 0.062).
 
-```{r echo = FALSE}
-nations_places <- cbind(titles$nation, titles_place_pos$places)
-nations_places <- as_tibble(nations_places)
-nations_places <- nations_places %>%
-  dplyr::filter(V1 != "NA" & V2 != "NA")
-nations_places <- nations_places %>%
-  dplyr::arrange(desc(V2))
+
+```
+## Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if
+## `.name_repair` is omitted as of tibble 2.0.0.
+## ℹ Using compatibility `.name_repair`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
 ```
 
 # Discussion

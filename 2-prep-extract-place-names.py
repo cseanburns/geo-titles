@@ -39,3 +39,7 @@ titles['places'] = titles['Titles'].apply(find_places)
 
 # Export data
 titles.to_csv("data/titles-with-place-positions.csv", index=True)
+
+# Try this later, rewrite of the above using the walrus operator:
+titles['places'] = [ent.end_char / len(text) if (ent:=next((ent for ent in nlp(i).ents if ent.label_ == 'GPE'), None)) else None for i in titles['Titles']]
+
