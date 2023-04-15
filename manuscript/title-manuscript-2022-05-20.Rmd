@@ -23,9 +23,11 @@ library(conflicted)
 library(rstatix)
 library(effsize)
 library(knitr)
+library(ggridges)
 
 # Import data
 titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
+titles$HDI <- round(titles$HDI, 3)
 ```
 
 # Introduction
@@ -249,6 +251,8 @@ uniq_count <- titles %>% dplyr::select(nation) %>%
 my_tab <- with_nations %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
   dplyr::select(nation, HDI) %>% table
+wn_df <- my_tab %>% as.data.frame %>%
+  dplyr::arrange(desc(Freq)) %>% dplyr::filter(Freq > 0)
 my_tab_20 <- my_tab %>% as.data.frame %>%
   dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
 ```
@@ -258,7 +262,7 @@ unique country names or country name combinations
 identified in the `r length(with_nations$nation)` articles with
 country names in titles and with HDI scores.
 Out of these, `r dim(my_tab)[1]`
-198 had HDI scores assigned to them.
+had HDI scores assigned to them.
 China appeared in titles most frequently, followed by Spain, the U.S.A.,
 the United Kingdom, and India.
 The median HDI for the observed countries is
@@ -562,11 +566,18 @@ the country name in a title and the citations received to the articles
 with country names in titles. We found no relationship
 (*r* = `r round(places_cor, 3)`).
 
-```{r echo = FALSE, fig.cap = "Fig. 6: Title Place Position and Citations"}
+```{r echo = FALSE, message = FALSE, fig.cap = "Fig. 6: Title Place Position and Citations"}
 ggplot(titles_place_pos_citations, aes(x = places,
                                        y = log(Citations + 1))) +
   geom_point() +
   theme_minimal()
+```
+
+```{r fig.cap = "Fig. 7: Publications with countries listed in articles", echo = FALSE, message = FALSE}
+pubs <- titles %>% dplyr::select(Publication, HDI, SJR, nation) %>%
+  dplyr::filter(nation != "NA" & HDI != "NA")
+ggplot(pubs, aes(x = HDI, y = Publication, fill = SJR)) +
+  geom_density_ridges_gradient()
 ```
 
 # Discussion
@@ -587,5 +598,6 @@ sampling from lower impact journals.
 Results could be different with a longer citation window.
 
 # Conclusion
+
 
 # References

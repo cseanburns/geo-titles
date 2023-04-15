@@ -227,7 +227,7 @@ unique country names or country name combinations
 identified in the 1236 articles with
 country names in titles and with HDI scores.
 Out of these, 198
-198 had HDI scores assigned to them.
+had HDI scores assigned to them.
 China appeared in titles most frequently, followed by Spain, the U.S.A.,
 the United Kingdom, and India.
 The median HDI for the observed countries is
@@ -235,7 +235,7 @@ The median HDI for the observed countries is
 which means most represented countries are classified as having
 very high human development index scores
 (*min* = 0.449,
-*m* = 0.8221628
+*m* = 0.8221659
 *max* = 0.962).
 Table 1 lists the 20, 3 most frequently referenced place
 names in titles along with their respective HDI scores.
@@ -414,13 +414,13 @@ relationship between HDI and citations for articles that reference
 country names in titles.
 The regression equation was not significant
 (F-statistic: 0.221,
-*p* = 0.638,
+*p* = 0.639,
 R-squared \< 0),
 and the results indicated that the HDI
 was not a significant predictor of citation counts
 (t-value = -0.47,
-*p* = 0.638,
-*b* = -0.116).
+*p* = 0.639,
+*b* = -0.115).
 We therefore found no significant effect on whether the
 HDI of the named country in an article title had an effect on
 the number of citations the article received.
@@ -479,6 +479,8 @@ with country names in titles. We found no relationship
 
 ![Fig. 6: Title Place Position and Citations](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-28-1.png)
 
+![Fig. 7: Publications with countries listed in articles](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-29-1.png)
+
 # Discussion
 
 Papers naming or referring to countries in titles receive fewer
@@ -497,5 +499,6 @@ sampling from lower impact journals.
 Results could be different with a longer citation window.
 
 # Conclusion
+
 
 # References
