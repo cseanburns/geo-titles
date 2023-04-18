@@ -2,22 +2,23 @@
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
-  html_document: 
+  word_document: default
+  html_document:
     theme: cerulean
     keep_md: yes
   pdf_document: default
 params:
   dataset: titles
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
   chunk_output_type: console
-zotero: "Titles"
+zotero: Titles
 bibliography: Titles.bib
 csl: scientometrics.csl
 ---
 
-```{r include = FALSE}
+```{r load-libraries, include = FALSE}
 library(tidyverse)
 library(conflicted)
 library(rstatix)
@@ -223,7 +224,7 @@ journals in *Scopus*.
 
 [Write intro to Results]
 
-```{r include = FALSE, warning = FALSE}
+```{r divide-data, include = FALSE, warning = FALSE}
 # data prep
 # subset of data that does not include titles with place names
 without_nations <- dplyr::filter(titles, is.na(nation))
@@ -235,19 +236,19 @@ with_nations <- dplyr::select(with_nations, Citations, SJR, nation, HDI)
 
 ## Countries and Journal Impact
 
-```{r include = FALSE}
+```{r tabularize-nations, include = FALSE}
 median(with_nations$HDI)
 titles %>% dplyr::select(nation) %>% table %>% as.data.frame()
 with_nations %>% dplyr::select(nation) %>% table %>% as.data.frame()
 ```
 
-```{r include = FALSE}
+```{r uniq-nations, include = FALSE}
 uniq_count <- titles %>% dplyr::select(nation) %>%
   dplyr::filter(nation != "NA") %>%
   unique() %>% count()
 ```
 
-```{r echo = FALSE}
+```{r top-20-nations, echo = FALSE}
 my_tab <- with_nations %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
   dplyr::select(nation, HDI) %>% table
@@ -275,12 +276,9 @@ very high human development index scores
 Table 1 lists the `r dim(my_tab_20)` most frequently referenced place
 names in titles along with their respective HDI scores.
 
-```{r echo = FALSE}
+```{r top-20-nations-table, echo = FALSE}
 my_tab_20 %>% 
   kable(caption = "Table 1. Top 20 countries in article titles")
-```
-
-```{r echo = FALSE}
 rm(my_tab)
 ```
 
@@ -302,20 +300,20 @@ publish articles to do not reference countries.
 Table 2 reports the journal titles that most frequently
 publish articles that reference to country names.
 
-```{r include = FALSE}
+```{r get-summaries, include = FALSE}
 summary(titles$SJR)
 summary(with_nations$SJR)
 summary(without_nations$SJR)
 ```
 
-```{r include = FALSE}
+```{r get-SJRs, include = FALSE}
 titles %>% dplyr::select(Publication) %>% table %>% as.data.frame() %>%
   dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
 with_nations %>% dplyr::select(SJR) %>% table %>% as.data.frame() %>%
   dplyr::arrange(desc(Freq)) %>% slice_head(n = 20)
 ```
 
-```{r echo = FALSE}
+```{r get-table-2, echo = FALSE}
 my_tab <- titles %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
   dplyr::select(Publication, SJR) %>% table
@@ -325,7 +323,7 @@ my_tab %>%
   kable(caption = "Table 2. Top 20 most frequent journal titles with countries mentioned in titles")
 ```
 
-```{r include = FALSE}
+```{r get-wt-test-1, include = FALSE}
 # SJR differences between country and non-country data subsets
 summary(with_nations$SJR)
 sd(with_nations$SJR)
@@ -347,7 +345,7 @@ the overall effect size was small
 (Cliff's delta = `r nations_cd$estimate`,
 95% CI [`r nations_cd$conf.int[1]`, `r nations_cd$conf.int[2]`]).
 
-```{r include = FALSE}
+```{r group-data, include = FALSE}
 sjr_df<- data.frame(
   group = c(rep("With Countries", length(with_nations$SJR)),
             rep("Without Countries", length(without_nations$SJR))),
@@ -355,7 +353,7 @@ sjr_df<- data.frame(
 )
 ```
 
-```{r fig.cap = "Fig. 1: Comparison of Journal Impacts Scores", echo = FALSE}
+```{r fig-1, fig.cap = "Fig. 1: Comparison of Journal Impacts Scores", echo = FALSE}
 ggplot(sjr_df, aes(x = group, y = score)) +
   geom_boxplot() +
   labs(x = "Groups", y = "Journal Impact (SJR)") +
@@ -369,7 +367,7 @@ contains articles in journals less than the median SJR for the set, set2
 contains titles with greater than the median SJR, and set3 contains
 papers in journals equal to SJR median.
 
-```{r include = FALSE}
+```{r compare-median-SJRs, include = FALSE}
 SJR_med             <- with_nations %>% mutate(med = median(SJR))
 less_than_median    <- SJR_med %>% dplyr::filter(SJR < med)
 greater_than_median <- SJR_med %>% dplyr::filter(SJR > med)
@@ -395,13 +393,13 @@ above median groups. The test revealed a significant difference
 indicating that journals with higher SJR scores
 publish fewer articles with country names in titles.
 
-```{r echo = FALSE}
+```{r publication-sorting, echo = FALSE}
 SJR_journals <- titles %>% arrange(Publication) %>%
   dplyr::filter(nation != "NA" & HDI != "NA") %>%
   dplyr::select(Publication, SJR)
 ```
 
-```{r echo = FALSE, fig.cap = "Fig. 2: Journals w/ country names in titles"}
+```{r fig-2, echo = FALSE, fig.cap = "Fig. 2: Journals w/ country names in titles"}
 testdf1 <- unique(SJR_journals)
 testdf2 <- table(SJR_journals$Publication)
 testdf2 <- as.data.frame(testdf2)
@@ -411,14 +409,14 @@ ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
   geom_point(alpha = 0.5) +  theme_light()
 ```
 
-```{r echo = FALSE}
+```{r get-non-title-data, echo = FALSE}
 SJR_journals <- titles %>% 
   dplyr::filter(is.na(nation)) %>%
   dplyr::select(Publication, SJR) %>%
   arrange(Publication)
 ```
 
-```{r echo = FALSE, fig.cap = "Fig. 3: Journals w/o country names in titles"}
+```{r fig-3, echo = FALSE, fig.cap = "Fig. 3: Journals w/o country names in titles"}
 testdf1 <- unique(SJR_journals)
 testdf2 <- table(SJR_journals$Publication)
 testdf2 <- as.data.frame(testdf2)
@@ -430,7 +428,7 @@ ggplot(testdf1, aes(x = SJR, y = Freq, size = Freq)) +
 
 ## Countries and Article Impact
 
-```{r include = FALSE}
+```{r get-wt-test-2, include = FALSE}
 # citation differences between country and non-country data subsets
 summary(with_nations$Citations)
 sd(with_nations$Citations)
@@ -463,7 +461,7 @@ without place names in titles
 (delta = `r citations_cd$estimate`,
 95% CI [`r citations_cd$conf.int`]).
 
-```{r echo = FALSE}
+```{r group-citation-data, echo = FALSE}
 citations_df <- data.frame(
   group = c(rep("With Countries", length(with_nations$Citations)),
             rep("Without Countries", length(without_nations$Citations))),
@@ -472,7 +470,7 @@ citations_df <- data.frame(
 ))
 ```
 
-```{r echo = FALSE, fig.cap = "Fig. 4: Comparison of Citations"}
+```{r fig-4, echo = FALSE, fig.cap = "Fig. 4: Comparison of Citations"}
 ggplot(citations_df, aes(x = group, y = score)) +
   geom_boxplot() +
   labs(x = "Groups", y = "Citations (log + 1 transformed)") +
@@ -481,7 +479,7 @@ ggplot(citations_df, aes(x = group, y = score)) +
 
 ## Countries and HDIs
 
-```{r include = FALSE}
+```{r get-regression, include = FALSE}
 less_HDI <- with_nations %>%
   dplyr::select(HDI) %>% dplyr::filter(HDI < median(HDI)) %>% tally()
 great_HDI <- with_nations %>%
@@ -514,7 +512,7 @@ We therefore found no significant effect on whether the
 HDI of the named country in an article title had an effect on
 the number of citations the article received.
 
-```{r echo = FALSE, message = FALSE, fig.cap = "Fig. 5: HDI to Citations"}
+```{r fig-5, echo = FALSE, message = FALSE, fig.cap = "Fig. 5: HDI to Citations"}
 ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -522,13 +520,13 @@ ggplot(with_nations, aes(x = HDI, y = log(Citations + 1))) +
   theme_light()
 ```
 
-```{r echo = FALSE}
+```{r prep-table-3, echo = FALSE}
 my_tab <- with_nations %>% arrange(desc(Citations)) %>%
   select(nation, Citations, SJR, HDI) %>%
   slice_head(n = 20)
 ```
 
-```{r echo = FALSE}
+```{r table-3, echo = FALSE}
 my_tab %>%
   kable(caption = "Table 3. Papers with countries named or referred to with highest citations")
 rm(my_tab)
@@ -536,7 +534,7 @@ rm(my_tab)
 
 ## Country Naming and Semantic Value
 
-```{r include = FALSE}
+```{r title-positions, include = FALSE}
 # Import data with place name positions
 titles_place_pos <- read.csv("~/workspace/geo-titles/data/titles-with-place-positions.csv")
 ```
@@ -546,7 +544,7 @@ under the assumption that countries appearing near the end of a title
 provided little informational value to the idea expressed in the first
 part of the title.
 
-```{r include = FALSE}
+```{r get-position-correlation, include = FALSE}
 summary(titles_place_pos$places)
 titles_place_pos_citations <- titles_place_pos %>%
   dplyr::select(Citations, places) %>%
@@ -566,14 +564,14 @@ the country name in a title and the citations received to the articles
 with country names in titles. We found no relationship
 (*r* = `r round(places_cor, 3)`).
 
-```{r echo = FALSE, message = FALSE, fig.cap = "Fig. 6: Title Place Position and Citations"}
+```{r fig-6, echo = FALSE, message = FALSE, fig.cap = "Fig. 6: Title Place Position and Citations"}
 ggplot(titles_place_pos_citations, aes(x = places,
                                        y = log(Citations + 1))) +
   geom_point() +
   theme_minimal()
 ```
 
-```{r fig.cap = "Fig. 7: Publications with countries listed in articles", echo = FALSE, message = FALSE}
+```{r fig-7, fig.cap = "Fig. 7: Publications with countries listed in articles", echo = FALSE, message = FALSE}
 pubs <- titles %>% dplyr::select(Publication, HDI, SJR, nation) %>%
   dplyr::filter(nation != "NA" & HDI != "NA")
 ggplot(pubs, aes(x = HDI, y = Publication, fill = SJR)) +
@@ -591,6 +589,22 @@ journal tends to publish papers with place names in titles, then the
 citation scores for those authors or journals might receive fewer
 citations depending on the frequency of papers with place names in
 titles.
+
+Although papers that reference country names in titles received fewer
+citations and journals that frequently include articles that refer to 
+named countries had lower SJR scores,
+we could find no relationship between the development level of a
+named country with the number of citations.
+We could also find no relationship between the location of the country
+name in the title with the article's citations.
+Overall, although articles that reference country names in their titles
+receive fewer citations and journals have lower SJR scores,
+there does not seem to be a geographical bias against specific countries.
+We believe that the citation disadvantage associated with lower citation
+counts to articles that reference named countries is primarily a result
+of perhaps unnecessary specificity that naming countries adds to the titles and that
+makes the articles seem less relevant to others.
+
 
 Limitations: it could be that the effects are more pronounced when
 sampling from lower impact journals.
