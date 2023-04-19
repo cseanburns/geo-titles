@@ -2,17 +2,18 @@
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
-  html_document: 
+  html_document:
     theme: cerulean
     keep_md: yes
+  word_document: default
   pdf_document: default
 params:
   dataset: titles
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
   chunk_output_type: console
-zotero: "Titles"
+zotero: Titles
 bibliography: Titles.bib
 csl: scientometrics.csl
 ---
@@ -21,38 +22,44 @@ csl: scientometrics.csl
 
 # Introduction
 
-Writing a title for a paper is complicated and hard. Authors must write
-a title that succinctly, yet informatively, captures the main topic of
-their paper. Since titles function within the knowledge creation
-process, titles reflect disciplinary identity and expectations
-[@milojevic_length_2017]. In some disciplines, like math, titles focus
-on succinctness. Yet in other areas, like the social sciences, titles
-stress informativeness. This leads to various conventions, such as the
-use of colons in titles. Titles with colons (compound titles) are less
-succinct and potentially more informative. They move from making general
-statements (left of colon) to specific statements (right of colon). The
-specificity ranges from descriptive to declarative statements. Succinct
-titles may focus on providing topical information only. Compound titles
-add information about the method, research design, results, or
-conclusion of a study [@li_evolution_2019].
+A good article title informs and can serve to attract readers.
+Authors must write titles that succinctly
+capture the main topic of their paper.
+Since titles function within the knowledge creation process,
+titles reflect disciplinary identity and expectations [@milojevic_length_2017].
+In some disciplines, like math, titles focus on succinctness.
+Yet in other areas, like the social sciences,
+titles stress informativeness.
+This leads to various conventions, such as the use of colons in titles.
+Titles with colons (compound titles) are less succinct and
+potentially more informative.
+They move from making general statements (left of colon)
+to specific statements (right of colon).
+The specificity ranges from descriptive to declarative statements.
+Succinct titles may focus on providing topical information.
+Compound titles may add information about the method,
+research design, results, or conclusion of a study [@li_evolution_2019].
 
-Title informativeness can be helpful when searching literature for a
-topic. The informativeness of a title can be a function of the words it
-contains and its length or word count. Theoretically, the more unique
-words in a title, the more likely a searcher might locate the work in an
-online search. In the economics literature, longer titles receive more
-citations ("the informative effect") than shorter, succinct titles ("the
-succinct effect"), but this is only true after the year 2000.
+Title informativeness can be helpful when searching literature for a topic.
+The informativeness of a title can be a function of the
+words it contains and its length or word count.
+Theoretically, the more unique words in a title,
+the more likely a searcher might locate the work in an online search.
+In the economics literature,
+longer titles receive more citations ("the informative effect")
+than shorter, succinct titles ("the succinct effect"),
+but this is only true after the year 2000.
 @guo_succinct_2018 attributes this to the rise of online searching,
 where retrieval technology is based on relevance algorithms that index
-keywords in various bibliographic fields. \@li_evolution_2019 also found
-that title length started to increase during this time frame, but
+keywords in various bibliographic fields.
+@li_evolution_2019 found that title length started
+to increase during this time frame, but
 defined title informativeness not solely based on word count but on the
 proportion of content words (e.g., nouns, verbs, adverbs) to function
-words (e.g., pronouns, prepositions, conjunctions). Titles with a higher
-ratio of content words are more informative. This may be complicated
-though if those function words are overly specific, obscure, or
-non-normative in some way [@fox_relationship_2015;
+words (e.g., pronouns, prepositions, conjunctions).
+Titles with a higher ratio of content words are more informative.
+This may be complicated though if those function words are overly specific,
+obscure, or non-normative in some way [@fox_relationship_2015;
 @thelwall_avoiding_2017].
 
 If a title poorly captures the information about the content of a paper,
@@ -223,7 +230,7 @@ journals in *Scopus*.
 
 
 There were 202
-unique country names or country name combinations
+country names or country name combinations
 identified in the 1236 articles with
 country names in titles and with HDI scores.
 Out of these, 198
@@ -231,14 +238,14 @@ had HDI scores assigned to them.
 China appeared in titles most frequently, followed by Spain, the U.S.A.,
 the United Kingdom, and India.
 The median HDI for the observed countries is
-0.875,
-which means most represented countries are classified as having
+0.875.
+Therefore, most identified countries are classified as having
 very high human development index scores
 (*min* = 0.449,
 *m* = 0.8221659
 *max* = 0.962).
-Table 1 lists the 20, 3 most frequently referenced place
-names in titles along with their respective HDI scores.
+Table 1 lists the 20 most frequently referenced
+country names in titles along with their respective HDI scores.
 
 
 Table: Table 1. Top 20 countries in article titles
@@ -266,21 +273,33 @@ Table: Table 1. Top 20 countries in article titles
 |germany      |0.942 |   12|
 |ghana        |0.632 |   11|
 
-
+### Articles with Country Names in Titles Receiver Fewer Citations
 
 Journals that receive SJR scores above 1.0 indicate journals that
 receive above average citations compared to all journals in *Scopus*.
-The average SJR for all the journals in our data was above the *Scopus*
-average (*mdn* = 1.055)
+The average SJR for all the journals in our data was slightly
+above the *Scopus* average (*mdn* = 1.055).
+We sought to test whether country names in article titles had
+an impact on journal citations, and 
+we divided the data into two groups:
+articles with country names referenced in titles and
+articles without country names referenced in titles.
+We compared the SJR of the journals between these two groups.
+Even though there are journal titles that belong to both groups,
+our goal was to observe the effect that country names
+have on overall journal citations.
+
+We found that the inclusion of country names in article titles had a
+negative effect on citations to journals.
 The average SJR for journals that published
-articles that did not include references to country names was also
-higher (*mdn* = 1.074).
-However, the average SJR journals that published
+articles that did not include references to country names was 
+higher (*mdn* = 1.074) than the SJR average.
+However, the average SJR for journals that published
 articles that did include references to countries was lower than the
 *Scopus* average and lower than journals with articles without
 references to countries (*mdn* = 0.929).
-Overall, this suggests that
-journals that tend to publish articles with titles containing references
+Overall, this suggests that journals that tend to
+publish articles with titles containing references
 to countries have less citation impact than journals that tend to
 publish articles to do not reference countries.
 Table 2 reports the journal titles that most frequently
@@ -318,8 +337,10 @@ Table: Table 2. Top 20 most frequent journal titles with countries mentioned in 
 
 
 
-We compared the two groups using a a Wilcoxon rank-sum test.
-The test revealed a significant difference them
+We compared the average SJR of journals with articles with country names
+in titles to the SJR of journals without country names in articles
+using a Wilcoxon rank-sum test.
+The test revealed a significant difference 
 (W = 6.3585605\times 10^{6},
 p \< 0,
 *n* with place names = 1236
@@ -332,29 +353,32 @@ the overall effect size was small
 
 
 
-![Fig. 1: Comparison of Journal Impacts Scores](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-13-1.png)
+![Fig. 1: Comparison of Journal Impacts Scores](title-manuscript-2022-05-20_files/figure-html/fig-1-1.png)
+
+### Lower impact journals publish more articles with country names in titles
 
 We suspected that journals with lower impact scores publish more
-articles with place names in titles. Therefore we partitioned the list
-of articles with places names in titles into three subsets: set1
-contains articles in journals less than the median SJR for the set, set2
-contains titles with greater than the median SJR, and set3 contains
-papers in journals equal to SJR median.
+articles with place names in titles.
+Therefore we partitioned the list of articles with places names in
+titles into three subsets:
+set1 contains articles in journals with less than the median SJR,
+set2 contains articles in journals with greater than the median SJR, and
+set3 contains articles in journals equal to SJR median.
 
 
 
-Articles with country names in titles were less likely to appear in
-journals with above median SJR scores
+We found that articles with country names in titles were
+less likely to appear in journals with above median SJR scores
 (*n* = 491;
 *mdn* = 1.503)
 compared to journals with below median SJR scores
 (*n* = 592;
-*mdn* = 1.503).
+*mdn* = 0.756).
 A portion of papers with countries named in titles were
 published in journals with SJRs equal to the median
 (*n* = 153;
 *mdn* = 0.929).
-A Wilcoxon ran-sum test was conducted to compare two below and
+We applied a Wilcoxon ran-sum test to compare the below and
 above median groups. The test revealed a significant difference
 (W = 2.90672\times 10^{5};
 *p* \< 0),
@@ -363,11 +387,13 @@ publish fewer articles with country names in titles.
 
 
 
-![Fig. 2: Journals w/ country names in titles](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-16-1.png)
 
 
 
-![Fig. 3: Journals w/o country names in titles](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-18-1.png)
+
+
+
+![Fig. 2: Articles and SJR](title-manuscript-2022-05-20_files/figure-html/fig-2-1.png)
 
 ## Countries and Article Impact
 
@@ -398,7 +424,7 @@ without place names in titles
 
 
 
-![Fig. 4: Comparison of Citations](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-21-1.png)
+![Fig. 4: Comparison of Citations](title-manuscript-2022-05-20_files/figure-html/fig-4-1.png)
 
 ## Countries and HDIs
 
@@ -425,7 +451,7 @@ We therefore found no significant effect on whether the
 HDI of the named country in an article title had an effect on
 the number of citations the article received.
 
-![Fig. 5: HDI to Citations](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-23-1.png)
+![Fig. 5: HDI to Citations](title-manuscript-2022-05-20_files/figure-html/fig-5-1.png)
 
 
 
@@ -477,9 +503,9 @@ the country name in a title and the citations received to the articles
 with country names in titles. We found no relationship
 (*r* = 0.062).
 
-![Fig. 6: Title Place Position and Citations](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-28-1.png)
+![Fig. 6: Title Place Position and Citations](title-manuscript-2022-05-20_files/figure-html/fig-6-1.png)
 
-![Fig. 7: Publications with countries listed in articles](title-manuscript-2022-05-20_files/figure-html/unnamed-chunk-29-1.png)
+![Fig. 7: Publications with countries listed in articles](title-manuscript-2022-05-20_files/figure-html/fig-7-1.png)
 
 # Discussion
 
@@ -492,6 +518,22 @@ journal tends to publish papers with place names in titles, then the
 citation scores for those authors or journals might receive fewer
 citations depending on the frequency of papers with place names in
 titles.
+
+Although papers that reference country names in titles received fewer
+citations and journals that frequently include articles that refer to 
+named countries had lower SJR scores,
+we could find no relationship between the development level of a
+named country with the number of citations.
+We could also find no relationship between the location of the country
+name in the title with the article's citations.
+Overall, although articles that reference country names in their titles
+receive fewer citations and journals have lower SJR scores,
+there does not seem to be a geographical bias against specific countries.
+We believe that the citation disadvantage associated with lower citation
+counts to articles that reference named countries is primarily a result
+of perhaps unnecessary specificity that naming countries adds to the titles and that
+makes the articles seem less relevant to others.
+
 
 Limitations: it could be that the effects are more pronounced when
 sampling from lower impact journals.
