@@ -2,10 +2,10 @@
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
+  word_document: default
   html_document:
     theme: cerulean
     keep_md: yes
-  word_document: default
   pdf_document: default
 params:
   dataset: titles
@@ -25,6 +25,7 @@ library(rstatix)
 library(effsize)
 library(knitr)
 library(ggridges)
+library(rbbt)
 
 # Import data
 titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
@@ -164,16 +165,18 @@ and low (\<= 0.549). Based on this, we ask HDI he following questions:
 
 # Materials and Methods
 
-Our data is focused on articles published in library and information
-science (LIS) journals, as broadly categorized and listed by Scimago's
-Scientific Journal Ranking (SJR) and the Scimago Journal and Country
-Rank (2021) data. We limited our set of articles to the 61 journals
-ranked in the first quartile of the LIS category. We then conducted
-Scopus queries for each journal in this list and downloaded
-bibliographic data for articles published in these journals from 2018 to
-2020. Our data includes 13,145 article records across the 61 journals.
-For example, our Scopus query for the journal *International Journal of
-Information Management* was:
+Our data is focused on articles published in
+library and information science (LIS) journals,
+as broadly categorized and listed by Scimago's Scientific Journal Ranking (SJR)
+and the Scimago Journal and Country Rank (2021) data.
+We limited our set of articles to the 61 journals ranked
+in the first quartile of the LIS category.
+We then conducted Scopus queries for each journal
+in this list and downloaded bibliographic data for articles
+published in these journals from 2018 to 2020.
+We retrieved 13,145 article records across the 61 journals.
+For example, our Scopus query for the journal
+*International Journal of Information Management* was:
 
 ```         
 SRCTITLE ( "International Journal of Information Management" )  AND  (
@@ -181,49 +184,61 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
 ```
 
-We combined and imported the bibliographic records into R using the
-bibliometrix package. We used the *spaCy* natural language processing
-Python library to extract country names from article titles. This
-identified 1239 (9.4%) article titles with place names. We used the
-2021-2022 Human Development Index (HDI) from the United Nations (UN)
-Development Programme that matched the country in the titles. The HDI
-summarizes three indices: a life expectancy index, an education index,
-and GINI index for measuring income inequality.
+We combined and imported the bibliographic records into
+R using the bibliometrix package [@aria_bibliometrix_2017].
+We used the *spaCy* [@honnibal_spacy_2022]
+natural language processing Python library to extract
+country names from article titles.
+This identified 1239 (9.4%) article titles with place names.
+We used the 2021-2022 Human Development Index (HDI) from the
+United Nations (UN) Development Programme
+that matched the country in the titles.
+The HDI summarizes three indices:
+a life expectancy index, an education index, and
+GINI index for measuring income inequality.
 
-Most places named in titles matched names in the HDI. However, some
-articles had titles with country names that, for political reasons, do
-not have an HDI, such as Taiwan and North Korea. These were marked as NA
-in the HDI variable. This reduced titles with country names to 1236
-records. If a place did not have an HDI but was part of a broader
-collective, like Scotland or Puerto Rico, we chose the HDI for the
-broader political authority (i.e., the United Kingdom or the United
-States, respectively). The HDI also includes region level values. When
-article titles referenced Africa, we used the HDI for "Sub-Saharan
-Africa", and when article titles referenced Europe, we used the HDI for
-"Europe and Central Asia". When multiple country names appeared in the
-title (*n* = 86), we averaged the HDI scores for the named places. The
-*spaCy* library was able to identify country names for constituent
-locales, such as specific states in the U.S. Thus, if an article title
-mentioned a place like 'Alaska', then 'United States' was used for the
-country and HDI variables. Alternatively, if a title included a term
-like *american*, the *spacy* library was able to reference this as the
-*United States*. Therefore, titles may include a number of place name
-variations. If so, we refer to the canonical name for the country that
+Most places named in titles matched names in the HDI.
+However, some articles had titles with country names that for political reasons
+do not have an HDI (e.g., Taiwan and North Korea).
+These were marked as NA in the HDI variable.
+This reduced titles with country names and HDI scores to 1236 records.
+If a place did not have an HDI but was part of a broader collective
+(e.g., Scotland or Puerto Rico),
+we chose the HDI for the broader political authority
+(i.e., the United Kingdom or the United States, respectively).
+The HDI includes region level values.
+When article titles referenced Africa,
+we used the HDI for "Sub-Saharan Africa", and
+when article titles referenced Europe,
+we used the HDI for "Europe and Central Asia".
+When multiple country names appeared in the title (*n* = 86),
+we averaged the HDI scores for the named places.
+The *spaCy* library was able to identify country names for constituent locales,
+such as specific states in the U.S.
+Thus, if an article title mentioned a place like 'Alaska',
+then 'United States' was used for the country and HDI variables.
+Alternatively, if a title included a term like *american*,
+the *spacy* library was able to reference this as the *United States*.
+Therefore, titles may include a number of place name variations.
+If so, we refer to the canonical name for the country that
 is referenced or inferred in the title.
 
-We were interested in the location of the country name in each article
-title. The *spaCy* natural processing library detected the location of
-866 country names in article titles. Country positions were scored on a
-scale of 0 to 1.0, with countries appearing as the last word in a title
-receiving a score of 1.0. In cases where multiple countries were named
-in the title, the score was based on the first instance.
+We were interested in the location of the country name in each article title.
+The *spaCy* natural processing library detected the location of
+866 country names in article titles.
+Country positions were scored on a scale of 0 to 1.0,
+with countries appearing as the last word in a title
+receiving a score of 1.0.
+In cases where multiple countries were named in the title,
+the score was based on the first instance.
 
 [Add spacy accuracy statement here.]
 
 Finally, we added SCImago Journal Rank (SJR) scores for each of the 61
-journal titles in the data set, We use the SJR to control for citation
-effects across articles. SJR scores ranged from 0.528 to 4.585. A SJR
-score below 1.0 indicates below average citations compared to all
+journal titles in the data set.
+We use the SJR to control for citation effects across articles.
+SJR scores ranged from 0.528 to 4.585.
+A SJR score below 1.0 indicates below average citations compared to all
 journals in *Scopus*.
 
 # Results
@@ -288,15 +303,15 @@ my_tab_20 %>%
 rm(my_tab)
 ```
 
-### Articles with Country Names in Titles Receiver Fewer Citations
+### Journals with Articles with Country Names in Titles Receiver Fewer Citations
 
 Journals that receive SJR scores above 1.0 indicate journals that
 receive above average citations compared to all journals in *Scopus*.
 The average SJR for all the journals in our data was slightly
 above the *Scopus* average (*mdn* = `r median(titles$SJR)`).
 We sought to test whether country names in article titles had
-an impact on journal citations, and 
-we divided the data into two groups:
+an impact on journal citations.
+We divided the data into two groups:
 articles with country names referenced in titles and
 articles without country names referenced in titles.
 We compared the SJR of the journals between these two groups.
@@ -315,10 +330,10 @@ articles that did include references to countries was lower than the
 references to countries (*mdn* = `r median(with_nations$SJR)`).
 Overall, this suggests that journals that tend to
 publish articles with titles containing references
-to countries have less citation impact than journals that tend to
+to countries receive fewer citations than journals that tend to
 publish articles to do not reference countries.
 Table 2 reports the journal titles that most frequently
-publish articles that reference to country names.
+publish articles that reference country names in article titles.
 
 ```{r get-summaries, include = FALSE}
 summary(titles$SJR)
@@ -400,17 +415,18 @@ equal_to_median     <- SJR_med %>% dplyr::filter(SJR == med)
 grlt_wt <- wilcox.test(greater_than_median$SJR, less_than_median$SJR)
 ```
 
-We found that articles with country names in titles were
+Although some articles with countries named in titles were
+published in journals with SJRs equal to the median
+(*n* = `r length(equal_to_median$SJR)`;
+*mdn* = `r median(equal_to_median$SJR)`),
+we found that articles with country names in titles were
 less likely to appear in journals with above median SJR scores
 (*n* = `r length(greater_than_median$SJR)`;
 *mdn* = `r median(greater_than_median$SJR)`)
-compared to journals with below median SJR scores
+and more likley to appear in journals with below median SJR scores
 (*n* = `r length(less_than_median$SJR)`;
 *mdn* = `r median(less_than_median$SJR)`).
-A portion of papers with countries named in titles were
-published in journals with SJRs equal to the median
-(*n* = `r length(equal_to_median$SJR)`;
-*mdn* = `r median(equal_to_median$SJR)`).
+
 We applied a Wilcoxon ran-sum test to compare the below and
 above median groups. The test revealed a significant difference
 (W = `r grlt_wt$statistic`;
