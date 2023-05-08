@@ -2,10 +2,10 @@
 title: "Geographic Bias in Paper Titles"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
+  word_document: default
   html_document:
     theme: cerulean
     keep_md: yes
-  word_document: default
   pdf_document: default
 params:
   dataset: titles
