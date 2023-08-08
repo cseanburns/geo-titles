@@ -1,5 +1,5 @@
 ---
-title: "Geographic Bias in Paper Titles"
+title: "Place Names in Article Titles Correspond to Fewer Citations"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
   html_document:
@@ -30,7 +30,17 @@ titles reflect disciplinary identity and expectations [@milojevic_length_2017].
 In some disciplines, like math, titles focus on succinctness.
 Yet in other areas, like the social sciences,
 titles stress informativeness.
-This leads to various conventions, such as the use of colons in titles.
+In the medical sciences,
+the use of questions in titles has increased substantially
+since the 1960s,
+representing perhaps institutional pressures
+to publish faster [@ballScholarlyCommunicationTransition2009]
+@ballScholarlyCommunicationTransition2009 also found geographic trends
+in the use of question marks in titles among some disciplines.
+
+The need to market papers, express disciplinary identity, provide information,
+and other factors leads to various naming conventions,
+such as the use of colons in titles.
 Titles with colons (compound titles) are less succinct and
 potentially more informative.
 They move from making general statements (left of colon)
@@ -43,8 +53,6 @@ research design, results, or conclusion of a study [@li_evolution_2019].
 Title informativeness can be helpful when searching literature for a topic.
 The informativeness of a title can be a function of the
 words it contains and its length or word count.
-Theoretically, the more unique words in a title,
-the more likely a searcher might locate the work in an online search.
 In the economics literature,
 longer titles receive more citations ("the informative effect")
 than shorter, succinct titles ("the succinct effect"),
@@ -64,16 +72,16 @@ obscure, or non-normative in some way [@fox_relationship_2015;
 
 If a title poorly captures the information about the content of a paper,
 then papers may be overlooked by searchers even if the papers are
-relevant to searchers. Alternatively, if title information is framed in
+relevant to them. Alternatively, if title information is framed in
 such a way as to seem non-applicable, even if the paper is relevant to a
 searcher, then such papers may be overlooked. For example, papers with
-titles that ask questions have been shown to receive more downloads than
-papers with other title types but fewer citations [@jamali_article_2011],
-or simply fewer citations [@paiva_articles_2012]. This suggests that the
-information captured by a question-type title is not as informative, or
-perhaps more trendy, than other title types and therefore results in a
-relevance mismatch (i.e., it seemed relevant but was not) in online
-searches or browsing. However, a disciplinary effect exists. Papers with
+titles that ask questions have been shown to receive more downloads but
+fewer citations than
+papers with other title types [@jamali_article_2011; @paiva_articles_2012].
+This suggests that the information captured by a question-type
+title is informative but trendy, not as informative, or
+that the authors are less certain of the findings.
+However, a disciplinary effect exists. Papers with
 titles that ask questions are cited more in the computer science
 literature [@fiala_are_2021] and no citation effects were found for
 question-type titles in an ecology journal [@fox_relationship_2015]
@@ -113,7 +121,7 @@ country-specific traits, and therefore be difficult to generalize" (p.
 13). However, papers without specific geographical names in the titles
 might still be limited to specific geographical areas, and this raises
 questions not only about why some authors include geographical
-information in titles, but also why some authors do not.
+information in titles but also why some authors do not.
 
 Only one study, that we could find, has shown different patterns in how
 geographic names are used in titles among researchers around the world.
@@ -139,19 +147,19 @@ names in titles. However, @kou_politics_2018 apply a simple binary
 classification of countries into Western and non-Western countries based
 on work by @huntington_clash_2011. However, like @burns_language_2017, we
 use the Human Development Index (HDI)
-[@united_nations_development_programme_human_2020] to identify patterns in
-how countries are named in paper titles since we believe this should
+[@united_nations_development_programme_human_2020], an index that measures
+a nation's level of health, education, and standard of living, to identify patterns in
+how countries are named in paper titles. We believe this 
 offer a more nuanced view of the data. The UN classifies HDI scores into
 four categories: very high (\>= 0.8), high (\>= 0.7), medium (\>= 0.55),
-and low (\<= 0.549). Based on this, we ask HDI he following questions:
+and low (\<= 0.549). Based on this, we ask the following questions:
 
-1.  Do articles with titles that name countries receive fewer citations
-    than articles with titles without countries? Are there
-    socioeconomical reasons that explain citation differences?
-2.  Does naming countries in article titles add semantic value to the
-    ideas expressed in the titles?
+1. Do articles with titles that name countries receive fewer citations than articles with titles without countries?
+2. Are there social and economic reasons that explain citation differences?
 
 # Materials and Methods
+
+
 
 Our data is focused on articles published in
 library and information science (LIS) journals,
@@ -159,10 +167,10 @@ as broadly categorized and listed by Scimago's Scientific Journal Ranking (SJR)
 and the Scimago Journal and Country Rank (2021) data.
 We limited our set of articles to the 61 journals ranked
 in the first quartile of the LIS category.
-We then conducted Scopus queries for each journal
+We conducted Scopus queries for each journal
 in this list and downloaded bibliographic data for articles
 published in these journals from 2018 to 2020.
-We retrieved 13,145 article records across the 61 journals.
+We retrieved 13145 article records across the 61 journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
 
@@ -175,15 +183,18 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 We combined and imported the bibliographic records into
 R using the bibliometrix package [@aria_bibliometrix_2017].
 We used the *spaCy* [@honnibal_spacy_2022]
-natural language processing Python library to extract
+natural language processing Python library to identify 
 country names from article titles.
-This identified 1239 (9.4%) article titles with place names.
+This identified 1247 (9.49%)
+article titles with place names.
 We used the 2021-2022 Human Development Index (HDI) from the
 United Nations (UN) Development Programme
 that matched the country in the titles.
 The HDI summarizes three indices:
 a life expectancy index, an education index, and
 GINI index for measuring income inequality.
+
+
 
 Most places named in titles matched names in the HDI.
 However, some articles had titles with country names that for political reasons
@@ -201,6 +212,7 @@ when article titles referenced Europe,
 we used the HDI for "Europe and Central Asia".
 When multiple country names appeared in the title (*n* = 86),
 we averaged the HDI scores for the named places.
+
 The *spaCy* library was able to identify country names for constituent locales,
 such as specific states in the U.S.
 Thus, if an article title mentioned a place like 'Alaska',
@@ -524,15 +536,52 @@ with country names in titles. We found no relationship
 
 # Discussion
 
+This study brought for us a wide set of findings which addressed the
+research questions that we set for the study.
+Initially, the present study has examined whether
+the presence of a country name in the title reduce the
+chances of getting more citations.
+These findings are discussed.
 Papers naming or referring to countries in titles receive fewer
 citations and are published in lower ranking journals than papers that
-do not name or refer to countries in titles. Although Cliff's delta
+do not name or refer to countries in titles.
+In a broad sense, the scientific publications containing
+with a country name receive lower impact values e.g.,
+the impact factor (IF) of the publishing journrals.
+However, under the different subject categories
+the result can be different [@abramoEffectCountryName2016].
+Although Cliff's delta
 reported negligible effect sizes for citation results, we think that a
 cumulative effect might be in play. That is, if any particular author or
 journal tends to publish papers with place names in titles, then the
 citation scores for those authors or journals might receive fewer
-citations depending on the frequency of papers with place names in
-titles.
+citations depending on the frequency of papers with place names in titles.
+This result provides general confirmation of our study.
+This might be reason that putting the country name in the title
+limits the generality of the research findings, and
+country-level title is less appealing to the global researchers.
+While it is read less, this leads to get fewer citations.
+
+However, under the countries and HDIs,
+this can be different in the context of non-western countries as well.
+For example, a researcher from a researcher from developing countries has
+the intuition to read the USA-based authors’ papers to know the context and
+understand the research in his or her similar research areas.
+This helps and increases the chances of the developing country researchers
+to read some good quality papers.
+So, country name in the title and if it is written by western authors might
+get the citations by the developing country researchers.
+Country names adding at the end of the title e.g. right part of the title
+do not add much semantic information.
+For example, 'Information seeking behaviours of the graduate students:
+A study on the students from Bangladesh' where the subtitle does not
+add much information or value to the article if researchers prepare the title
+with the left part of the article.
+However, this might be different with some disciplines and articles where the
+lengthy titles and occurrences of words in the title matters.
+However, these practices are not fixed and have changed over times.
+While the title is an important factor to the researchers,
+there need to be a balance between informativeness and attractiveness. 
 
 Although papers that reference country names in titles received fewer
 citations and journals that frequently include articles that refer to 
@@ -546,14 +595,21 @@ receive fewer citations and journals have lower SJR scores,
 there does not seem to be a geographical bias against specific countries.
 We believe that the citation disadvantage associated with lower citation
 counts to articles that reference named countries is primarily a result
-of perhaps unnecessary specificity that naming countries adds to the titles and that
-makes the articles seem less relevant to others.
+of perhaps unnecessary specificity that naming countries adds to the titles and
+that makes the articles seem less relevant to others.
+While the country name in the article’s title refer to less citation and
+placed in the lower ranked journals,
+we recommend not to use  country name in the title.
+Even having a country name in the title may lead to bias among the researchers.  
 
-
-Limitations: it could be that the effects are more pronounced when
-sampling from lower impact journals.
-
-Results could be different with a longer citation window.
+Limitations: It could be that the effects are more pronounced when
+sampling from lower impact journals in some other disciplines.
+Here, we only considered the LIS journals.
+A future study with the journals from other disciplines can vetted the present
+result that we got from this study.
+Even, the results could be different with a longer citation window.
+We also did not control for other factors,
+such if a title contains a colon, a question, humor.
 
 # Conclusion
 
