@@ -624,15 +624,52 @@ ggplot(pubs, aes(x = HDI, y = Publication, fill = SJR)) +
 
 # Discussion
 
+This study brought for us a wide set of findings which addressed the
+research questions that we set for the study.
+Initially, the present study has examined whether
+the presence of a country name in the title reduce the
+chances of getting more citations.
+These findings are discussed.
 Papers naming or referring to countries in titles receive fewer
 citations and are published in lower ranking journals than papers that
-do not name or refer to countries in titles. Although Cliff's delta
+do not name or refer to countries in titles.
+In a broad sense, the scientific publications containing
+with a country name receive lower impact values e.g.,
+the impact factor (IF) of the publishing journrals.
+However, under the different subject categories
+the result can be different [@abramoEffectCountryName2016].
+Although Cliff's delta
 reported negligible effect sizes for citation results, we think that a
 cumulative effect might be in play. That is, if any particular author or
 journal tends to publish papers with place names in titles, then the
 citation scores for those authors or journals might receive fewer
-citations depending on the frequency of papers with place names in
-titles.
+citations depending on the frequency of papers with place names in titles.
+This result provides general confirmation of our study.
+This might be reason that putting the country name in the title
+limits the generality of the research findings, and
+country-level title is less appealing to the global researchers.
+While it is read less, this leads to get fewer citations.
+
+However, under the countries and HDIs,
+this can be different in the context of non-western countries as well.
+For example, a researcher from a researcher from developing countries has
+the intuition to read the USA-based authors’ papers to know the context and
+understand the research in his or her similar research areas.
+This helps and increases the chances of the developing country researchers
+to read some good quality papers.
+So, country name in the title and if it is written by western authors might
+get the citations by the developing country researchers.
+Country names adding at the end of the title e.g. right part of the title
+do not add much semantic information.
+For example, 'Information seeking behaviours of the graduate students:
+A study on the students from Bangladesh' where the subtitle does not
+add much information or value to the article if researchers prepare the title
+with the left part of the article.
+However, this might be different with some disciplines and articles where the
+lengthy titles and occurrences of words in the title matters.
+However, these practices are not fixed and have changed over times.
+While the title is an important factor to the researchers,
+there need to be a balance between informativeness and attractiveness. 
 
 Although papers that reference country names in titles received fewer
 citations and journals that frequently include articles that refer to 
@@ -646,12 +683,19 @@ receive fewer citations and journals have lower SJR scores,
 there does not seem to be a geographical bias against specific countries.
 We believe that the citation disadvantage associated with lower citation
 counts to articles that reference named countries is primarily a result
-of perhaps unnecessary specificity that naming countries adds to the titles and that
-makes the articles seem less relevant to others.
+of perhaps unnecessary specificity that naming countries adds to the titles and
+that makes the articles seem less relevant to others.
+While the country name in the article’s title refer to less citation and
+placed in the lower ranked journals,
+we recommend not to use  country name in the title.
+Even having a country name in the title may lead to bias among the researchers.  
 
-
-Limitations: it could be that the effects are more pronounced when
-sampling from lower impact journals.
+Limitations: It could be that the effects are more pronounced when
+sampling from lower impact journals in some other disciplines.
+Here, we only considered the LIS journals.
+A future study with the journals from other disciplines can vetted the present
+result that we got from this study.
+Even, the results could be different with a longer citation window.
 
 Results could be different with a longer citation window.
 
