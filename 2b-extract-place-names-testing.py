@@ -33,8 +33,8 @@ def find_places(text):
 
     for ent in doc.ents:
         if ent.label_ == 'GPE':
-            mid_pos = (ent.start_char + ent.end_char) / 2  # Midpoint of the place name
-            relative_pos = mid_pos / len(text)
+            start_pos = (ent.start_char + 1) # start point of the place name
+            relative_pos = start_pos / len(text)
             positions.append(relative_pos)
 
     if not positions:
