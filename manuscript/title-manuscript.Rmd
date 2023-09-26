@@ -176,21 +176,16 @@ we use the Human Development Index (HDI) [@united_nations_human_2023],
 an index that measures a nation's level of
 health, education, and standard of living,
 to identify patterns in how countries are named in paper titles.
-We believe this offer a more nuanced view of the data.
+We believe this offers a more nuanced view of the data.
 Based on this, we ask the following questions:
 
 RQ1: Does the inclusion of geographical names in the titles
 of journal articles impact their citation counts,
-when controlling for a journal's impact and Human Development Index?
+when controlling for the Human Development Index
+score for the named location?
 
-Our research question implies two sub questions:
-
-1. Is there a correlation between the position of the geographical name in the
-   article title and the number of citations?
-2. Does the Human Development Index of the nation mentioned in the title
-   correlate with the number of citations?
-
-In order to answer these questions, we propose the following hypotheses:
+In order to answer these questions,
+we propose the following hypotheses:
 
 * Main Hypothesis: Journal articles with geographical names in their titles are
   cited less frequently than those without geographical names.
@@ -198,7 +193,7 @@ In order to answer these questions, we propose the following hypotheses:
     * Sub-Hypothesis 2: Articles mentioning nations with a higher Human Development Index in their titles are cited more frequently.
     * Sub-Hypothesis 3: The impact of geographical names in titles on citation counts is moderated by the impact of the journal.
     * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact.
-    * Sub-Hypothesis 5: Are there any trends with where certain nations appear in the titles?
+    * Sub-Hypothesis 5: Nations with lower HDIs will more likely appear toward the end of article titles than nations with higher HDIs.
     * Sub-Hypothesis 6: Journals may be more or less likely to publish articles that mention nations with higher or lower HDIs.
 
 # Materials and Methods
@@ -347,7 +342,8 @@ A SJR score below 1.0 indicates below
 average citations compared to all journals in *Scopus*.
 The average SJR in the data was above average
 (*m* = `r round(mean(titles$SJR),3)`; *mdn* = `r round(median(titles$SJR),3)`).
-However, after deduplicating publication titles,
+However, after deduplicating publication titles and
+counting only unique journal titles,
 the average SJR in the data was lower
 (*m* = `r sjr_unique_mean`; *mdn* = `r srj_unique_median`),
 indicating that article titles,
@@ -388,17 +384,21 @@ median_without_nations <- median(without_nations$Citations)
 
 Our main hypothesis was that journal articles
 with geographical names in their titles
-are cited less frequently than those without geographical names.
+(*n* = `r length(with_nations$Citations)`)
+are cited less frequently
+than those without geographical names
+(*n* = `r length(without_nations$Citations)`).
 The Mann-Whitney U test revealed a statistically significant difference
 in citation distributions between articles with and without
-geographical names in their titles.
+geographical names in their titles
+(*p* < `r round(citations_wt$p.value, 4)`).
 Further analysis showed that articles with geographical names
 had a lower average citation count
-(*mdn*=`r median_with_nations`) than
-those without geographical names.
-(*mdn*=`r median_without_nations`).
-This indicated that article without geographical names
-tend to receive slightly more citations.
+(*mdn* = `r median_with_nations`) than
+those without geographical names
+(*mdn* = `r median_without_nations`).
+This indicated that articles without geographical names
+in our data receive slightly more citations.
 
 ```{r sub-hypo-1, include=FALSE}
 cit2places <- cor.test(with_nations$Citations, with_nations$places, method = "spearman", exact=FALSE)
@@ -411,12 +411,13 @@ the fewer the citations the article would receive.
 Our hypothesis was rejected.
 Specifically, we found a weak
 but statistically significant positive correlation,
-(*rho* = `r cit2places$estimate`; *p* = `r cit2places$p.value`)
+(*rho* = `r round(cit2places$estimate, 3)`;
+*p* < `r round(cit2places$p.value, 3)`)
 indicating that the closer a place name was to the end
 of a title,
 the more citations it received.
 
-```{r fig-1, fig.cap = "Fig. 1: Relationship between Citations and Position of Place Name in Title", echo = FALSE}
+```{r fig-1, fig.cap = "Fig. 1: There is a weak relationship between citations and position of place name in title.", echo = FALSE}
 ggplot(with_nations, aes(x = places, y = Citations)) +
   geom_point() + theme_light() +
   scale_color_grey() +
@@ -435,8 +436,9 @@ our hypothesis that articles mentioning nations with a higher
 Human Development Index in their titles
 were cited more frequently.
 The correlation between the HDI of a nation
-named or inferred in a title was neither significant
-nor strong (*rho* = `r cit2HDI$estimate`; *p* = `r cit2HDI$p.value`).
+named or inferred in a title was neither significant nor strong
+(*rho* = `r round(cit2HDI$estimate, 3)`;
+*p* = `r round(cit2HDI$p.value, 3)`).
 
 ```{r sub-hypo-3, include=FALSE}
 # rank transform the data
@@ -456,7 +458,8 @@ does not appear to play a moderating role in the relationship
 between geographical names in article titles and citation counts,
 based on the data.
 Specifically, our data shows that any relationship is likely due to
-random chance (*p* = `r cit2rank$p.value`).
+random chance
+(*p* = `r round(cit2rank$p.value, 3)`).
 
 ```{r sub-hypo-4, include=FALSE}
 # Group the Data by Journal and Calculate Frequencies
@@ -468,24 +471,26 @@ journal_summary <- titles %>%
     proportion_with_places = articles_with_places / total_articles
   )
 # Merge the Journal Impact Information
-journal_summary <- merge(journal_summary, unique(titles[, c("Publication", "SJR")]), by = "Publication")
+journal_summary <- merge(journal_summary,
+                         unique(titles[, c("Publication", "SJR")]),
+                         by = "Publication")
 # Run a Spearman's Rank Correlation Test
 places2SJR <- cor.test(journal_summary$proportion_with_places,
                        journal_summary$SJR,
                        method = "spearman", exact=FALSE)
 ```
 
-**Sub-Hypothesis 4:** Journals with a high frequency of articles
+**Sub-Hypothesis 4:** We hypothesized that
+journals that publish a high frequency of articles
 with geographical names in titles have lower impact scores.
-However, our data indicated a weak, negative correlation between journals
-that more frequently publish articles with place names
-and their impact scores 
-(*rho* = `r places2SJR$estimate`; *p* `r places2SJR$p.value`).
-Given the low p-value based on the data, though,
-this relationship can not be statistically confirmed and
-may be due to random chance.
+However, our data indicated a weak, negative correlation
+between the frequency with which a journal publishes
+articles with place names in titles and
+the journal's impact score
+(*rho* = `r round(places2SJR$estimate, 3)`;
+*p* = `r round(places2SJR$p.value, 3)`).
 
-```{r fig-2, fig.cap = "Fig. 2: Relationship between Journal Impact and Proportion of Articles with Place Names", echo = FALSE, message = FALSE}
+```{r fig-2, fig.cap = "Fig. 2: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score", echo = FALSE, message = FALSE}
 ggplot(journal_summary, aes(x = proportion_with_places, y = SJR)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -512,27 +517,32 @@ totart2pos <- cor.test(nation_summary$avg_position,
                        exact = FALSE)
 ```
 
+
 **Sub-Hypothesis 5:** We hypothesized that there would be a
 relationship between the position of a place name in the title
-and the the nation named.
+and the HDI of the nation named:
+specifically, that nations with lower HDIs will more
+likely appear toward the end of article titles.
 We found that nations appear more often
 in different positions in the article titles,
-but we could not find a cause of this relationship,
+but we could not find a cause of this relationship
 from our data.
 Specifically, we found a weak, negative correlation
-(*rho* = `r totart2pos$estimate`; *p* = `r totart2pos$p.value`).
-This suggests a trend where nations that appear more frequently in titles
-have their names positioned closer to the beginning of the title.
+(*rho* = `r round(totart2pos$estimate, 3)`;
+*p* = `r round(totart2pos$p.value, 3)`).
+Although our data suggests that different nations
+appear in different average positions in titles,
+this does not appear to be due to the nation's HDI score.
 
-```{r fig-3, fig.cap = "Fig. 3: Relationship between Average Location of Nation Name in Article Title and HDI", echo = FALSE}
-ggplot(nation_summary, aes(x=HDI, y=avg_position)) +
+```{r fig-3, fig.cap = "Fig. 3: The relationship between average rocation of nation named in article title and HDI. Only nations appearing in at least ten articles are displayed.", echo = FALSE}
+ggplot(nation_summary, aes(x=avg_position, y=HDI)) +
   geom_point(aes(color=nation), alpha=0.7) +
   geom_text(aes(label=nation), vjust=-1, hjust=1, size=3, check_overlap = TRUE) + 
   labs(title="Median Position vs. HDI",
-       x="HDI",
-       y="Median Position of Nation in Title") +
+       x="Median Position of Nation in Title",
+       y="HDI") +
   theme_minimal() +
-  theme(legend.position = "none")  # Remove the legend
+  theme(legend.position = "none")
 ```
 
 ```{r sub-hypo-6, include=FALSE}
@@ -556,21 +566,22 @@ HDI2journals <- cor.test(journal_hdi_summary$HDI,
 **Sub-Hypothesis 6:** Journals may be more or
 less likely to publish articles that
 mention nations with higher or lower HDIs.
-We found a weak, negative correlation
-(*rho* = `r HDI2journals$estimate`; *p* = `r HDI2journals$p.value`)
+We found a non-significant, weak, negative correlation
+(*rho* = `r round(HDI2journals$estimate, 3)`;
+*p* = `r round(HDI2journals$p.value, 3)`)
 that suggested that journals that publish more articles
 that mention place names might tend
 to mention nations with slightly lower HDIs,
 though this was not statistically confirmed.
 
-```{r fig-4, fig.cap = "Fig. 4: Relationship Between SJR and HDI of Nations Mentioned in Article Titles", echo = FALSE, message = FALSE, warning = FALSE}
-ggplot(journal_hdi_summary, aes(x = HDI,
-                                y = SJR)) +
+```{r fig-4, fig.cap = "Fig. 4: We found no statistically signifcant relationship between SJR and HDI of nations mentioned in article titles", echo = FALSE, message = FALSE, warning = FALSE}
+ggplot(journal_hdi_summary, aes(x = SJR,
+                                y = HDI)) +
   geom_point(aes(size = total_articles_with_places)) +
   scale_size_continuous(name = "Total Articles per Journal with Place Names") +
   geom_smooth(method = "lm", se = FALSE, aes(group = 1)) +
-  xlab("HDI of Mentioned Nations") +
-  ylab("Journal's SJR (Impact)") +
+  xlab("Journal's SJR (Impact)") +
+  ylab("HDI of Mentioned Nations") +
   theme_minimal() +
   theme(legend.position="bottom")
 ```

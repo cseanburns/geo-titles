@@ -164,21 +164,16 @@ we use the Human Development Index (HDI) [@united_nations_human_2023],
 an index that measures a nation's level of
 health, education, and standard of living,
 to identify patterns in how countries are named in paper titles.
-We believe this offer a more nuanced view of the data.
+We believe this offers a more nuanced view of the data.
 Based on this, we ask the following questions:
 
 RQ1: Does the inclusion of geographical names in the titles
 of journal articles impact their citation counts,
-when controlling for a journal's impact and Human Development Index?
+when controlling for the Human Development Index
+score for the named location?
 
-Our research question implies two sub questions:
-
-1. Is there a correlation between the position of the geographical name in the
-   article title and the number of citations?
-2. Does the Human Development Index of the nation mentioned in the title
-   correlate with the number of citations?
-
-In order to answer these questions, we propose the following hypotheses:
+In order to answer these questions,
+we propose the following hypotheses:
 
 * Main Hypothesis: Journal articles with geographical names in their titles are
   cited less frequently than those without geographical names.
@@ -186,7 +181,7 @@ In order to answer these questions, we propose the following hypotheses:
     * Sub-Hypothesis 2: Articles mentioning nations with a higher Human Development Index in their titles are cited more frequently.
     * Sub-Hypothesis 3: The impact of geographical names in titles on citation counts is moderated by the impact of the journal.
     * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact.
-    * Sub-Hypothesis 5: Are there any trends with where certain nations appear in the titles?
+    * Sub-Hypothesis 5: Nations with lower HDIs will more likely appear toward the end of article titles than nations with higher HDIs.
     * Sub-Hypothesis 6: Journals may be more or less likely to publish articles that mention nations with higher or lower HDIs.
 
 # Materials and Methods
@@ -299,7 +294,8 @@ A SJR score below 1.0 indicates below
 average citations compared to all journals in *Scopus*.
 The average SJR in the data was above average
 (*m* = 1.333; *mdn* = 1.055).
-However, after deduplicating publication titles,
+However, after deduplicating publication titles and
+counting only unique journal titles,
 the average SJR in the data was lower
 (*m* = 1.155; *mdn* = 0.848),
 indicating that article titles,
@@ -327,17 +323,21 @@ of our additional hypotheses.
 
 Our main hypothesis was that journal articles
 with geographical names in their titles
-are cited less frequently than those without geographical names.
+(*n* = 1484)
+are cited less frequently
+than those without geographical names
+(*n* = 11652).
 The Mann-Whitney U test revealed a statistically significant difference
 in citation distributions between articles with and without
-geographical names in their titles.
+geographical names in their titles
+(*p* < 0).
 Further analysis showed that articles with geographical names
 had a lower average citation count
-(*mdn*=6) than
-those without geographical names.
-(*mdn*=7).
-This indicated that article without geographical names
-tend to receive slightly more citations.
+(*mdn* = 6) than
+those without geographical names
+(*mdn* = 7).
+This indicated that articles without geographical names
+in our data receive slightly more citations.
 
 
 
@@ -348,12 +348,13 @@ the fewer the citations the article would receive.
 Our hypothesis was rejected.
 Specifically, we found a weak
 but statistically significant positive correlation,
-(*rho* = 0.093956; *p* = 2.896189\times 10^{-4})
+(*rho* = 0.094;
+*p* < 0)
 indicating that the closer a place name was to the end
 of a title,
 the more citations it received.
 
-![Fig. 1: Relationship between Citations and Position of Place Name in Title](title-manuscript_files/figure-html/fig-1-1.png)
+![Fig. 1: There is a weak relationship between citations and position of place name in title.](title-manuscript_files/figure-html/fig-1-1.png)
 
 
 
@@ -362,8 +363,9 @@ our hypothesis that articles mentioning nations with a higher
 Human Development Index in their titles
 were cited more frequently.
 The correlation between the HDI of a nation
-named or inferred in a title was neither significant
-nor strong (*rho* = 0.0043267; *p* = 0.8677339).
+named or inferred in a title was neither significant nor strong
+(*rho* = 0.004;
+*p* = 0.868).
 
 
 
@@ -375,45 +377,52 @@ does not appear to play a moderating role in the relationship
 between geographical names in article titles and citation counts,
 based on the data.
 Specifically, our data shows that any relationship is likely due to
-random chance (*p* = 0.3922705).
+random chance
+(*p* = 0.392).
 
 
 
-**Sub-Hypothesis 4:** Journals with a high frequency of articles
+**Sub-Hypothesis 4:** We hypothesized that
+journals that publish a high frequency of articles
 with geographical names in titles have lower impact scores.
-However, our data indicated a weak, negative correlation between journals
-that more frequently publish articles with place names
-and their impact scores 
-(*rho* = -0.1898917; *p* 0.1427047).
-Given the low p-value based on the data, though,
-this relationship can not be statistically confirmed and
-may be due to random chance.
+However, our data indicated a weak, negative correlation
+between the frequency with which a journal publishes
+articles with place names in titles and
+the journal's impact score
+(*rho* = -0.19;
+*p* = 0.143).
 
-![Fig. 2: Relationship between Journal Impact and Proportion of Articles with Place Names](title-manuscript_files/figure-html/fig-2-1.png)
+![Fig. 2: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score](title-manuscript_files/figure-html/fig-2-1.png)
+
 
 
 
 **Sub-Hypothesis 5:** We hypothesized that there would be a
 relationship between the position of a place name in the title
-and the the nation named.
+and the HDI of the nation named:
+specifically, that nations with lower HDIs will more
+likely appear toward the end of article titles.
 We found that nations appear more often
 in different positions in the article titles,
-but we could not find a cause of this relationship,
+but we could not find a cause of this relationship
 from our data.
 Specifically, we found a weak, negative correlation
-(*rho* = -0.1460828; *p* = 0.4764157).
-This suggests a trend where nations that appear more frequently in titles
-have their names positioned closer to the beginning of the title.
+(*rho* = -0.146;
+*p* = 0.476).
+Although our data suggests that different nations
+appear in different average positions in titles,
+this does not appear to be due to the nation's HDI score.
 
-![Fig. 3: Relationship between Average Location of Nation Name in Article Title and HDI](title-manuscript_files/figure-html/fig-3-1.png)
+![Fig. 3: The relationship between average rocation of nation named in article title and HDI. Only nations appearing in at least ten articles are displayed.](title-manuscript_files/figure-html/fig-3-1.png)
 
 
 
 **Sub-Hypothesis 6:** Journals may be more or
 less likely to publish articles that
 mention nations with higher or lower HDIs.
-We found a weak, negative correlation
-(*rho* = 0.1188948; *p* = 0.3872762)
+We found a non-significant, weak, negative correlation
+(*rho* = 0.119;
+*p* = 0.387)
 that suggested that journals that publish more articles
 that mention place names might tend
 to mention nations with slightly lower HDIs,
