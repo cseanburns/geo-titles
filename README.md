@@ -150,6 +150,11 @@ mv ~/lisjournals.bib ~/workspace/lisjournals/
 
 ### Date: 2022-08-31
 
+**Note:** Based on initial discussions.
+We elected to take a different route
+after additional discussions
+(Mon Oct  9 11:02:13 PM EDT 2023).
+
 Method:
 
 1. Identify journals in the first quartile (Q1) of 2021 Scimago
