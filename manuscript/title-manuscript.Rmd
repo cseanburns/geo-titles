@@ -2,10 +2,10 @@
 title: "The Subtle Impact of Geographical Names in Journal Article Titles on Citation Frequency"
 author: "C. Sean Burns, Md. Anwar Islam"
 output:
+  word_document: default
   html_document:
     theme: cerulean
     keep_md: yes
-  word_document: default
   pdf_document: default
 params:
   dataset: titles
@@ -188,9 +188,9 @@ in order to identify more nuanced patterns
 in how countries are named in paper titles.
 Based on this, we ask the following questions:
 
-RQ1: Does the inclusion of geographical names in the titles
+RQ: Does the inclusion of geographical names in the titles
 of journal articles impact their citation counts,
-when controlling for the Human Development Index
+after accounting for the Human Development Index
 score for the named location?
 
 In order to answer these questions,
@@ -233,7 +233,7 @@ SRCTITLE ( "International Journal of Information Management" )  AND  (
 LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
 ```
-<figcaption>Fig. 1: Example Scopus query to retrieve bibliographic records from one journal.</figcaption>
+<figcaption>*Fig. 1: Example Scopus query to retrieve bibliographic records from one journal.*</figcaption>
 
 We combined and imported the bibliographic records into R
 using the bibliometrix package [@aria_bibliometrix_2017].
@@ -361,18 +361,28 @@ the average SJR in the data was lower
 indicating publication titles with
 higher SJR scores appear more freqently in the data.
 
+All code can be reviewed on the first author's GitHub:
+[https://github.com/cseanburns/geo-titles](https://github.com/cseanburns/geo-titles)
+
 # Results
 
-This research aimed to investigate the relationship
-between the presence of geographical names in journal articles
+This research aimed
+to investigate the relationship
+between the presence of geographical
+names in journal articles
 and their citation counts.
-We tested several hypotheses to understand the nuances of this relationship.
-Overall, we found that there was a small citation effect on journal articles
+We tested several hypotheses
+to understand the nuances of this relationship.
+Overall, we found that there was a
+small citation effect on journal articles
 that contained place names in titles.
-Articles that contained place names received significantly but slightly fewer
+Articles that contained place names
+received significantly but slightly fewer
 citations, on average, than articles without place names.
-However, we were unable to associate this effect in any
+However, we were unable
+to associate this effect in any
 of our additional hypotheses.
+We present the results below.
 
 ```{r divide-data, include = FALSE, warning = FALSE}
 # data prep
@@ -404,8 +414,9 @@ The Mann-Whitney U test revealed a statistically significant difference
 in citation distributions between articles with and without
 geographical names in their titles
 (*p* < `r round(citations_wt$p.value, 4)`).
-Further analysis showed that articles with geographical names
-had a lower average citation count
+Further analysis showed a small citation effect.
+Articles with geographical names
+had a slightly lower average citation count
 (*mdn* = `r median_with_nations`) than
 those without geographical names
 (*mdn* = `r median_without_nations`).
@@ -419,7 +430,7 @@ the nearer a place name is
 to the end of the title,
 the fewer the citations the article would receive.
 We found some evidence in the data
-for the opposite.
+for the opposite relationship.
 Specifically, we found a statistically significant,
 positive correlation,
 (*rho* = `r round(cit2places$estimate, 3)`;
@@ -508,6 +519,7 @@ the journal's impact score
 ggplot(journal_summary, aes(x = proportion_with_places, y = SJR)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
   xlab("Proportion of Articles with Place Names Per Journal") +
   ylab("SJR")
 ```
@@ -538,12 +550,12 @@ specifically, that nations with lower HDIs will more
 likely appear toward the end of article titles.
 We found that nations appear more often
 in different positions in the article titles,
-but we could not find a cause of this relationship
+but we could not find an explanation of this relationship
 from our data (Fig. 4).
 Specifically, we found a weak, negative correlation
 between the average position of a named place
-in a title
-and the HDI of the named place
+in a title and
+the HDI of the named place
 (*rho* = `r round(totart2pos$estimate, 3)`;
 *p* = `r round(totart2pos$p.value, 3)`).
 Although our data suggests that different nations
@@ -584,7 +596,7 @@ journals may be more or
 less likely to publish articles that
 mention nations with higher or lower HDIs.
 We found no evidence to suggest
-to suggest a relationship between
+a relationship between
 the frequency journal titles include articles
 that mention place names and
 the HDIs of the named nations
@@ -633,15 +645,17 @@ These factors may include the specific content of the articles,
 the information presented in the abstracts,
 the disciplines of the journals,
 broader cultural or academic trends, or
-the language or coauthorship characteristics.
+the language or the coauthorship
+characteristics of the articles.
 Also, the small citation difference
 observed in the main hypothesis
 may be the result 
 that papers with place names
 in their titles are read and cited heavily
-by local author networks
+by regional author networks
 [@Chinchilla-Rodríguez2014What].
-If further studies examine the citation networks
+That is, if further studies
+examine the citation networks
 of articles that include place names,
 we hypothesize that there is a substantial
 within-nation network citation advantage to including
@@ -654,41 +668,28 @@ For example, articles that include the geographical name
 citations from others in Bangladesh or the United Kingdom, respectively.
 Such localized citations could be a reflection of the article's relevance
 to that particular context.
-Additionally, while including a geographical name might lead
-to a perceived loss of generality,
-making the article seemingly less applicable to a broader audience,
+Thus, while including a geographical name might lead
+to a perceived loss of generality 
+and thus less applicable to a broader audience,
 this disadvantage might be offset
-by the strength of one's academic, professional, or geographical network.
-Researchers from the local networks might find the article
-more directly relevant to their work and more likely to cite it.
+by the strength of importance of a study within a region.
 
 Although papers that reference country names
-in titles received fewer citations and
-journals that frequently include articles
-that refer to named countries had lower SJR scores,
+in titles received fewer citations,
 we could find no relationship between the development level
 of a named country with the number of citations.
-We could also find no relationship
+We could also find no strong relationship
 between the location of the country name in the title
 with the article's citations.
-Overall, although articles that reference country names
-in their titles receive fewer citations and journals have lower SJR scores,
-there does not seem to be a geographical bias against specific countries.
-We believe that the citation disadvantage associated
-with lower citation counts to articles that reference named countries
-is primarily a result of perhaps unnecessary specificity
-that naming countries adds to the titles and
-that makes the articles seem less relevant to others.
-While the country name in an article's title refers to less citation and
-placed in the lower ranked journals,
-we recommend not to use country name in the title.
-Even having a country name in the title may lead to bias among the researchers.
+Overall, there does not seem to be
+a geographical bias against specific countries
+in our data.
 
 ## Limitations
 
 It could be that the effects are more pronounced
 when sampling from lower impact journals
-in some other disciplines.
+or when sampling journals in other disciplines.
 Here, we only considered LIS journals.
 A future study with journals from other disciplines can add evidence
 to support the present result that we got from this study.
