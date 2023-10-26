@@ -1,6 +1,6 @@
 ---
 title: "The Subtle Impact of Geographical Names in Journal Article Titles on Citation Frequency"
-author: "C. Sean Burns, Md. Anwar Islam"
+author: "C. Sean Burns, Md. Anwarul Islam"
 output:
   word_document: default
   html_document:
@@ -34,8 +34,8 @@ titles$HDI <- round(titles$HDI, 3)
 
 # Introduction
 
-A good article title informs and can serve to attract readers.
-Authors must write titles that succinctly capture the main topic of their paper.
+A well-crafted article title informs and can serve to attract readers.
+Authors must write titles that succinctly capture the central theme of their paper.
 Since titles function within the knowledge creation process,
 titles reflect disciplinary identity and expectations [@milojevic_length_2017].
 In some disciplines,
@@ -49,7 +49,7 @@ the use of questions in titles has increased substantially since the 1960s,
 showing also geographical trends,
 representing perhaps institutional pressures to publish faster [@ball2009].
 
-The need to market papers,
+The necessity to promote academic papers,
 to express disciplinary identity,
 to provide information,
 and other factors leads to various naming conventions,
@@ -103,7 +103,7 @@ titles in an ecology journal [@fox_relationship_2015].
 As mentioned, the use of compound titles
 (titles with colons, hyphens, dashes) has grown in recent decades,
 especially in some research areas or disciplines.
-@li_evolution_2019 outlines three types of compound titles
+@li_evolution_2019 outline three types of compound titles
 that capture specific semantic content.
 These are titles that describe the topic and the method or design,
 titles that describe the topic and the results, and
@@ -147,7 +147,7 @@ and this raises questions not only about why some authors
 include geographical information in titles
 but also why some authors do not.
 
-There is evidence that
+There is compelling evidence that
 the use of geographic names
 in article titles
 reveals potential biases
@@ -161,7 +161,8 @@ and that
 "studies of Western countries are significantly more likely
 to lack mention of the studied countries not only in titles,
 but also throughout the text of the papers" [@kou_politics_2018, p. 2].
-They also found that when country names were added to titles,
+Their findings also revelaed that
+when country names were added to titles,
 they were often added at the end of a title,
 which suggested weak
 "semantic connections between the preceding ideas in the titles and the countries" (p. 8).
@@ -177,16 +178,20 @@ use place names in titles when
 studying populations within their own nations.
 
 Like @kou_politics_2018,
-we are interested in how authors use geographic names in titles.
+our interest lies in
+examining the context in
+how authors use geographic names in titles.
 However, @kou_politics_2018 apply a simple binary classification
 of countries into Western and non-Western countries based on work by @huntington_clash_2011.
-In accordance with @burns_language_2017,
-we use the Human Development Index (HDI) [@united_nations_human_2023],
+@burns_language_2017 use the
+Human Development Index (HDI)
+[@united_nations_human_2023],
 a compound index that measures a nation's level of
 health, education, and standard of living,
 in order to identify more nuanced patterns
 in how countries are named in paper titles.
-Based on this, we ask the following questions:
+Based on this, we ask the following questions
+for the current study:
 
 RQ: Does the inclusion of geographical names in the titles
 of journal articles impact their citation counts,
@@ -198,8 +203,8 @@ we propose the following hypotheses:
 
 * Main Hypothesis: Journal articles with geographical names in their titles are
   cited less frequently than those without geographical names.
-    * Sub-Hypothesis 1: The closer the geographical name is to the end of the title, the fewer the citations the article would receive.
-    * Sub-Hypothesis 2: Articles mentioning nations with a higher Human Development Index in their titles are cited more frequently.
+    * Sub-Hypothesis 1: The closer a geographical name is to the end of the title, the fewer the citations the article would receive.
+    * Sub-Hypothesis 2: Articles that mention nations with a higher Human Development Index in their titles are cited more frequently.
     * Sub-Hypothesis 3: The impact of geographical names in titles on citation counts is moderated by the impact of the journal.
     * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact.
     * Sub-Hypothesis 5: Nations with lower HDIs will more likely appear toward the end of article titles than nations with higher HDIs.
@@ -220,7 +225,7 @@ as broadly categorized and listed by
 Scimago's Scientific Journal Ranking (SJR) and
 the Scimago Journal and Country Rank (2021) data.
 We limited our set of articles to the 61 journals
-ranked in the first quartile of the LIS category.
+ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
 in these journals from 2018 to 2020 (Fig. 1).
@@ -359,7 +364,8 @@ counting only unique journal titles,
 the average SJR in the data was lower
 (*m* = `r sjr_unique_mean`; *mdn* = `r srj_unique_median`),
 indicating publication titles with
-higher SJR scores appear more freqently in the data.
+higher SJR scores appear more
+frequently in the data.
 
 All code can be reviewed on the first author's GitHub:
 [https://github.com/cseanburns/geo-titles](https://github.com/cseanburns/geo-titles)
@@ -429,7 +435,8 @@ cit2places <- cor.test(with_nations$Citations, with_nations$places, method = "sp
 the nearer a place name is
 to the end of the title,
 the fewer the citations the article would receive.
-We found some evidence in the data
+In the data, we found some
+evidence in the data
 for the opposite relationship.
 Specifically, we found a statistically significant,
 positive correlation,
@@ -603,7 +610,7 @@ the HDIs of the named nations
 (*rho* = `r round(HDI2journals$estimate, 3)`;
 *p* = `r round(HDI2journals$p.value, 3)`) (Fig. 5).
 
-```{r fig-5, fig.cap = "Fig. 5: We found no statistically signifcant relationship between SJR and HDI of nations mentioned in article titles", echo = FALSE, message = FALSE, warning = FALSE}
+```{r fig-5, fig.cap = "Fig. 5: We found no statistically significant relationship between SJR and HDI of nations mentioned in article titles", echo = FALSE, message = FALSE, warning = FALSE}
 ggplot(journal_hdi_summary, aes(x = SJR,
                                 y = HDI)) +
   geom_point(aes(size = total_articles_with_places)) +
@@ -617,7 +624,7 @@ ggplot(journal_hdi_summary, aes(x = SJR,
 
 # Discussion
 
-Based the results of other studies
+Based on the results of other studies
 that have found that titles that were overly specific
 about certain factors were cited less
 [@fox_relationship_2015; @thelwall_avoiding_2017],
@@ -673,6 +680,7 @@ to a perceived loss of generality
 and thus less applicable to a broader audience,
 this disadvantage might be offset
 by the strength of importance of a study within a region.
+In a sense, all research is local, too.
 
 Although papers that reference country names
 in titles received fewer citations,
@@ -687,7 +695,10 @@ in our data.
 
 ## Limitations
 
-It could be that the effects are more pronounced
+It could be that citation differences
+between article titles with place names
+and without place names
+are more pronounced
 when sampling from lower impact journals
 or when sampling journals in other disciplines.
 Here, we only considered LIS journals.
@@ -695,6 +706,6 @@ A future study with journals from other disciplines can add evidence
 to support the present result that we got from this study.
 The results could be different with a longer citation window.
 We also did not control for other factors,
-such if a title contains a colon, a question, humor.
+such if a title contains a colon, a question, or humor.
 
 # References
