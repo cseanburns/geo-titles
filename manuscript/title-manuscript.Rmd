@@ -1,5 +1,5 @@
 ---
-title: "The implications of geographical specificity in article titles on citation frequency"
+title: "A citation analysis examining geographical specificity in article titles"
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
   word_document: default
@@ -692,7 +692,8 @@ than those without geographical names
 [@abramo_effect_2016; @costello_are_2019; @jacques_impact_2010;
 @moradi_analysis_2016; @paiva_articles_2012; @thelwall_avoiding_2017].
 Like @kou_politics_2018,
-we found evidence to support this hypothesis;
+we found evidence to support this hypothesis
+that there is a preference for generality in article titles;
 however, although the difference was statistically significant,
 the effect size was minimal.
 Additionally, all sub-hypotheses mostly yielded non-significant results
@@ -737,7 +738,7 @@ to a perceived loss of generality
 and thus less applicable to a broader audience,
 this disadvantage might be offset
 by the strength of importance of a study within a region.
-In a sense, all research is local, too.
+In a sense, research is local.
 
 Although papers that reference country names
 in titles received fewer citations,
