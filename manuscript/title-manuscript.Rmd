@@ -1,5 +1,5 @@
 ---
-title: "The Subtle Impact of Geographical Names in Journal Article Titles on Citation Frequency"
+title: "The implications of geographical specificity in article titles on citation frequency"
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
   word_document: default
@@ -31,6 +31,63 @@ library(rbbt)
 titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
 titles$HDI <- round(titles$HDI, 3)
 ```
+
+# Abstract
+
+This investigation explores
+the impact of geographical names
+within article titles
+on citation frequency
+across a corpus of literature
+within the field of
+library and information science,
+spanning from 2018 to 2020,
+encompassing sixty-one journal titles.
+We hypothesized that
+the presence of geographical names
+in article titles
+would negatively correlate
+with citation frequency.
+Our primary analysis of
+1484 articles with
+geographical names versus 11652 without,
+revealed a statistically significant,
+albeit small,
+difference in median citations,
+favoring articles without geographical names (*mdn* = 7)
+over those with geographical names (*mdn* = 6).
+Contrary to our secondary hypothesis,
+a proximity analysis demonstrated a weak,
+positive correlation between
+the closeness of geographical names
+to the title end and citation frequency.
+Additionally, our examination found
+no evidence supporting differential
+citation frequency based
+on the Human Development Index (HDI)
+of the nations mentioned in titles,
+nor did the impact factor of the
+journal moderate the
+relationship between
+geographical names and citation frequency.
+A weak, negative correlation was
+discovered between the frequency of
+geographical names in journal titles
+and the journals' impact scores,
+yet this was not statistically significant.
+Our data also suggested a vague positional
+preference for nations within titles,
+unrelated to HDI.
+Furthermore, the likelihood of
+journals publishing articles
+mentioning nations of varying HDI
+was found to be statistically insignificant.
+This study sheds light
+on the nuanced influence of title specificity,
+through geographical names,
+on scholarly communication and citation impact,
+indicating a slight preference
+for broader title phrasing in garnering citations.
 
 # Introduction
 
