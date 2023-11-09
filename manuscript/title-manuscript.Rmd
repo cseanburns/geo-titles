@@ -785,4 +785,8 @@ The results could be different with a longer citation window.
 We also did not control for other factors,
 such if a title contains a colon, a question, or humor.
 
+Conflicts of Interest: The authors have no relevant financial or non-financial interests to disclose. No funding was received for this work.
+
+
+
 # References
