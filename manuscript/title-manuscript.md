@@ -1,12 +1,12 @@
 ---
-title: "The implications of geographical specificity in article titles on citation frequency"
+title: "A citation analysis examining geographical specificity in article titles"
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
   html_document:
     theme: cerulean
     keep_md: yes
-  word_document: default
   pdf_document: default
+  word_document: default
 params:
   dataset: titles
 editor_options:
@@ -20,6 +20,8 @@ csl: scientometrics.csl
 
 
 
+
+
 # Abstract
 
 This investigation explores
@@ -30,9 +32,10 @@ across a corpus of literature
 within the field of
 library and information science,
 spanning from 2018 to 2020,
-encompassing sixty-one journal titles.
+and encompassing sixty-one journal titles.
 We hypothesized that
 the presence of geographical names
+of nations
 in article titles
 would negatively correlate
 with citation frequency.
@@ -48,7 +51,7 @@ Contrary to our secondary hypothesis,
 a proximity analysis demonstrated a weak,
 positive correlation between
 the closeness of geographical names
-to the title end and citation frequency.
+to the title end and citation counts.
 Additionally, our examination found
 no evidence supporting differential
 citation frequency based
@@ -76,6 +79,9 @@ through geographical names,
 on scholarly communication and citation impact,
 indicating a slight preference
 for broader title phrasing in garnering citations.
+
+Keywords: Human Development Index, scholarly communication,
+scholarly writing, nation names, library and information science
 
 # Introduction
 
@@ -249,9 +255,9 @@ we propose the following hypotheses:
 * Main Hypothesis: Journal articles with geographical names in their titles are
   cited less frequently than those without geographical names.
     * Sub-Hypothesis 1: The closer a geographical name is to the end of the title, the fewer the citations the article would receive.
-    * Sub-Hypothesis 2: Articles that mention nations with a higher Human Development Index in their titles are cited more frequently.
+    * Sub-Hypothesis 2: Articles that mention nations with a higher Human Development Index in their titles are cited more frequently than articles that mention names with a lower Human Development Index.
     * Sub-Hypothesis 3: The impact of geographical names in titles on citation counts is moderated by the impact of the journal.
-    * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact.
+    * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact compared to journals with a low frequency of articles with geographic names in article titles.
     * Sub-Hypothesis 5: Nations with lower HDIs will more likely appear toward the end of article titles than nations with higher HDIs.
     * Sub-Hypothesis 6: Journals may be more or less likely to publish articles that mention nations with higher or lower HDIs.
 
@@ -269,6 +275,8 @@ ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
 in these journals from 2018 to 2020 (Fig. 1).
+We limited our data to the three year time period
+in order to align with the Scimago journal ranking time frame.
 We retrieved 13145 article records across the 61 journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
@@ -330,7 +338,7 @@ that for political reasons do not have an HDI
 (e.g., Taiwan and North Korea).
 These were marked as NA in the HDI variable.
 This reduced titles with nation names and HDI scores to
-1484 records.
+1484 records (Table 1).
 If a place was part of a broader collective
 (e.g., Scotland or Puerto Rico),
 we chose the HDI for the broader political authority
@@ -357,6 +365,32 @@ indicate that most nations or places
 named in article titles are nations or
 places with very high HDI scores
 (*m* = 0.814; *mdn* = 0.838).
+
+
+Table: Table 1. Top 20 Most Frequent Nations
+
+|nation        |   n|
+|:-------------|---:|
+|china         | 183|
+|spain         | 157|
+|us            | 140|
+|eu            |  86|
+|uk            |  65|
+|india         |  51|
+|nigeria       |  40|
+|africa        |  38|
+|australia     |  37|
+|brazil        |  33|
+|south africa  |  26|
+|canada        |  23|
+|italy         |  23|
+|russia        |  23|
+|korea         |  20|
+|pakistan      |  17|
+|germany       |  16|
+|latin america |  16|
+|mexico        |  15|
+|cuba          |  14|
 
 Finally, we added SCImago Journal Rank (SJR) scores
 for each of the 61 journal titles in the data set.
@@ -398,7 +432,6 @@ However, we were unable
 to associate this effect in any
 of our additional hypotheses.
 We present the results below.
-
 
 
 ## Hypotheses
@@ -449,7 +482,8 @@ although significant was weak (Fig. 2).
 **Sub-Hypothesis 2**: We found no evidence to support
 our hypothesis that articles mentioning nations with a higher
 Human Development Index in their titles
-were cited more frequently.
+were cited more frequently than articles mentioning name
+with a lower Human Development Index.
 The correlation between the HDI of a nation
 named or inferred in a title was neither significant nor strong
 (*rho* = 0.004;
@@ -474,6 +508,9 @@ random chance
 journals that publish a high frequency of articles
 with geographical names in titles
 are journals that have lower impact scores.
+We found some evidence that journals that publish
+more articles with place names are less likely
+to have higher SJR scores.
 However, our data indicated a weak, negative correlation
 between the frequency with which a journal publishes
 articles with place names in titles and
@@ -535,7 +572,8 @@ than those without geographical names
 [@abramo_effect_2016; @costello_are_2019; @jacques_impact_2010;
 @moradi_analysis_2016; @paiva_articles_2012; @thelwall_avoiding_2017].
 Like @kou_politics_2018,
-we found evidence to support this hypothesis;
+we found evidence to support this hypothesis
+that there is a preference for generality in article titles;
 however, although the difference was statistically significant,
 the effect size was minimal.
 Additionally, all sub-hypotheses mostly yielded non-significant results
@@ -580,7 +618,7 @@ to a perceived loss of generality
 and thus less applicable to a broader audience,
 this disadvantage might be offset
 by the strength of importance of a study within a region.
-In a sense, all research is local, too.
+In a sense, research is local.
 
 Although papers that reference country names
 in titles received fewer citations,

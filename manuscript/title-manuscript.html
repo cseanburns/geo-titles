@@ -12,7 +12,7 @@
 <meta name="author" content="C. Sean Burns, Md. Anwarul Islam" />
 
 
-<title>The implications of geographical specificity in article titles on citation frequency</title>
+<title>A citation analysis examining geographical specificity in article titles</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -372,8 +372,8 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">The implications of geographical
-specificity in article titles on citation frequency</h1>
+<h1 class="title toc-ignore">A citation analysis examining geographical
+specificity in article titles</h1>
 <h4 class="author">C. Sean Burns, Md. Anwarul Islam</h4>
 
 </div>
@@ -384,16 +384,16 @@ specificity in article titles on citation frequency</h1>
 <p>This investigation explores the impact of geographical names within
 article titles on citation frequency across a corpus of literature
 within the field of library and information science, spanning from 2018
-to 2020, encompassing sixty-one journal titles. We hypothesized that the
-presence of geographical names in article titles would negatively
-correlate with citation frequency. Our primary analysis of 1484 articles
-with geographical names versus 11652 without, revealed a statistically
-significant, albeit small, difference in median citations, favoring
-articles without geographical names (<em>mdn</em> = 7) over those with
-geographical names (<em>mdn</em> = 6). Contrary to our secondary
-hypothesis, a proximity analysis demonstrated a weak, positive
+to 2020, and encompassing sixty-one journal titles. We hypothesized that
+the presence of geographical names of nations in article titles would
+negatively correlate with citation frequency. Our primary analysis of
+1484 articles with geographical names versus 11652 without, revealed a
+statistically significant, albeit small, difference in median citations,
+favoring articles without geographical names (<em>mdn</em> = 7) over
+those with geographical names (<em>mdn</em> = 6). Contrary to our
+secondary hypothesis, a proximity analysis demonstrated a weak, positive
 correlation between the closeness of geographical names to the title end
-and citation frequency. Additionally, our examination found no evidence
+and citation counts. Additionally, our examination found no evidence
 supporting differential citation frequency based on the Human
 Development Index (HDI) of the nations mentioned in titles, nor did the
 impact factor of the journal moderate the relationship between
@@ -407,6 +407,8 @@ to be statistically insignificant. This study sheds light on the nuanced
 influence of title specificity, through geographical names, on scholarly
 communication and citation impact, indicating a slight preference for
 broader title phrasing in garnering citations.</p>
+<p>Keywords: Human Development Index, scholarly communication, scholarly
+writing, nation names, library and information science</p>
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
@@ -539,11 +541,14 @@ titles are cited less frequently than those without geographical names.
 <li>Sub-Hypothesis 1: The closer a geographical name is to the end of
 the title, the fewer the citations the article would receive.</li>
 <li>Sub-Hypothesis 2: Articles that mention nations with a higher Human
-Development Index in their titles are cited more frequently.</li>
+Development Index in their titles are cited more frequently than
+articles that mention names with a lower Human Development Index.</li>
 <li>Sub-Hypothesis 3: The impact of geographical names in titles on
 citation counts is moderated by the impact of the journal.</li>
 <li>Sub-Hypothesis 4: Journals with a high frequency of articles with
-geographical names in titles have a lower impact.</li>
+geographical names in titles have a lower impact compared to journals
+with a low frequency of articles with geographic names in article
+titles.</li>
 <li>Sub-Hypothesis 5: Nations with lower HDIs will more likely appear
 toward the end of article titles than nations with higher HDIs.</li>
 <li>Sub-Hypothesis 6: Journals may be more or less likely to publish
@@ -560,9 +565,11 @@ Rank (2021) data. We limited our set of articles to the 61 journals
 ranked in the first quartile (Q1) of the LIS category. We conducted
 Scopus queries for each journal in this list and downloaded
 bibliographic records for articles published in these journals from 2018
-to 2020 (Fig. 1). We retrieved 13145 article records across the 61
-journals. For example, our Scopus query for the journal
-<em>International Journal of Information Management</em> was:</p>
+to 2020 (Fig. 1). We limited our data to the three year time period in
+order to align with the Scimago journal ranking time frame. We retrieved
+13145 article records across the 61 journals. For example, our Scopus
+query for the journal <em>International Journal of Information
+Management</em> was:</p>
 <pre><code>SRCTITLE ( &quot;International Journal of Information Management&quot; )  AND  (
 LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  &quot;ar&quot; ) )</code></pre>
@@ -602,22 +609,113 @@ the first instance.</p>
 articles had titles with nation names that for political reasons do not
 have an HDI (e.g., Taiwan and North Korea). These were marked as NA in
 the HDI variable. This reduced titles with nation names and HDI scores
-to 1484 records. If a place was part of a broader collective (e.g.,
-Scotland or Puerto Rico), we chose the HDI for the broader political
-authority (i.e., the United Kingdom or the United States, respectively).
-The HDI includes region level values: when article titles referenced
-Africa, we used the HDI for “Sub-Saharan Africa”, or when article titles
-referenced Europe, we used the HDI for “Europe and Central Asia”
-(<em>n</em> = 154). When multiple place names appeared in the title
-(<em>n</em> = 94), we averaged the HDI scores. The UN classifies HDI
-scores into four categories: very high (&gt;= 0.8), high (&gt;= 0.7),
-medium (&gt;= 0.55), and low (&lt;= 0.549). The averaged HDI for titles
-that mention multiple locations was very high on the HDI scale
-(<em>m</em> = 0.858; <em>mdn</em> = 0.867), indicating that nations with
-very high HDIs collaborate with nations that also have very high HDIs.
-However, the overall average HDI scores indicate that most nations or
-places named in article titles are nations or places with very high HDI
-scores (<em>m</em> = 0.814; <em>mdn</em> = 0.838).</p>
+to 1484 records (Table 1). If a place was part of a broader collective
+(e.g., Scotland or Puerto Rico), we chose the HDI for the broader
+political authority (i.e., the United Kingdom or the United States,
+respectively). The HDI includes region level values: when article titles
+referenced Africa, we used the HDI for “Sub-Saharan Africa”, or when
+article titles referenced Europe, we used the HDI for “Europe and
+Central Asia” (<em>n</em> = 154). When multiple place names appeared in
+the title (<em>n</em> = 94), we averaged the HDI scores. The UN
+classifies HDI scores into four categories: very high (&gt;= 0.8), high
+(&gt;= 0.7), medium (&gt;= 0.55), and low (&lt;= 0.549). The averaged
+HDI for titles that mention multiple locations was very high on the HDI
+scale (<em>m</em> = 0.858; <em>mdn</em> = 0.867), indicating that
+nations with very high HDIs collaborate with nations that also have very
+high HDIs. However, the overall average HDI scores indicate that most
+nations or places named in article titles are nations or places with
+very high HDI scores (<em>m</em> = 0.814; <em>mdn</em> = 0.838).</p>
+<table>
+<caption>Table 1. Top 20 Most Frequent Nations</caption>
+<thead>
+<tr class="header">
+<th align="left">nation</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">china</td>
+<td align="right">183</td>
+</tr>
+<tr class="even">
+<td align="left">spain</td>
+<td align="right">157</td>
+</tr>
+<tr class="odd">
+<td align="left">us</td>
+<td align="right">140</td>
+</tr>
+<tr class="even">
+<td align="left">eu</td>
+<td align="right">86</td>
+</tr>
+<tr class="odd">
+<td align="left">uk</td>
+<td align="right">65</td>
+</tr>
+<tr class="even">
+<td align="left">india</td>
+<td align="right">51</td>
+</tr>
+<tr class="odd">
+<td align="left">nigeria</td>
+<td align="right">40</td>
+</tr>
+<tr class="even">
+<td align="left">africa</td>
+<td align="right">38</td>
+</tr>
+<tr class="odd">
+<td align="left">australia</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td align="left">brazil</td>
+<td align="right">33</td>
+</tr>
+<tr class="odd">
+<td align="left">south africa</td>
+<td align="right">26</td>
+</tr>
+<tr class="even">
+<td align="left">canada</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">italy</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left">russia</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">korea</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="left">pakistan</td>
+<td align="right">17</td>
+</tr>
+<tr class="odd">
+<td align="left">germany</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">latin america</td>
+<td align="right">16</td>
+</tr>
+<tr class="odd">
+<td align="left">mexico</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="left">cuba</td>
+<td align="right">14</td>
+</tr>
+</tbody>
+</table>
 <p>Finally, we added SCImago Journal Rank (SJR) scores for each of the
 61 journal titles in the data set. We use the SJR to control for
 citation effects across articles. SJR scores ranged from 0.528 to 4.584
@@ -667,7 +765,8 @@ citations and position of place name in title.</div>
 </div>
 <p><strong>Sub-Hypothesis 2</strong>: We found no evidence to support
 our hypothesis that articles mentioning nations with a higher Human
-Development Index in their titles were cited more frequently. The
+Development Index in their titles were cited more frequently than
+articles mentioning name with a lower Human Development Index. The
 correlation between the HDI of a nation named or inferred in a title was
 neither significant nor strong (<em>rho</em> = 0.004; <em>p</em> =
 0.868).</p>
@@ -680,10 +779,12 @@ data. Specifically, our data shows that any relationship is likely due
 to random chance (<em>p</em> = 0.392).</p>
 <p><strong>Sub-Hypothesis 4:</strong> We hypothesized that journals that
 publish a high frequency of articles with geographical names in titles
-are journals that have lower impact scores. However, our data indicated
-a weak, negative correlation between the frequency with which a journal
-publishes articles with place names in titles and the journal’s impact
-score (<em>rho</em> = -0.19; <em>p</em> = 0.143) (Fig. 3).</p>
+are journals that have lower impact scores. We found some evidence that
+journals that publish more articles with place names are less likely to
+have higher SJR scores. However, our data indicated a weak, negative
+correlation between the frequency with which a journal publishes
+articles with place names in titles and the journal’s impact score
+(<em>rho</em> = -0.19; <em>p</em> = 0.143) (Fig. 3).</p>
 <div class="float">
 <img src="data:image/png;base64,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h2nTpnl7e3O+CAAAALCP4z34a9eubd269cMPP1y5cmVZWdnWrVu57R8AAAAcwfEefF5eXnJyclhYGCEkKSnp+vXr3PYPAAAAjuA4wXfr1q1bt27l5eXXr1/fv3//qFGjuO0fAAAAHMH9OXhCSGZm5rp162iajoqKYn1CdXV1VVUVtwulaVoikRQXF3PbravRNE1RFN9R1EdpaalEIuE7CufQNF1dXc13FM6hadpoNOp0Or4DcQ5N04L7MDJKSkr4DsFpNE1z/o3qasyHUavV8h2Iczxzw1Yqlf7+/rXbJTRNu2iRW7du/ffffxcsWFD7IYPBoNfruV2cVquVSCReXl7cdutqOp1OqVQKK1MajUatVqtSqaRSIV2FYTKZjEajQqHgOxDnVFVVyWQyIW7YgovZYDDodDpfX1++A3GO0Wg0mUxC3LDlcrlSqeQ7EOd45oYtlUpZo+J4D37Lli0BAQGPPPIIISQ+Pn779u2sT5PL5XI5x4umKEoqlapUKm67dTWDwaBSqYSV4CmK0mq13t7eMpmM71icYDAYKIoS3Bai1Wrlcrngwtbr9YKLWafT6XQ6b29vYX0e9Xo98zXCdyDOqa6uxobtahzvgYWFhf3555+3b9+urKzcvn17QkICt/0DAACAIzjeje7Vq1dubu7bb7+t0+natWs3ZcoUbvsHAAAAR3A/yG7EiBEjRozgvFsAAABwnJAGSQEAAICDkOABAABECAkeAABAhJDgAQAARAgJHgAAQISQ4AEAAEQICR4AAECEkOABAABECAkeAABAhJDgAQAARAgJHgAAQISQ4AEAAEQICR4AAECEkOABAABECAkeAABAhJDgAQAARAgJHgAAQISQ4AEAAEQICR4AAECEkOABAABECAkeAABAhJDgAQAARAgJHgAAQISQ4AEAAERIbuuB48eP7969OzQ0dNCgQS1atKisrDxx4kRJSUlxcfHKlSv/+ecfd0YJAAAATmFP8D///HNKSopSqfT29p49e/bGjRvHjh1bUFBACPH392/Tpo17gwQAAADnsB+if++995599tny8vLS0tI33njjiSeeaNeuXU5ODk3TarX66NGjbo4SAAAAnMKe4C9dujRp0iSlUkkImTJlitFonDp1arNmzdwbGwAAANQTe4LXarX+/v7M7YCAAEIIsjsAAICAYBQ9AACACCHBAwAAiJDN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" alt="Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal’s impact score" />
 <div class="figcaption">Fig. 3: There is a statistically weak
@@ -731,14 +832,14 @@ their titles would be cited less frequently than those without
 geographical names <span class="citation">(Abramo et al. 2016; Costello
 et al. 2019; Jacques and Sebire 2010; Moradi and Asnafi 2016; Paiva et
 al. 2012; Thelwall 2017)</span>. Like <span class="citation">Kou et al.
-(2018)</span>, we found evidence to support this hypothesis; however,
-although the difference was statistically significant, the effect size
-was minimal. Additionally, all sub-hypotheses mostly yielded
-non-significant results or showed weak relationships. These results
-indicated that the reasons behind this phenomenon are complex, poorly
-explained by variables examined in this study, or simply that the
-evidence that supports our main hypothesis is too weak because there is
-no relationship.</p>
+(2018)</span>, we found evidence to support this hypothesis that there
+is a preference for generality in article titles; however, although the
+difference was statistically significant, the effect size was minimal.
+Additionally, all sub-hypotheses mostly yielded non-significant results
+or showed weak relationships. These results indicated that the reasons
+behind this phenomenon are complex, poorly explained by variables
+examined in this study, or simply that the evidence that supports our
+main hypothesis is too weak because there is no relationship.</p>
 <p>Further research might explore other potential factors that influence
 citations to articles with place names. These factors may include the
 specific content of the articles, the information presented in the
@@ -759,7 +860,7 @@ reflection of the article’s relevance to that particular context. Thus,
 while including a geographical name might lead to a perceived loss of
 generality and thus less applicable to a broader audience, this
 disadvantage might be offset by the strength of importance of a study
-within a region. In a sense, all research is local, too.</p>
+within a region. In a sense, research is local.</p>
 <p>Although papers that reference country names in titles received fewer
 citations, we could find no relationship between the development level
 of a named country with the number of citations. We could also find no

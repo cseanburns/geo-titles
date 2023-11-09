@@ -32,6 +32,17 @@ titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
 titles$HDI <- round(titles$HDI, 3)
 ```
 
+```{r divide-data, include = FALSE, warning = FALSE}
+# data prep
+# subset of data that does not include titles with place names
+without_nations <- dplyr::filter(titles, is.na(nation))
+without_nations <- dplyr::select(without_nations, Citations, Publication, SJR)
+# subset of data that does includes titles with place names
+with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
+with_nations <- dplyr::select(with_nations, Citations, SJR, Publication, nation, HDI, HDI_Level,
+                              CountryRegionMulti, Averaged, places)
+```
+
 # Abstract
 
 This investigation explores
@@ -42,9 +53,10 @@ across a corpus of literature
 within the field of
 library and information science,
 spanning from 2018 to 2020,
-encompassing sixty-one journal titles.
+and encompassing sixty-one journal titles.
 We hypothesized that
 the presence of geographical names
+of nations
 in article titles
 would negatively correlate
 with citation frequency.
@@ -60,7 +72,7 @@ Contrary to our secondary hypothesis,
 a proximity analysis demonstrated a weak,
 positive correlation between
 the closeness of geographical names
-to the title end and citation frequency.
+to the title end and citation counts.
 Additionally, our examination found
 no evidence supporting differential
 citation frequency based
@@ -88,6 +100,9 @@ through geographical names,
 on scholarly communication and citation impact,
 indicating a slight preference
 for broader title phrasing in garnering citations.
+
+Keywords: Human Development Index, scholarly communication,
+scholarly writing, nation names, library and information science
 
 # Introduction
 
@@ -261,9 +276,9 @@ we propose the following hypotheses:
 * Main Hypothesis: Journal articles with geographical names in their titles are
   cited less frequently than those without geographical names.
     * Sub-Hypothesis 1: The closer a geographical name is to the end of the title, the fewer the citations the article would receive.
-    * Sub-Hypothesis 2: Articles that mention nations with a higher Human Development Index in their titles are cited more frequently.
+    * Sub-Hypothesis 2: Articles that mention nations with a higher Human Development Index in their titles are cited more frequently than articles that mention names with a lower Human Development Index.
     * Sub-Hypothesis 3: The impact of geographical names in titles on citation counts is moderated by the impact of the journal.
-    * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact.
+    * Sub-Hypothesis 4: Journals with a high frequency of articles with geographical names in titles have a lower impact compared to journals with a low frequency of articles with geographic names in article titles.
     * Sub-Hypothesis 5: Nations with lower HDIs will more likely appear toward the end of article titles than nations with higher HDIs.
     * Sub-Hypothesis 6: Journals may be more or less likely to publish articles that mention nations with higher or lower HDIs.
 
@@ -286,6 +301,8 @@ ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
 in these journals from 2018 to 2020 (Fig. 1).
+We limited our data to the three year time period
+in order to align with the Scimago journal ranking time frame.
 We retrieved `r n_total` article records across the 61 journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
@@ -378,7 +395,7 @@ that for political reasons do not have an HDI
 (e.g., Taiwan and North Korea).
 These were marked as NA in the HDI variable.
 This reduced titles with nation names and HDI scores to
-`r nations_no_HDIs` records.
+`r nations_no_HDIs` records (Table 1).
 If a place was part of a broader collective
 (e.g., Scotland or Puerto Rico),
 we chose the HDI for the broader political authority
@@ -405,6 +422,14 @@ indicate that most nations or places
 named in article titles are nations or
 places with very high HDI scores
 (*m* = `r mean_HDI`; *mdn* = `r median_HDI`).
+
+```{r nations-table, echo = FALSE, results = 'asis'}
+nation_freq_table <- with_nations %>%
+  count(nation, sort = TRUE) %>%
+  arrange(desc(n)) %>%
+  head(20)
+knitr::kable(nation_freq_table, caption = "Table 1. Top 20 Most Frequent Nations")
+```
 
 Finally, we added SCImago Journal Rank (SJR) scores
 for each of the 61 journal titles in the data set.
@@ -447,16 +472,6 @@ to associate this effect in any
 of our additional hypotheses.
 We present the results below.
 
-```{r divide-data, include = FALSE, warning = FALSE}
-# data prep
-# subset of data that does not include titles with place names
-without_nations <- dplyr::filter(titles, is.na(nation))
-without_nations <- dplyr::select(without_nations, Citations, Publication, SJR)
-# subset of data that does includes titles with place names
-with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
-with_nations <- dplyr::select(with_nations, Citations, SJR, Publication, nation, HDI, HDI_Level,
-                              CountryRegionMulti, Averaged, places)
-```
 
 ## Hypotheses
 
@@ -522,7 +537,8 @@ cit2HDI <- cor.test(with_nations$Citations,
 **Sub-Hypothesis 2**: We found no evidence to support
 our hypothesis that articles mentioning nations with a higher
 Human Development Index in their titles
-were cited more frequently.
+were cited more frequently than articles mentioning name
+with a lower Human Development Index.
 The correlation between the HDI of a nation
 named or inferred in a title was neither significant nor strong
 (*rho* = `r round(cit2HDI$estimate, 3)`;
@@ -572,6 +588,9 @@ places2SJR <- cor.test(journal_summary$proportion_with_places,
 journals that publish a high frequency of articles
 with geographical names in titles
 are journals that have lower impact scores.
+We found some evidence that journals that publish
+more articles with place names are less likely
+to have higher SJR scores.
 However, our data indicated a weak, negative correlation
 between the frequency with which a journal publishes
 articles with place names in titles and
