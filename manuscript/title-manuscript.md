@@ -5,8 +5,8 @@ output:
   html_document:
     theme: cerulean
     keep_md: yes
-  pdf_document: default
   word_document: default
+  pdf_document: default
 params:
   dataset: titles
 editor_options:
@@ -475,7 +475,11 @@ the more citations it received.
 However, the correlation
 although significant was weak (Fig. 2).
 
-![Fig. 2: There is a weak relationship between citations and position of place name in title.](title-manuscript_files/figure-html/fig-2-1.png)
+
+```
+## png 
+##   2
+```
 
 
 
@@ -518,7 +522,11 @@ the journal's impact score
 (*rho* = -0.19;
 *p* = 0.143) (Fig. 3).
 
-![Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score](title-manuscript_files/figure-html/fig-3-1.png)
+
+```
+## png 
+##   2
+```
 
 
 
@@ -541,7 +549,11 @@ Although our data suggests that different nations
 appear in different average positions in titles,
 this does not appear to be due to the nation's HDI score.
 
-![Fig. 4: The relationship between average location of nation named in article title and HDI. Only nations appearing in at least ten articles are displayed (n = 26).](title-manuscript_files/figure-html/fig-4-1.png)
+
+```
+## png 
+##   2
+```
 
 
 
@@ -557,7 +569,11 @@ the HDIs of the named nations
 (*rho* = 0.119;
 *p* = 0.387) (Fig. 5).
 
-![Fig. 5: We found no statistically significant relationship between SJR and HDI of nations mentioned in article titles](title-manuscript_files/figure-html/fig-5-1.png)
+
+```
+## png 
+##   2
+```
 
 # Discussion
 
@@ -645,5 +661,9 @@ to support the present result that we got from this study.
 The results could be different with a longer citation window.
 We also did not control for other factors,
 such if a title contains a colon, a question, or humor.
+
+Conflicts of Interest: The authors have no relevant financial or non-financial interests to disclose. No funding was received for this work.
+
+
 
 # References
