@@ -3,10 +3,10 @@ title: "A citation analysis examining geographical specificity in article titles
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
   word_document: default
-  pdf_document: default
   html_document:
     theme: cerulean
     keep_md: yes
+  pdf_document: default
 params:
   dataset: titles
 editor_options:
@@ -521,14 +521,14 @@ However, the correlation
 although significant was weak (Fig. 2).
 
 ```{r fig-2, fig.cap = "Fig. 2: There is a weak relationship between citations and position of place name in title.", echo = FALSE}
-tiff("title-manuscript_files/figure-html/fig2.tif",
-     width = 3840, height = 2160, pointsize = 12, res = 300)
+#tiff("title-manuscript_files/figure-html/fig2.tif",
+#    width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(with_nations, aes(x = places, y = Citations)) +
   geom_point() + theme_light() +
   scale_color_grey() +
   xlab("Place Position in Titles") +
   ylab("Citations")
-dev.off()
+#dev.off()
 ```
 
 ```{r sub-hypo-2, include=FALSE}
@@ -602,15 +602,15 @@ the journal's impact score
 *p* = `r round(places2SJR$p.value, 3)`) (Fig. 3).
 
 ```{r fig-3, fig.cap = "Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score", echo = FALSE, message = FALSE}
-tiff("title-manuscript_files/figure-html/fig3.tif",
-     width = 3840, height = 2160, pointsize = 12, res = 300)
+#tiff("title-manuscript_files/figure-html/fig3.tif",
+#    width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(journal_summary, aes(x = proportion_with_places, y = SJR)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   theme_minimal() +
   xlab("Proportion of Articles with Place Names Per Journal") +
   ylab("SJR")
-dev.off()
+#dev.off()
 ```
 
 ```{r sub-hypo-5, include=FALSE}
@@ -652,8 +652,8 @@ appear in different average positions in titles,
 this does not appear to be due to the nation's HDI score.
 
 ```{r fig-4, fig.cap = "Fig. 4: The relationship between average location of nation named in article title and HDI. Only nations appearing in at least ten articles are displayed (n = 26).", echo = FALSE}
-tiff("title-manuscript_files/figure-html/fig4.tif",
-     width = 3840, height = 2160, pointsize = 12, res = 300)
+#tiff("title-manuscript_files/figure-html/fig4.tif",
+#    width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(nation_summary, aes(x=avg_position, y=HDI)) +
   geom_point(aes(color=nation), alpha=0.7) +
   geom_text(aes(label=nation), vjust=-1, hjust=1, size=3, check_overlap = TRUE) + 
@@ -662,7 +662,7 @@ ggplot(nation_summary, aes(x=avg_position, y=HDI)) +
        y="HDI") +
   theme_minimal() +
   theme(legend.position = "none")
-dev.off()
+#dev.off()
 ```
 
 ```{r sub-hypo-6, include=FALSE}
@@ -696,8 +696,8 @@ the HDIs of the named nations
 *p* = `r round(HDI2journals$p.value, 3)`) (Fig. 5).
 
 ```{r fig-5, fig.cap = "Fig. 5: We found no statistically significant relationship between SJR and HDI of nations mentioned in article titles", echo = FALSE, message = FALSE, warning = FALSE}
-tiff("title-manuscript_files/figure-html/fig5.tif",
-     width = 3840, height = 2160, pointsize = 12, res = 300)
+#tiff("title-manuscript_files/figure-html/fig5.tif",
+#    width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(journal_hdi_summary, aes(x = SJR,
                                 y = HDI)) +
   geom_point(aes(size = total_articles_with_places)) +
@@ -707,7 +707,7 @@ ggplot(journal_hdi_summary, aes(x = SJR,
   ylab("HDI of Mentioned Nations") +
   theme_minimal() +
   theme(legend.position="bottom")
-dev.off()
+#dev.off()
 ```
 
 # Discussion
