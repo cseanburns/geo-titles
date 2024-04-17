@@ -2,11 +2,11 @@
 title: "A citation analysis examining geographical specificity in article titles"
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
-  word_document: default
+  pdf_document: default
   html_document:
     theme: cerulean
     keep_md: yes
-  pdf_document: default
+  word_document: default
 params:
   dataset: titles
 editor_options:
@@ -313,6 +313,17 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ( PUBYEAR ,  2018 ) )  AND  ( LIMIT-TO ( DOCTYPE ,  "ar" ) )
 ```
 <figcaption>*Fig. 1: Example Scopus query to retrieve bibliographic records from one journal.*</figcaption>
+
+While the bibliographic records are primarily in English,
+some titles contained translations from other languages:
+Bosnian (*n* = 19), Croatian (*n* = 3),
+Portuguese (*n* = 1), and Spanish (*n* = 300).
+To reduce the duplication of titles,
+we kept the English translations and
+removed the titles that were written
+in the original language.
+We kept some titles written in Spanish
+since there were no translations for these titles (*n* = 7).
 
 We combined and imported the bibliographic records into R
 using the bibliometrix package [@aria_bibliometrix_2017].
