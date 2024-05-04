@@ -6,6 +6,45 @@ Burns, C.S., & Islam, M.A. (*Under review*). A citation analysis examining geogr
 
 ## Data notes
 
+### Date: 2024-05-04
+
+* removed all article title translations from **lisjournals.bib** (the original Scopus *bib* file)
+    - saved this as **lisJournals_no_translations.bib**
+    - used **lisJournals_no_translations.bib** as the main data file
+- imported the above **bib** file into R using the `bibliometrix` R package
+- created `titles` dataframe using only the following variables:
+    - TC = times cited
+    - TI = article title
+    - SO = publication title
+- replaced Spacy Python code with Spacy R code using the `spacyr` package 
+- used R and `spacyr` to:
+    - calculate the number of characters in article titles
+    - identify geopolitical entities in article titles
+    - identify the character position of first geopolitical entity (GPE) in article titles
+    - calculate the GPE character positions out of the total characters in article titles
+    - exported the `titles` dataframe to a CSV file
+- used LibreOffice Calc to manually scan the `titles` CSV file.
+    - GPEs identified by `spacyr` were inconsistent but kept in the vector named `token`
+    - Created a vector called `False_Positive`
+    - Created a vector called `GPE` to label the correct geopolitical entity
+- `spacyr` created duplicate entries when titles contained more than one GPE
+    - identified and removed duplicated entries
+    - kept entry where GPE first appeared since this effects the character position of the GPE in the title
+    - removed data for `pos` and `prop` for records that were false positives
+- the `titles_has_country` vector:
+    - reversed TRUE and FALSE
+    - TRUE = 1
+    - FALSE = 0
+- removed chemical journals
+    - journal of chemical information and modeling
+    - journal of cheminformatics
+- country, HDI notes
+    - id 5813 included Jordan and Gaza. We just included HDI information for Jordan
+    - Used Albania HDI for Kosovo
+    - For Taiwan, used .926 https://en.wikipedia.org/wiki/List_of_administrative_divisions_of_Greater_China_by_Human_Development_Index
+    - For Aruba, used https://en.populationdata.net/rankings/hdi/americas/
+    - For title containing North Korea and China, we used China HDI
+
 ### Date: 2023-02-24
 
 1. Added 2021 SJR metric for all titles. Using this as a

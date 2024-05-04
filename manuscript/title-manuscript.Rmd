@@ -28,7 +28,7 @@ library(ggridges)
 library(rbbt)
 
 # Import data
-titles <- read.csv("~/workspace/geo-titles/data/titlesMain.csv")
+titles <- read.csv("~/workspace/geo-titles/data/titles.csv", header = TRUE, sep = ",")
 titles$HDI <- round(titles$HDI, 3)
 ```
 
