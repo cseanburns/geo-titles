@@ -29,18 +29,18 @@ library(rbbt)
 
 # Import data
 titles <- read.csv("~/workspace/geo-titles/data/titles.csv", header = TRUE, sep = ",")
-titles$HDI <- round(titles$HDI, 3)
 ```
 
 ```{r divide-data, include = FALSE, warning = FALSE}
 # data prep
 # subset of data that does not include titles with place names
-without_nations <- dplyr::filter(titles, is.na(nation))
-without_nations <- dplyr::select(without_nations, Citations, Publication, SJR)
+without_nations <- dplyr::filter(titles, titles_has_country == 0)
+without_nations <- dplyr::select(without_nations, Citations, Journals, SJR)
 # subset of data that does includes titles with place names
-with_nations <- dplyr::filter(titles, nation != "NA" & HDI != "NA")
-with_nations <- dplyr::select(with_nations, Citations, SJR, Publication, nation, HDI, HDI_Level,
-                              CountryRegionMulti, Averaged, places)
+with_nations <- dplyr::filter(titles, titles_has_country == 1 & HDI != "NA")
+with_nations <- dplyr::select(with_nations, Citations, Journals, GPE,
+                              HDI, HDI_Level, CountryRegionMulti,
+                              Averaged, pos, prop)
 ```
 
 # Abstract
@@ -125,7 +125,11 @@ The necessity to promote academic papers,
 to express disciplinary identity,
 to provide information,
 and other factors leads to various naming conventions,
-such as the use of colons in titles.
+such as
+using colons in titles,
+writing succinct titles, or
+writing compound titles.
+Naming conventions can be informative.
 Titles with colons (compound titles) are less succinct and potentially more informative.
 They move from making general statements (left of colon)
 to specific statements (right of colon).
@@ -142,8 +146,9 @@ longer titles receive more citations ("the informative effect")
 than succinct titles ("the succinct effect"),
 but this is only true after the year 2000.
 @guo_succinct_2018 attributes this to the rise of online searching,
-where retrieval technology is based on relevance algorithms
-that index keywords in various bibliographic fields.
+where retrieval technology based on relevance algorithms
+begins to dominate searching
+index keywords in various bibliographic fields.
 @li_evolution_2019 found that title length started to increase during this time frame,
 but defined title informativeness not solely based on word count
 but on the proportion of content words
@@ -157,7 +162,7 @@ obscure, or non-normative in some way
 If a title poorly captures the information about the content of a paper,
 then papers may be overlooked by searchers
 even if the papers are relevant to them.
-Alternatively, if title information is framed in such a way as to seem non-applicable,
+Alternatively, if title information appears non-applicable,
 even if the paper is relevant to a searcher,
 then such papers may be overlooked.
 For example, papers with titles that ask questions
@@ -233,28 +238,22 @@ and that
 "studies of Western countries are significantly more likely
 to lack mention of the studied countries not only in titles,
 but also throughout the text of the papers" [@kou_politics_2018, p. 2].
-Their findings also revelaed that
+Their findings also revealed that
 when country names were added to titles,
 they were often added at the end of a title,
 which suggested weak
 "semantic connections between the preceding ideas in the titles and the countries" (p. 8).
 Overall, their study suggests a geographical bias in the CHI literature
 to normalize findings based on Western populations and
-to exoticize findings based on non-Western populations.
-These findings, however,
-could be the result of researchers at or from
-Western nations conducting research on
-non-western populations, and
-may say little about how researchers
-use place names in titles when
-studying populations within their own nations.
+to make exotic those findings based on non-Western populations.
 
 Like @kou_politics_2018,
 our interest lies in
 examining the context in
 how authors use geographic names in titles.
 However, @kou_politics_2018 apply a simple binary classification
-of countries into Western and non-Western countries based on work by @huntington_clash_2011.
+of countries into Western and non-Western countries
+based on work by @huntington_clash_2011.
 @burns_language_2017 use the
 Human Development Index (HDI)
 [@united_nations_human_2023],
@@ -286,8 +285,8 @@ we propose the following hypotheses:
 
 ```{r count_data, include = FALSE, warning = FALSE}
 n_total <- titles %>% dplyr::select(Citations) %>% summarize(count = n())
-n_nations <- titles %>% dplyr::select(nation) %>%
-  dplyr::filter(!is.na(nation)) %>% summarize(count = n())
+n_nations <- titles %>% dplyr::select(GPE) %>%
+  dplyr::filter(!is.na(GPE)) %>% summarize(count = n())
 n_nations_per <- round((n_nations / n_total) * 100, 2)
 ```
 
@@ -296,14 +295,20 @@ library and information science (LIS) journals,
 as broadly categorized and listed by
 Scimago's Scientific Journal Ranking (SJR) and
 the Scimago Journal and Country Rank (2021) data.
-We limited our set of articles to the 61 journals
-ranked in the first quartile (Q1) of the LIS category.
+We limited our set of articles to journals
+ranked in the first quartile (Q1) of the LIS category, but
+removed two chemistry heavy journals
+(*Journal of Chemical Information and Modeling* and
+*Journal of Cheminformatics*),
+resulting in `r length(unique(titles$Journals))`
+unique journal titles.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
 in these journals from 2018 to 2020 (Fig. 1).
 We limited our data to the three year time period
 in order to align with the Scimago journal ranking time frame.
-We retrieved `r n_total` article records across the 61 journals.
+We retrieved `r n_total` article records
+across the `r length(unique(titles$Journals))` journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
 
@@ -316,21 +321,20 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 
 While the bibliographic records are primarily in English,
 some titles contained translations from other languages:
-Bosnian (*n* = 19), Croatian (*n* = 3),
-Portuguese (*n* = 1), and Spanish (*n* = 300).
+Bosnian, Croatian, Portuguese, and Spanish.
 To reduce the duplication of titles,
 we kept the English translations and
 removed the titles that were written
 in the original language.
 We kept some titles written in Spanish
-since there were no translations for these titles (*n* = 7).
+since there were no translations for these titles.
 
 We combined and imported the bibliographic records into R
 using the bibliometrix package [@aria_bibliometrix_2017].
-We used the Python *spaCy*
+We used the R *spacyr*
 natural language processing library
 to identify country names from article titles
-[@honnibal_spacy_2022].
+[@benoit2023; @honnibal_spacy_2022].
 We manually reviewed and revised the data after locating
 false positives or negatives.
 This resulted in  `r n_nations` (`r n_nations_per`%)
@@ -343,39 +347,53 @@ a life expectancy index, an education index, and
 GINI index for measuring income inequality.
 
 ```{r no_HDIs, include = FALSE, warning = FALSE}
-no_HDIs <- titles %>% dplyr::select(nation, HDI) %>%
-  dplyr::filter(!is.na(nation)) %>%
-  dplyr::filter(is.na(HDI)) %>%
-  summarize(count = n())
+no_HDIs <- titles %>% dplyr::select(GPE, HDI) %>%
+  dplyr::filter(!is.na(GPE)) %>%
+  dplyr::filter(!is.na(HDI)) %>%
+  dplyr::summarize(count = n())
+
 nations_no_HDIs <- n_nations - no_HDIs 
+
 averaged_HDIs <- titles %>% dplyr::select(Averaged) %>%
-  dplyr::filter(grepl('Y', Averaged)) %>% summarize(count = n())
+  dplyr::filter(grepl('Y', Averaged)) %>%
+  dplyr::summarize(count = n())
+
 mean_HDI <- titles %>% dplyr::select(HDI) %>%
-  summarize(mean = mean(HDI, na.rm=TRUE)) %>% round(3)
+  dplyr::summarize(mean = mean(HDI, na.rm=TRUE)) %>%
+  round(3)
+
 median_HDI <- titles %>% dplyr::select(HDI) %>%
-  summarize(mean = median(HDI, na.rm=TRUE)) %>% round(3)
+  dplyr::summarize(median = median(HDI, na.rm=TRUE)) %>%
+  round(3)
+
 regions <- titles %>% dplyr::select(CountryRegionMulti) %>%
   dplyr::filter(grepl('R', CountryRegionMulti)) %>%
-  summarize(count = n())
+  dplyr::summarize(count = n())
+
 countries <- titles %>% dplyr::select(CountryRegionMulti) %>%
   dplyr::filter(grepl('C', CountryRegionMulti)) %>%
-  summarize(count = n())
+  dplyr::summarize(count = n())
+
 multi_nations <- titles %>% dplyr::select(CountryRegionMulti) %>%
   dplyr::filter(grepl('M', CountryRegionMulti)) %>%
-  summarize(count = n())
+  dplyr::summarize(count = n())
+
 multi_HDI_mean <- titles %>% dplyr::select(HDI, CountryRegionMulti) %>%
   dplyr::filter(grepl('M', CountryRegionMulti)) %>%
-  summarize(mean(HDI, na.rm = TRUE)) %>% round(3)
+  dplyr::summarize(mean(HDI, na.rm = TRUE)) %>% round(3)
+
 multi_HDI_median <- titles %>% dplyr::select(HDI, CountryRegionMulti) %>%
   dplyr::filter(grepl('M', CountryRegionMulti)) %>%
   summarize(median(HDI, na.rm = TRUE)) %>% round(3)
-sjr_unique_mean <- titles %>% dplyr::select(SJR, Publication) %>%
+
+sjr_unique_mean <- titles %>% dplyr::select(SJR, Journals) %>%
   unique() %>% dplyr::summarize(mean(SJR, na.rm = TRUE)) %>% round(3)
-srj_unique_median <- titles %>% dplyr::select(SJR, Publication) %>%
+
+sjr_unique_median <- titles %>% dplyr::select(SJR, Journals) %>%
   unique() %>% dplyr::summarize(median(SJR, na.rm = TRUE)) %>% round(3)
 ```
 
-The Python *spaCy* library identified
+The *spaCy* library identified
 country names from constituent locales,
 such as specific states in the U.S.
 Thus, if an article title mentioned a place like "Alaska",
@@ -386,24 +404,25 @@ Therefore, when titles included place name variations,
 we referred to the canonical name for
 the nation referenced or inferred in the title.
 
-We were interested in the location of
+We were interested in the character position of
 the place name in each article title.
-We wrote a Python script,
-calling the *spaCy* natural processing library,
-to detect the position of the nation names in article titles.
-We manually reviewed all titles to address false positives and negatives.
-The position of places in article titles was scored on a scale of 0 to 1.0,
-with nations appearing as the last word in a title
-receiving a score approaching 1.0.
-Titles that did not contain a reference
-to a geographical region scored a zero.
-In cases where multiple countries were named in the title,
-the score was based on the first instance.
+We used R to count the total number of characters
+in each title, and
+the total number of characters up to the
+first character of the place name in the title..
+If a title had multiple place names, then
+we counted up to the character of the first place name.
+We calculated the proportion
+of the first character out of the total characters.
+Titles with place names near the beginning of a title
+contained scores closer to zero,
+whereas titles with place names near the end of a title
+contained scores closer to one.
 
 Most places named in titles matched names in the HDI.
 However, some articles had titles with nation names
 that for political reasons do not have an HDI
-(e.g., Taiwan and North Korea).
+(e.g., North Korea).
 These were marked as NA in the HDI variable.
 This reduced titles with nation names and HDI scores to
 `r nations_no_HDIs` records (Table 1).
@@ -436,22 +455,27 @@ places with very high HDI scores
 
 ```{r nations-table, echo = FALSE, results = 'asis'}
 nation_freq_table <- with_nations %>%
-  count(nation, sort = TRUE) %>%
+  count(GPE, sort = TRUE) %>%
   arrange(desc(n)) %>%
   head(20)
 knitr::kable(nation_freq_table, caption = "Table 1. Top 20 Most Frequent Nations")
 ```
 
 Finally, we added SCImago Journal Rank (SJR) scores
-for each of the 61 journal titles in the data set.
+for each of the
+`r length(unique(titles$Journals))`
+journal titles in the data set.
 We use the SJR to control for citation effects across articles.
 SJR scores ranged from
 `r min(titles$SJR)` to `r max(titles$SJR)`
 for the publication titles in the data.
 A SJR score below 1.0 indicates below
 average citations compared to all journals in *Scopus*.
-The average SJR in the data was above average
-(*m* = `r round(mean(titles$SJR),3)`; *mdn* = `r round(median(titles$SJR),3)`).
+The mean SJR in the data was above average
+(*m* = `r round(mean(titles$SJR),3)`),
+but the median was lower,
+indicating a skewed distribution of scores
+(*mdn* = `r round(median(titles$SJR),3)`).
 However, after deduplicating publication titles and
 counting only unique journal titles,
 the average SJR in the data was lower
@@ -459,6 +483,11 @@ the average SJR in the data was lower
 indicating publication titles with
 higher SJR scores appear more
 frequently in the data.
+
+We used spaCy 
+We manually reviewed all titles and 
+identified 54 titles where spaCy labeled a titled
+as containing a place name.
 
 All code can be reviewed on the first author's GitHub:
 [https://github.com/cseanburns/geo-titles](https://github.com/cseanburns/geo-titles)
