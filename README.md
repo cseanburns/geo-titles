@@ -35,9 +35,12 @@ Burns, C.S., & Islam, M.A. (*Under review*). A citation analysis examining geogr
     - reversed TRUE and FALSE
     - TRUE = 1
     - FALSE = 0
-- removed chemical journals
+- removed journals that were mostly outside the social sciences
     - journal of chemical information and modeling
     - journal of cheminformatics
+    - ieee transactions on information theory
+    - journal of classification
+    - scientific data 
 - country, HDI notes
     - id 5813 included Jordan and Gaza. We just included HDI information for Jordan
     - Used Albania HDI for Kosovo
