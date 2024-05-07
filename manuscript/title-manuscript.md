@@ -2,10 +2,10 @@
 title: "A citation analysis examining geographical specificity in article titles"
 author: "C. Sean Burns, Md. Anwarul Islam"
 output:
+  pdf_document: default
   html_document:
     theme: cerulean
     keep_md: yes
-  pdf_document: default
   word_document: default
 params:
   dataset: titles
@@ -85,10 +85,13 @@ scholarly writing, nation names, library and information science
 
 # Introduction
 
-A well-crafted article title informs and can serve to attract readers.
-Authors must write titles that succinctly capture the central theme of their paper.
+A well-crafted article title informs and
+can serve to attract readers.
+Authors must write titles that succinctly
+capture the central theme of their paper.
 Since titles function within the knowledge creation process,
-titles reflect disciplinary identity and expectations [@milojevic_length_2017].
+titles reflect disciplinary identity and expectations
+[@milojevic_length_2017].
 In some disciplines,
 like math,
 titles focus on succinctness.
@@ -98,56 +101,73 @@ titles stress informativeness.
 In the medical sciences,
 the use of questions in titles has increased substantially since the 1960s,
 showing also geographical trends,
-representing perhaps institutional pressures to publish faster [@ball2009].
+representing perhaps institutional pressures to publish faster
+[@ball2009].
 
 The necessity to promote academic papers,
 to express disciplinary identity,
 to provide information,
 and other factors leads to various naming conventions,
-such as the use of colons in titles.
-Titles with colons (compound titles) are less succinct and potentially more informative.
+such as
+using colons in titles,
+writing succinct titles, or
+writing compound titles.
+Naming conventions can be informative.
+Titles with colons (compound titles) are
+less succinct and potentially more informative.
 They move from making general statements (left of colon)
 to specific statements (right of colon).
 The specificity ranges from descriptive to declarative statements.
 Succinct titles may focus on providing topical information.
 Compound titles may add information about the method,
-research design, results, or conclusion of a study [@li_evolution_2019].
+research design, results, or conclusion of a study
+[@li_evolution_2019].
 
-Title informativeness can be helpful when searching literature for a topic.
-The informativeness of a title can be a function of the words
+Title informativeness can be helpful
+when searching literature for a topic.
+The informativeness of a title can
+be a function of the words
 it contains and its length or word count.
 In the economics literature,
 longer titles receive more citations ("the informative effect")
 than succinct titles ("the succinct effect"),
 but this is only true after the year 2000.
-@guo_succinct_2018 attributes this to the rise of online searching,
-where retrieval technology is based on relevance algorithms
-that index keywords in various bibliographic fields.
-@li_evolution_2019 found that title length started to increase during this time frame,
+@guo_succinct_2018 attributes this
+to the rise of online searching,
+where retrieval technology
+based on relevance algorithms
+begins to replace searching by
+keyword in various bibliographic fields.
+@li_evolution_2019 found that title length
+started to increase during this time frame,
 but defined title informativeness not solely based on word count
 but on the proportion of content words
 (e.g., nouns, verbs, adverbs) to function words
 (e.g., pronouns, prepositions, conjunctions).
-Titles with a higher ratio of content words are more informative.
-This may be complicated though if function words are overly specific,
+Titles with a higher ratio of
+content words are more informative.
+This may be complicated though
+if function words are overly specific,
 obscure, or non-normative in some way
 [@fox_relationship_2015; @thelwall_avoiding_2017].
 
-If a title poorly captures the information about the content of a paper,
+If a title poorly captures the
+information about the content of a paper,
 then papers may be overlooked by searchers
 even if the papers are relevant to them.
-Alternatively, if title information is framed in such a way as to seem non-applicable,
+Alternatively, if title information appears non-applicable,
 even if the paper is relevant to a searcher,
 then such papers may be overlooked.
 For example, papers with titles that ask questions
-have been shown to receive more downloads but fewer citations
-than papers with other title types [@jamali_article_2011; @paiva_articles_2012].
-This suggests that the information captured by
-a question-type title is trendy, not informative, or
-that the authors are less certain of the findings.
-However, a disciplinary effect exists.
+have been shown to receive
+more downloads but fewer citations
+than papers with other title types
+[@jamali_article_2011; @paiva_articles_2012].
+This suggests that the informativeness of
+a question-type title is not substantial.
+However, disciplinary effects exist.
 Papers with titles that ask questions are cited more
-in the computer science literature [@fiala_are_2021]
+in the computer science literature [@fiala_are_2021],
 but no citation effects were found for question-type
 titles in an ecology journal [@fox_relationship_2015].
 
@@ -160,7 +180,8 @@ These are titles that describe the topic and the method or design,
 titles that describe the topic and the results, and
 titles that describe the topic and the conclusion of a study.
 Additionally, some authors add geographical names to compound titles,
-which may not add key semantic information about a paper's topic [@kou_politics_2018].
+which may not add key semantic information
+about a paper's topic [@kou_politics_2018].
 Studies have shown that papers with titles
 that contain certain types of highly specific or obscure content,
 like genus or species information [@fox_relationship_2015],
@@ -171,8 +192,8 @@ receive fewer citations
 The common explanation is that this kind of taxonomic or geographic specificity
 is extraneous to the study, and
 that it reduces the generality and
-thus the appeal of the results reported in these papers to searchers or
-potential audiences [@fox_relationship_2015; @thelwall_avoiding_2017].
+the appeal of the results
+[@fox_relationship_2015; @thelwall_avoiding_2017].
 However, pointing to more disciplinary differences,
 specificity might be appreciated in some disciplines,
 like entomology,
@@ -183,7 +204,8 @@ have been shown to have greater impact [@murphy_does_2019].
 [@fox_relationship_2015; @thelwall_avoiding_2017]
 have reasoned that overly specific terms or words in titles,
 especially those naming geographic entities,
-tend to receive fewer citations because searchers reviewing these titles do not
+tend to receive fewer citations
+because searchers reviewing these titles do not
 find them relevant even if the topic is relevant.
 @abramo_effect_2016 suggested,
 for papers with geographical names in titles, that
@@ -194,9 +216,8 @@ would be influenced by country-specific traits,
 and therefore be difficult to generalize" (p. 13).
 However, papers without specific geographical names in the titles
 might still be limited to specific geographical areas,
-and this raises questions not only about why some authors
-include geographical information in titles
-but also why some authors do not.
+and this raises questions about why authors
+decide to include geographical information in titles.
 
 There is compelling evidence that
 the use of geographic names
@@ -204,44 +225,39 @@ in article titles
 reveals potential biases
 in the representation of Western and non-Western
 populations in the CHI Conference Proceedings.
-Specifically,
-@kou_politics_2018 found that
+Specifically, @kou_politics_2018 found that
 "studies conducted with non-Western populations are significantly
 more likely to highlight study contexts in titles and throughout the text,"
 and that
 "studies of Western countries are significantly more likely
 to lack mention of the studied countries not only in titles,
 but also throughout the text of the papers" [@kou_politics_2018, p. 2].
-Their findings also revelaed that
+Their findings revealed that
 when country names were added to titles,
-they were often added at the end of a title,
-which suggested weak
+they were often added at the end of a title.
+To them this suggested weak
 "semantic connections between the preceding ideas in the titles and the countries" (p. 8).
 Overall, their study suggests a geographical bias in the CHI literature
 to normalize findings based on Western populations and
-to exoticize findings based on non-Western populations.
-These findings, however,
-could be the result of researchers at or from
-Western nations conducting research on
-non-western populations, and
-may say little about how researchers
-use place names in titles when
-studying populations within their own nations.
+to make exotic those findings based on non-Western populations.
 
 Like @kou_politics_2018,
 our interest lies in
 examining the context in
 how authors use geographic names in titles.
 However, @kou_politics_2018 apply a simple binary classification
-of countries into Western and non-Western countries based on work by @huntington_clash_2011.
+of countries into Western and non-Western countries
+based on work by @huntington_clash_2011.
 @burns_language_2017 use the
 Human Development Index (HDI)
 [@united_nations_human_2023],
 a compound index that measures a nation's level of
 health, education, and standard of living,
-in order to identify more nuanced patterns
-in how countries are named in paper titles.
-Based on this, we ask the following questions
+in order to identify more nuanced patterns,
+to identify language and geographical bias
+in the peer review process.
+We follow @burns_language_2017 in using
+the HDI to ask the following questions
 for the current study:
 
 RQ: Does the inclusion of geographical names in the titles
@@ -270,14 +286,15 @@ library and information science (LIS) journals,
 as broadly categorized and listed by
 Scimago's Scientific Journal Ranking (SJR) and
 the Scimago Journal and Country Rank (2021) data.
-We limited our set of articles to the 61 journals
+We limited our set of articles to journals
 ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
 in these journals from 2018 to 2020 (Fig. 1).
 We limited our data to the three year time period
 in order to align with the Scimago journal ranking time frame.
-We retrieved 13145 article records across the 61 journals.
+We retrieved 10032 article records
+across the 56 journals.
 For example, our Scopus query for the journal
 *International Journal of Information Management* was:
 
@@ -288,67 +305,109 @@ LIMIT-TO ( PUBYEAR ,  2020 )  OR  LIMIT-TO ( PUBYEAR ,  2019 )  OR  LIMIT-TO
 ```
 <figcaption>*Fig. 1: Example Scopus query to retrieve bibliographic records from one journal.*</figcaption>
 
+We wanted to focus on journals that
+publish papers with social science perspective.
+After reviewing the data,
+we therefore removed two chemistry journals
+(*Journal of Chemical Information and Modeling* and
+*Journal of Cheminformatics*) and
+two computer science journals
+(*IEEE Transactions on Information Theory* and
+*Journal of Classification*).
+This resulted in 56
+unique journal titles.
+
+The bibliographic records are in English,
+but some titles were written in other languages
+(e.g., Bosnian, Croatian, Portuguese, and Spanish).
+To reduce the duplication of titles,
+we used only the English translations of these
+titles if there was one.
+
 We combined and imported the bibliographic records into R
 using the bibliometrix package [@aria_bibliometrix_2017].
-We used the Python *spaCy*
+We used the R *spacyr*
 natural language processing library
-to identify country names from article titles
-[@honnibal_spacy_2022].
+to identify place name in article titles
+[@benoit2023; @honnibal_spacy_2022].
+The code parsed titles line by line, and
+if it detected a geopolitical entity,
+such as a country, state, or city,
+it would store that entity as a new record.
+If an article title mentioned a university, city, state, province, or like,
+we would use the nation of that place.
+For example, if an article title contained the name 'Alaska' and
+kept 'alaska' as the token,
+then we used 'United States' for the nation and HDI variables.
+Alternatively, if a title included a term like "american",
+the *spacy* library was sometimes able
+to reference this as the *United States* or as 'us'.
+Therefore, when titles included place name variations,
+or locales within nations,
+we referred to the canonical name for
+the nation referenced or inferred in the title.
+
 We manually reviewed and revised the data after locating
 false positives or negatives.
-This resulted in  1493 (11.36%)
+This resulted in 1288 (12.84%)
 article titles with place names.
+In total, we identified 46 false positives,
+where spaCy falsely labeled a title as containing a place name.
+Most false positives were singular, but
+three appeared more than once:
+**smart** (as in 'smart city') appeared 11 times,
+**lgbt** appeared four times, and
+**node** appeared twice.
+We identified 578 false negatives,
+where spaCy missed labeling a
+title as containing a place name.
+However, in many cases, this effect may be
+the result of place names having multiple usages,
+such describing a place versus describing something else:
+'spanish cities' versus 'spanish language'. 
+We removed place names in the false positives and
+added place names in the false negatives.
+
 We added the 2021-2022 Human Development Index (HDI) from the
 United Nations (UN) Development Programme that
-matched the country in the titles.
+matched the country named or inferred to in the titles.
 The HDI summarizes three indices:
 a life expectancy index, an education index, and
 GINI index for measuring income inequality.
 
 
 
-The Python *spaCy* library identified
-country names from constituent locales,
-such as specific states in the U.S.
-Thus, if an article title mentioned a place like "Alaska",
-then we used "United States"  for the nation and HDI variables.
-Alternatively, if a title included a term like "american",
-the *spacy* library was able to reference this as the *United States*.
-Therefore, when titles included place name variations,
-we referred to the canonical name for
-the nation referenced or inferred in the title.
-
-We were interested in the location of
+We were interested in the character position of
 the place name in each article title.
-We wrote a Python script,
-calling the *spaCy* natural processing library,
-to detect the position of the nation names in article titles.
-We manually reviewed all titles to address false positives and negatives.
-The position of places in article titles was scored on a scale of 0 to 1.0,
-with nations appearing as the last word in a title
-receiving a score approaching 1.0.
-Titles that did not contain a reference
-to a geographical region scored a zero.
-In cases where multiple countries were named in the title,
-the score was based on the first instance.
+We used R to count the total number of characters
+in each title, and
+the total number of characters up to the
+first character of the place name in the title..
+If a title had multiple place names, then
+we counted up to the character of the first place name.
+We calculated the proportion
+of the first character out of the total characters.
+Titles with place names near the beginning of a title
+contained scores closer to zero,
+whereas titles with place names near the end of a title
+contained scores closer to one.
 
 Most places named in titles matched names in the HDI.
 However, some articles had titles with nation names
 that for political reasons do not have an HDI
-(e.g., Taiwan and North Korea).
-These were marked as NA in the HDI variable.
-This reduced titles with nation names and HDI scores to
-1484 records (Table 1).
+(e.g., North Korea).
+These were marked as NA in the HDI variable (Table 1).
 If a place was part of a broader collective
 (e.g., Scotland or Puerto Rico),
 we chose the HDI for the broader political authority
 (i.e., the United Kingdom or the United States, respectively).
-The HDI includes region level values:
+The HDI includes regional values:
 when article titles referenced Africa,
 we used the HDI for "Sub-Saharan Africa",
 or when article titles referenced Europe,
-we used the HDI for "Europe and Central Asia" (*n* = 154).
-When multiple place names appeared in the title (*n* = 94),
+we used the HDI for "Europe and Central Asia" (*n* = 109).
+When multiple place names appeared in the title (*n* = 89),
+regardless if the place names were regional or country level,
 we averaged the HDI scores.
 The UN classifies HDI scores into four categories:
 very high (\>= 0.8),
@@ -357,55 +416,60 @@ medium (\>= 0.55),
 and low (\<= 0.549).
 The averaged HDI for titles that mention multiple locations
 was very high on the HDI scale
-(*m* = 0.858; *mdn* = 0.867),
+(*m* = 0.866; *mdn* = 0.871),
 indicating that nations with very high HDIs collaborate
 with nations that also have very high HDIs.
 However, the overall average HDI scores
 indicate that most nations or places
 named in article titles are nations or
 places with very high HDI scores
-(*m* = 0.814; *mdn* = 0.838).
+(*m* = 0.817; *mdn* = 0.858).
 
 
 Table: Table 1. Top 20 Most Frequent Nations
 
-|nation        |   n|
+|GPE           |   n|
 |:-------------|---:|
-|china         | 183|
-|spain         | 157|
-|us            | 140|
-|eu            |  86|
-|uk            |  65|
-|india         |  51|
-|nigeria       |  40|
-|africa        |  38|
-|australia     |  37|
-|brazil        |  33|
+|china         | 153|
+|spain         | 149|
+|us            | 139|
+|uk            |  72|
+|eu            |  59|
+|india         |  40|
+|nigeria       |  36|
+|africa        |  27|
+|south korea   |  27|
+|brazil        |  26|
 |south africa  |  26|
-|canada        |  23|
-|italy         |  23|
-|russia        |  23|
-|korea         |  20|
-|pakistan      |  17|
-|germany       |  16|
-|latin america |  16|
-|mexico        |  15|
-|cuba          |  14|
+|australia     |  24|
+|italy         |  21|
+|pakistan      |  16|
+|russia        |  16|
+|canada        |  15|
+|latin america |  15|
+|germany       |  14|
+|mexico        |  14|
+|turkey        |  14|
 
 Finally, we added SCImago Journal Rank (SJR) scores
-for each of the 61 journal titles in the data set.
+for each of the
+56
+journal titles in the data set.
 We use the SJR to control for citation effects across articles.
 SJR scores ranged from
 0.528 to 4.584
 for the publication titles in the data.
 A SJR score below 1.0 indicates below
 average citations compared to all journals in *Scopus*.
-The average SJR in the data was above average
-(*m* = 1.333; *mdn* = 1.055).
-However, after deduplicating publication titles and
+The mean SJR in the data was above average
+(*m* = 1.259),
+but the median was lower,
+indicating a skewed distribution of scores
+(*mdn* = 0.929).
+However, after de-duplicating publication titles and
 counting only unique journal titles,
 the average SJR in the data was lower
-(*m* = 1.155; *mdn* = 0.848),
+(*m* = 1.123; *mdn* = 0.831),
 indicating publication titles with
 higher SJR scores appear more
 frequently in the data.
@@ -433,7 +497,6 @@ to associate this effect in any
 of our additional hypotheses.
 We present the results below.
 
-
 ## Hypotheses
 
 
@@ -441,10 +504,10 @@ We present the results below.
 **Main hypothesis:** We hypothesized
 that journal articles
 with geographical names in their titles
-(*n* = 1484)
+(*n* = 1283)
 are cited less frequently
 than those without geographical names
-(*n* = 11652).
+(*n* = 8702).
 The Mann-Whitney U test revealed a statistically significant difference
 in citation distributions between articles with and without
 geographical names in their titles
@@ -467,27 +530,34 @@ evidence in the data
 for the opposite relationship.
 Specifically, we found a statistically significant,
 positive correlation,
-(*rho* = 0.094;
-*p* < 0),
+(Spearman *rho* = 0.049;
+*p* < 0.078),
 indicating that the closer a place name was to the end
 of a title,
 the more citations it received.
 However, the correlation
 although significant was weak (Fig. 2).
 
+
+```
+## Warning: Removed 2 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+```
+
 ![Fig. 2: There is a weak relationship between citations and position of place name in title.](title-manuscript_files/figure-html/fig-2-1.png)
 
 
 
-**Sub-Hypothesis 2**: We found no evidence to support
+**Sub-Hypothesis 2**: We found little evidence to support
 our hypothesis that articles mentioning nations with a higher
 Human Development Index in their titles
 were cited more frequently than articles mentioning name
 with a lower Human Development Index.
 The correlation between the HDI of a nation
-named or inferred in a title was neither significant nor strong
-(*rho* = 0.004;
-*p* = 0.868).
+named or inferred in a title was not significant and
+slightly negative
+(Spearman *rho* = -0.053;
+*p* = 0.059).
 
 
 
@@ -500,7 +570,7 @@ between geographical names in article titles and citation counts,
 based on the data.
 Specifically, our data shows that any relationship is likely due to
 random chance
-(*p* = 0.392).
+(Kruskall-Wallis rank sum test, *p* = 0.432).
 
 
 
@@ -515,8 +585,8 @@ However, our data indicated a weak, negative correlation
 between the frequency with which a journal publishes
 articles with place names in titles and
 the journal's impact score
-(*rho* = -0.19;
-*p* = 0.143) (Fig. 3).
+(Spearman *rho* = -0.23;
+*p* = 0.088) (Fig. 3).
 
 ![Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score](title-manuscript_files/figure-html/fig-3-1.png)
 
@@ -535,8 +605,8 @@ Specifically, we found a weak, negative correlation
 between the average position of a named place
 in a title and
 the HDI of the named place
-(*rho* = -0.146;
-*p* = 0.476).
+(*rho* = 0.018;
+*p* = 0.94).
 Although our data suggests that different nations
 appear in different average positions in titles,
 this does not appear to be due to the nation's HDI score.
@@ -554,8 +624,8 @@ a relationship between
 the frequency journal titles include articles
 that mention place names and
 the HDIs of the named nations
-(*rho* = 0.119;
-*p* = 0.387) (Fig. 5).
+(Spearman *rho* = 0.034;
+*p* = 0.812) (Fig. 5).
 
 ![Fig. 5: We found no statistically significant relationship between SJR and HDI of nations mentioned in article titles](title-manuscript_files/figure-html/fig-5-1.png)
 
@@ -576,7 +646,7 @@ we found evidence to support this hypothesis
 that there is a preference for generality in article titles;
 however, although the difference was statistically significant,
 the effect size was minimal.
-Additionally, all sub-hypotheses mostly yielded non-significant results
+Additionally, our sub-hypotheses mostly yielded non-significant results
 or showed weak relationships.
 These results indicated that
 the reasons behind this phenomenon are complex,
@@ -641,13 +711,11 @@ when sampling from lower impact journals
 or when sampling journals in other disciplines.
 Here, we only considered LIS journals.
 A future study with journals from other disciplines can add evidence
-to support the present result that we got from this study.
+to support the present results.
 The results could be different with a longer citation window.
 We also did not control for other factors,
 such if a title contains a colon, a question, or humor.
 
 Conflicts of Interest: The authors have no relevant financial or non-financial interests to disclose. No funding was received for this work.
-
-
 
 # References
