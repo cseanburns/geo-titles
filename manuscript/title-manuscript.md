@@ -40,7 +40,7 @@ in article titles
 would negatively correlate
 with citation counts.
 Our primary analysis of
-1283 articles with
+1330 articles with
 geographical names in titles versus 8702 without,
 revealed a statistically significant,
 albeit small,
@@ -147,7 +147,7 @@ but on the proportion of content words
 (e.g., pronouns, prepositions, conjunctions).
 They posit that titles with a higher ratio of
 content words are more informative.
-This may be complicated though
+This may be complicated
 if function words are overly specific,
 obscure, or non-normative in some way
 [@fox_relationship_2015; @thelwall_avoiding_2017].
@@ -165,12 +165,12 @@ have been shown to receive
 more downloads but fewer citations
 than papers with other title types
 [@jamali_article_2011; @paiva_articles_2012].
-This suggests that the informativeness of
-a question-type title is not substantial.
+This suggests that question-type title
+might generally be less informative.
 However, disciplinary effects exist.
 Papers with titles that ask questions are cited more
 in the computer science literature [@fiala_are_2021],
-but no citation effects were found for question-type
+and no citation effects were found for question-type
 titles in an ecology journal [@fox_relationship_2015].
 
 As mentioned, the use of compound titles
@@ -255,9 +255,7 @@ Human Development Index (HDI)
 [@united_nations_human_2023],
 a compound index that measures a nation's level of
 health, education, and standard of living,
-in order to identify more nuanced patterns,
-like language and geographical bias
-in the peer review process.
+in order to identify more nuanced geographic patterns.
 We follow @burns_language_2017 in using
 the HDI to ask the following questions
 for the current study:
@@ -292,7 +290,7 @@ We limited our set of articles to journals
 ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
-in these journals from 2018 to 2020 (Fig. 1).
+in these journals from 2018 to 2020.
 We limited our data to the three year time period
 in order to align with the Scimago journal ranking time frame.
 Figure 1 reports an example *Scopus* query for the journal
@@ -325,9 +323,10 @@ To reduce the duplication of titles,
 we used only the English translations of these
 titles if there was one.
 
-We combined and imported the bibliographic records into R
+We combined and imported the bibliographic records
+into R [@baseR]
 using the *bibliometrix* package [@aria_bibliometrix_2017].
-We used the *spacyr* package,
+We used the R *spacyr* package,
 a wrapper for the Python natural language processing (NLP) library,
 to identify place names in article titles
 [@benoit2023; @honnibal_spacy_2022].
@@ -578,7 +577,7 @@ We present the results below.
 **Main hypothesis:** We hypothesized
 that journal articles
 with geographical names in their titles
-(*n* = 1283)
+(*n* = 1330)
 are cited less frequently
 than articles without geographical names
 (*n* = 8702).
@@ -664,7 +663,7 @@ interaction between the presence of a place name
 in a title and the impact of the journal.
 Here we find that for each unit increase in a journal's SJR,
 the effect of place name in an article's title on citation counts
-increases only by *B* = 1.9627118
+increased only by *B* = 1.9627118
 (*p* = 0.027).
 
 

@@ -63,7 +63,7 @@ in article titles
 would negatively correlate
 with citation counts.
 Our primary analysis of
-1283 articles with
+1330 articles with
 geographical names in titles versus 8702 without,
 revealed a statistically significant,
 albeit small,
@@ -170,7 +170,7 @@ but on the proportion of content words
 (e.g., pronouns, prepositions, conjunctions).
 They posit that titles with a higher ratio of
 content words are more informative.
-This may be complicated though
+This may be complicated
 if function words are overly specific,
 obscure, or non-normative in some way
 [@fox_relationship_2015; @thelwall_avoiding_2017].
@@ -188,12 +188,12 @@ have been shown to receive
 more downloads but fewer citations
 than papers with other title types
 [@jamali_article_2011; @paiva_articles_2012].
-This suggests that the informativeness of
-a question-type title is not substantial.
+This suggests that question-type title
+might generally be less informative.
 However, disciplinary effects exist.
 Papers with titles that ask questions are cited more
 in the computer science literature [@fiala_are_2021],
-but no citation effects were found for question-type
+and no citation effects were found for question-type
 titles in an ecology journal [@fox_relationship_2015].
 
 As mentioned, the use of compound titles
@@ -278,9 +278,7 @@ Human Development Index (HDI)
 [@united_nations_human_2023],
 a compound index that measures a nation's level of
 health, education, and standard of living,
-in order to identify more nuanced patterns,
-like language and geographical bias
-in the peer review process.
+in order to identify more nuanced geographic patterns.
 We follow @burns_language_2017 in using
 the HDI to ask the following questions
 for the current study:
@@ -364,7 +362,7 @@ We limited our set of articles to journals
 ranked in the first quartile (Q1) of the LIS category.
 We conducted Scopus queries for each journal in this list
 and downloaded bibliographic records for articles published
-in these journals from 2018 to 2020 (Fig. 1).
+in these journals from 2018 to 2020.
 We limited our data to the three year time period
 in order to align with the Scimago journal ranking time frame.
 Figure 1 reports an example *Scopus* query for the journal
@@ -397,9 +395,10 @@ To reduce the duplication of titles,
 we used only the English translations of these
 titles if there was one.
 
-We combined and imported the bibliographic records into R
+We combined and imported the bibliographic records
+into R [@baseR]
 using the *bibliometrix* package [@aria_bibliometrix_2017].
-We used the *spacyr* package,
+We used the R *spacyr* package,
 a wrapper for the Python natural language processing (NLP) library,
 to identify place names in article titles
 [@benoit2023; @honnibal_spacy_2022].
@@ -568,10 +567,10 @@ median_without_nations <- median(without_nations$Citations)
 **Main hypothesis:** We hypothesized
 that journal articles
 with geographical names in their titles
-(*n* = `r length(with_nations$Citations)`)
+(*n* = `r length(titles$Citations[titles$titles_has_country == 1])`)
 are cited less frequently
 than articles without geographical names
-(*n* = `r length(without_nations$Citations)`).
+(*n* = `r length(titles$Citations[titles$titles_has_country == 0])`).
 The Wilcoxon rank sum test
 revealed a statistically significant difference
 in citation distributions between articles with and without
@@ -662,7 +661,7 @@ interaction between the presence of a place name
 in a title and the impact of the journal.
 Here we find that for each unit increase in a journal's SJR,
 the effect of place name in an article's title on citation counts
-increases only by *B* = `r fit.1$coefficients[4]`
+increased only by *B* = `r fit.1$coefficients[4]`
 (*p* = 0.027).
 
 ```{r echo=FALSE}
@@ -710,7 +709,7 @@ the journal's impact score
 (Spearman *rho* = `r round(places2SJR$estimate, 3)`;
 *p* = `r round(places2SJR$p.value, 3)`) (Fig. 3).
 
-```{r fig-3, fig.cap = "Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in a journal and the journal's impact score.", echo = FALSE, message = FALSE}
+```{r fig-3, fig.cap = "Fig. 3: There is a statistically weak relationship between the frequency of articles with place names in titles in journals and the journals' impact score.", echo = FALSE, message = FALSE}
 tiff("title-manuscript_files/figure-html/fig3.tif",
     width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(journal_summary, aes(x = proportion_with_places, y = SJR)) +
@@ -760,7 +759,7 @@ Although our data suggests that different nations
 appear in different average positions in titles,
 this does not appear to be due to the nation's HDI score.
 
-```{r fig-4, fig.cap = "Fig. 4: The relationship between average location of nation named in article title and HDI. Only nations appearing in at least ten articles are displayed (n = 21).", echo = FALSE}
+```{r fig-4, fig.cap = "Fig. 4: The relationship between average location of nations named in article title and HDI. Only nations appearing in at least ten articles are displayed (n = 21).", echo = FALSE}
 tiff("title-manuscript_files/figure-html/fig4.tif",
     width = 3840, height = 2160, pointsize = 12, res = 300)
 ggplot(nation_summary, aes(x=avg_position, y=HDI)) +
