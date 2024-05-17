@@ -441,6 +441,8 @@ such as describing a place versus describing a characteristic:
 e.g., 'spanish cities' versus 'spanish language'. 
 In the end, we removed place names in the false positives and
 added place names in the false negatives.
+In all, there was a total of 177 geographical areas or
+combinations of areas identified in the titles.
 Table 1 reports the most frequent nations
 mentioned or referred to in article titles.
 
@@ -452,7 +454,7 @@ nation_freq_table <- with_nations %>%
 knitr::kable(nation_freq_table,
     caption = "Table 1. Twenty Most Frequent Geographical Political Areas Referred to in Article Titles for LIS Journals, 2018-2020") %>%
     # kable_styling() %>%
-    footnote(general = "Spain was mentioned in 119 article titles in the journal Profesional de la Información. There was a total of 177 geographical areas or combinations of areas identified in the titles.")
+    footnote(general = "Spain was mentioned in 119 article titles in the journal Profesional de la Información.")
 ```
 
 To answer our fifth sub-hypothesis,
