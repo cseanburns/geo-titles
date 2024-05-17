@@ -373,7 +373,7 @@ Table 1 reports the most frequent nations
 mentioned or referred to in article titles.
 
 <table style="NAborder-bottom: 0;">
-<caption>Table 1. Top 20 Most Frequent Nations</caption>
+<caption>Table 1. Twenty Most Frequent Geographical Political Areas Referred to in Article Titles for LIS Journals, 2018-2020</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> GPE </th>
@@ -465,7 +465,7 @@ mentioned or referred to in article titles.
 <tfoot>
 <tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
 <tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Spain was mentioned in 119 article titles in the journal Profesional de la Información.</td></tr>
+<sup></sup> Spain was mentioned in 119 article titles in the journal Profesional de la Información. There was a total of 177 geographical areas or combinations of areas identified in the titles.</td></tr>
 </tfoot>
 </table>
 
@@ -489,15 +489,10 @@ contained scores closer to one.
 We normalized place names based on country names used
 in the 2021-2022 Human Development Index (HDI) from the
 United Nations (UN) Development Programme.
-The HDI summarizes three indices:
-a life expectancy index, an education index, and
-GINI index for measuring income inequality.
-
-Most places named in titles were represented in the HDI.
-However, some articles had titles with nation names
-that for political reasons do not have an HDI
-(e.g., North Korea).
-These were marked as NA in the HDI variable.
+When analyzing the Human Development Index (HDI) of
+places mentioned in article titles,
+we made specific methodological decisions
+to handle various naming conventions and political entities.
 If a place was part of a broader collective
 (e.g., Scotland or Puerto Rico),
 we chose the HDI for the broader political authority
@@ -506,11 +501,19 @@ The HDI includes regional values (*n* = 109):
 when article titles referenced Africa,
 we used the HDI for 'Sub-Saharan Africa',
 or when article titles referenced Europe,
-we used the HDI for 'Europe and Central Asia'
+we used the HDI for 'Europe and Central Asia'.
 When multiple place names appeared in the title (*n* = 89),
 regardless if the place names were regional or country level,
 we averaged the HDI scores.
-The UN classifies HDI scores into four categories:
+Some articles had titles with nation names
+that do not have an HDI.
+These were marked as NA in the HDI variable.
+
+The HDI summarizes three indices:
+a life expectancy index, an education index, and
+GINI index for measuring income inequality.
+These indexes are simplified to a composite score
+across four categories:
 very high (\>= 0.8),
 high (\>= 0.7),
 medium (\>= 0.55),
@@ -570,7 +573,7 @@ received significantly but slightly fewer
 citations than articles without place names.
 We present the results below.
 
-## Hypotheses
+## Hypotheses and Analyses
 
 
 
@@ -818,10 +821,13 @@ Such localized citations could be a reflection of the article's relevance
 to that particular context.
 Thus, while including a geographical name might lead
 to a perceived loss of generality 
-and thus less applicable to a broader audience,
+and appear less applicable to a broader audience,
 this disadvantage might be offset
-by the strength of importance of a study within a region.
-In a sense, research is local.
+by the importance of a study within a region.
+Therefore, future studies of regional author networks
+could provide insights into
+the dynamics of regional academic engagement and
+the impact of local relevance on scholarly communication.
 
 ## Limitations
 
@@ -844,7 +850,7 @@ A future study with journals from other disciplines can add evidence
 to support the present results.
 The results could be different with a longer citation window.
 We also did not control for other factors,
-such if a title contains a colon, a question, or humor.
+such as if a title contains a colon, a question, or humor.
 
 Finally, it's important that we note that
 our analysis is based on observational data.
@@ -854,6 +860,10 @@ should be made with caution.
 Conflicts of Interest: The authors have no relevant financial
 or non-financial interests to disclose.
 No funding was received for this work.
+
+Acknowledgments: The authors thank the reviewer
+for their careful attention to this work.
+Their comments improved this work considerably.
 
 
 
