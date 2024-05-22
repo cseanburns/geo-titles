@@ -369,6 +369,8 @@ such as describing a place versus describing a characteristic:
 e.g., 'spanish cities' versus 'spanish language'. 
 In the end, we removed place names in the false positives and
 added place names in the false negatives.
+In all, there was a total of 177 geographical areas or
+combinations of areas identified in the titles.
 Table 1 reports the most frequent nations
 mentioned or referred to in article titles.
 
@@ -465,7 +467,7 @@ mentioned or referred to in article titles.
 <tfoot>
 <tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
 <tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Spain was mentioned in 119 article titles in the journal Profesional de la Información. There was a total of 177 geographical areas or combinations of areas identified in the titles.</td></tr>
+<sup></sup> Spain was mentioned in 119 article titles in the journal Profesional de la Información.</td></tr>
 </tfoot>
 </table>
 
@@ -814,17 +816,21 @@ place names in articles,
 especially if geographical context
 plays an important role in a study
 [@murphy_does_2019].
-For example, articles that include the geographical name
-"Bangladesh" or "United Kingdom" might tend to attract
-citations from others in Bangladesh or the United Kingdom, respectively.
-Such localized citations could be a reflection of the article's relevance
-to that particular context.
-Thus, while including a geographical name might lead
-to a perceived loss of generality 
+For example, article titles that include geographical names
+might tend to attract citations
+from others in the named regions.
+Such localized citations could be
+a reflection of the article's relevance
+to that particular context, and
+future studies could examine the variance
+in how geographical names are reflected in titles
+between local/regional journals and international journals.
+While including a geographical name might lead
+to a potentially narrower focus 
 and appear less applicable to a broader audience,
 this disadvantage might be offset
 by the importance of a study within a region.
-Therefore, future studies of regional author networks
+Future studies of regional author networks
 could provide insights into
 the dynamics of regional academic engagement and
 the impact of local relevance on scholarly communication.
