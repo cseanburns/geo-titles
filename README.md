@@ -2,7 +2,11 @@
 
 Preprint:
 
-Burns, C.S., & Islam, M.A. (*Forthcoming*). A citation analysis examining geographical specificity in article titles. Preprint: https://doi.org/10.21203/rs.3.rs-3605640/v1
+Burns, C.S., & Islam, M.A. (*Forthcoming*). A citation analysis examining geographical specificity in article titles. *Scientometrics*.
+
+The preprint is version one. The final manuscript was substantially revised:
+
+Preprint: https://doi.org/10.21203/rs.3.rs-3605640/v1
 
 ## Data notes
 
