@@ -1,5 +1,12 @@
 # Title Study of LIS Journals
 
+Burns, C.S., &amp; Islam, M.A. (2024).
+A citation analysis examining geographical specificity in article titles.
+*Scientometrics*.
+[https://doi.org/10.1007/s11192-024-05075-3](https://doi.org/10.1007/s11192-024-05075-3) ;
+Code and data:
+[https://github.com/cseanburns/geo-titles](https://github.com/cseanburns/geo-titles)
+
 Preprint:
 
 Burns, C.S., & Islam, M.A. (*Forthcoming*). A citation analysis examining geographical specificity in article titles. *Scientometrics*.
